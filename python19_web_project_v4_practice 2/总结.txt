@@ -1,0 +1,69 @@
+显示等待的选择。
+网页的加载顺序：
+1，控件，元素
+2，控件里面的数据
+3，文件，图片，
+
+
+前置条件的准备，复杂的功能之下，满足前置条件是比较。
+1，登录
+2，有余额，充值。。
+3，标正常
+
+前置条件的满足通过什么方式：（不是每一步都要通过web自动化测试去实现的。）
+1，自动化脚本
+2，接口
+3，修改数据库
+4，手动充值。
+
+
+找元素出现了问题，没有找到，或者是超时：
+1，没有家等待
+2，等待时间不够
+3，定位表达式有问题
+4，显示等待的条件不对。
+
+
+basepage 还有哪些方法需要封装？？？
+原则：不以你测试的页面改变：无论在哪个页面我都是可以使用的。
+
+
+pytest.
+抽象， unittest
+
+
+# web 分层
+1，PO, pageoject,  ， 页面逻辑，测试逻辑
+2, 元素定位层， locator， 单独成类，也可以写到类属性，
+3， 数据层 ==》 数据分组，==》 rf
+4, 用例层
+5，basepage, ===> 你这个框架好不好。
+
+
+testcase
+testsuite
+testloader
+testrunner,
+
+# pytest
+
+# pytest 用法
+pytest 运行的方式： pytest命令， python -m pytest ,   pycharm. 右键。 pytest,
+# 代码， pytest.main(['-m demo', ''])
+
+# 过滤测试用。 -k 'test_method '
+# 发现用例的规则： test, Test, test, 修改的。
+# 标签化，运行指定标签的测试用例。  pytest.mark.markname, 2, pytest.ini 注册， 3， pytest -m '表达式'
+
+pytest, unittest, nose, 单元测试框架，
+熟悉 unittest /pytest
+
+
+# 如果你想在 pytest, paramtirze 和  fixture, 不能在使用 unittest,
+# pytest, 标签，生成 allure ， 分析最慢的测试用。 pytest 和 unittest 兼容。
+
+# pytest 和 unittest, 共用：paramtirze， fixture， hook
+# paramatrize,   dtt, 原理，
+# fixture, 调用， 显示传入参数： 2， usefixture('fixture_name'), 方法和类
+# pytest, conftest.py,  fixture,  自动发现
+# main []
