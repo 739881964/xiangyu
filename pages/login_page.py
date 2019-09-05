@@ -36,9 +36,13 @@ class LoginPage(BasePage):
         """actual result"""
         return self.driver.find_element(*self.error_msg_locator)
 
+    def current_url(self):
+        return self.driver.current_url
+
     def login(self, username, password):
         """login steps"""
         self.driver.get(self.url)
         self.username_element.send_keys(username)
         self.password_element.send_keys(password)
-        self.login_button.click()
+        e = self.wait_click_element(self.login_button_locator)
+        e.click()
