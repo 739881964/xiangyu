@@ -22,12 +22,12 @@ def command_str(data):
      return commands
 
 
-def get_command(data):
-    commands = []  # get commands
+def get_command(data, n):
+    commands = []  # get commands * n
     for i in data:
         res = i.replace('\n', '')
         commands.append(res)
-    five_commands = 5 * commands
+    five_commands = n * commands
     return five_commands
 
 
@@ -148,7 +148,7 @@ def count_run_time(func):
 @count_run_time
 def test_01(*args, **kw):
     data = read_list_txt(COMMANDS_FILE)  # res.log file_data_to_list
-    all_commands = get_command(data)  # get commands where circulate times
+    all_commands = get_command(data, 5)  # get commands where circulate times
     all_count_data = read_rstrip_data(RESULT_LOG)  # get log_content to_list
     count_data = get_res_count_data(all_count_data)  # get need res.log data
 
