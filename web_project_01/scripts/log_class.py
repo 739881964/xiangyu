@@ -1,6 +1,13 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2019-09-07 00:18
+# @Author  : Xiang Yu
+# @File    : bid_data.py
+# @company : BEIJING-INTENGINE
+
 import logging
 from scripts.get_cfg import config
-from scripts.base_path import LOGS_FILE_PATH
+from scripts.base_path import LOG_FILE_PATH
 
 
 class Logger(object):
@@ -11,7 +18,7 @@ class Logger(object):
 
         # 日志输出方式
         console_log = logging.StreamHandler()  # 控制台输出
-        file_log = logging.FileHandler(LOGS_FILE_PATH, encoding='utf-8')  # 文件输出
+        file_log = logging.FileHandler(LOG_FILE_PATH, encoding='utf-8')  # 文件输出
 
         # 日志输出格式
         simple_log = logging.Formatter(config.get_value('log', 'simple'))

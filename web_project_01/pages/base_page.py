@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time    : 2019-09-04 21:47
-# @Author  : Yu xiang
-# @File    : base_page.py
-
+# @Time    : 2019-09-07 00:18
+# @Author  : Xiang Yu
+# @File    : bid_data.py
+# @company : BEIJING-INTENGINE
 
 import logging
 from selenium.webdriver import Chrome
@@ -41,3 +41,7 @@ class BasePage(object):
         """take photos"""
         shot_name = LOG_IMG_DIR + '\\' + datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S") + '.png'
         self.driver.save_screenshot(shot_name)
+
+    def clear_input(self, locator):
+        """清空输入框"""
+        return self.driver.find_element(*locator)
