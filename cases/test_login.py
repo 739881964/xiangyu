@@ -6,7 +6,7 @@
 
 import unittest
 from ddt import ddt, data
-from datas.login_data import pass_data, error_data, no_authority_data
+from datas.login_data import login_pass_data, login_error_data, login_no_authority_data
 from pages.login_page import LoginPage
 from selenium import webdriver
 from scripts.log_class import loger
@@ -22,19 +22,19 @@ class TestLogin(unittest.TestCase):
         cls.driver.implicitly_wait(5)
         cls.driver.maximize_window()
 
-    @data(*pass_data)
-    def test_pass(self, pass_data):
+    # @data(*login_pass_data)
+    def test_01_pass(self):
         """pass login"""
-        url = self.login_page.login_pass(pass_data[0], pass_data[1])
+        url = self.login_page.login_pass(login_pass_data[0], login_pass_data[1])
         try:
-            self.assertEqual(url, pass_data[2])
-            loger.info('用户名：{}；密码：{} 测试用例执行成功！'.format(pass_data[0], pass_data[1]))
+            self.assertEqual(url, login_pass_data[2])
+            loger.info('用户名：{}；密码：{} 测试用例执行成功！'.format(login_pass_data[0], login_pass_data[1]))
         except AssertionError as e:
-            loger.error('用户名：{}；密码：{} 测试用例执行失败！'.format(pass_data[0], pass_data[1]))
+            loger.error('用户名：{}；密码：{} 测试用例执行失败！'.format(login_pass_data[0], login_pass_data[1]))
             raise e
 
-    @data(*no_authority_data)
-    def test_error(self, no_data):
+    @data(*login_no_authority_data)
+    def test_02_error(self, no_data):
         """error login"""
         self.login_page.login_error(no_data[0], no_data[1])
         msg = self.login_page.get_no_auth_msg().text

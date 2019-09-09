@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# !/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Time    : 2019-09-05 22:45
 # @Author  : Yu xiang
@@ -17,7 +17,7 @@ if __name__ == "__main__":
     if os.path.exists(CACHE_FILE_PATH):
         shutil.rmtree(CACHE_FILE_PATH)
 
-    pytest.main()
+    # pytest.main()
 
 
 # if __name__ == "__main__":
@@ -25,8 +25,8 @@ if __name__ == "__main__":
 #     if os.path.exists(CACHE_FILE_PATH):
 #         shutil.rmtree(CACHE_FILE_PATH)
 #
-#     time.sleep(1)
-#     suite = unittest.defaultTestLoader.discover(TEST_CASES_PATH)
-#     runner = unittest.TextTestRunner(verbosity=2)
-#     runner.run(suite)
+    time.sleep(1)
+    suite = unittest.defaultTestLoader.discover(TEST_CASES_PATH)
+    runner = unittest.TextTestRunner(verbosity=2)
+    runner.run(suite)
 
