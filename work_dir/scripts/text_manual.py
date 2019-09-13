@@ -50,6 +50,15 @@ def read_rstrip_data(file_name):
     return data
 
 
+def read_rs_trip_data(file_name):
+    """abandon \n from data to list"""
+    data = []
+    for line in open(file_name, encoding='utf-8'):
+        res = line.rstrip('\n')
+        data.append(res)
+    return data
+
+
 def write_txt_once(file_path, data):
     """write to txt once """
     with open(file_path, 'a+', encoding='utf-8') as f:
