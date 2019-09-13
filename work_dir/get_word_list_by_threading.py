@@ -15,7 +15,7 @@ from scripts.thread_manual import MYThread
 import time
 import multiprocessing
 from scripts.log_manual import log
-from path.base_path import Info
+from path.test_path import Info
 
 command_path = config.get_value('excel', 'command_path')
 excel = ExcelManual(command_path, config.get_value('excel', 'sheet_name'))

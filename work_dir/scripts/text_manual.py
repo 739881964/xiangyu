@@ -261,10 +261,8 @@ def get_wav_name(file_name):
 
 
 if __name__ == "__main__":
-    import re
 
     xyz = 'abc03efg004pp05'
-    m = re.search('[0-9]+$', xyz)
+    m = re.search('\d+$', xyz)
     print(m.group())
     print(xyz[m.start():m.end()])
-

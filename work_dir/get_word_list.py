@@ -39,11 +39,6 @@ if __name__ == '__main__':
     for i in range(0, len(l_str_chn_word)):
         L_file_name.append(ALL_TXT_PATH + '\\' + l_str_chn_word[i] + '.txt')
 
-    # make a diary, key is '小优小优' ，value is '小优小优.txt'
-    # dic_file_out = {}
-    # for i in range(0, len(l_str_chn_word)):
-    #     dic_file_out[l_str_chn_word[i]] = L_file_name[i]
-
     with open(file_path_name, 'r', encoding='utf-8') as fp_in:
         str_file_row_list = fp_in.readlines()
 
