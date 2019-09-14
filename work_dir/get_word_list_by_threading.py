@@ -13,7 +13,6 @@ from scripts.conf_manual import config
 import re
 from scripts.thread_manual import MYThread
 import time
-import multiprocessing
 from scripts.log_manual import log
 from path.test_path import Info
 
@@ -31,9 +30,9 @@ def create_wav_txt(i):
         if commands[i] == row[2]:
             # after_replace = re.sub(Info.be_replaced, Info.replace_else, row[1])
             after_replace = row[1].replace(Info.be_replaced, Info.replace_else)
-            # if re.findall('/', after_replace):
-            last_data = after_replace.replace('/', '\\')
-            # last_data = re.sub('/', r'\\', after_replace)
+            last_data = after_replace
+            if re.findall('/', after_replace):
+                last_data = re.sub('/', r'\\', after_replace)
             write_txt_once(one_txt_name, last_data)
             log.error(last_data)
 

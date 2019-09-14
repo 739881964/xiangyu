@@ -17,7 +17,5 @@ class Info(object):
     all_txt = config.get_value('info', 'all_txt')  # word_list 路径
     new_path = config.get_value('info', 'new_path') + '\\'
     new_txt_file = config.get_value('info', 'new_txt_file') + '\\'
-
-
-if __name__ == "__main__":
-    print(Info.all_txt)
+    new_other_file = config.get_value('info', 'new_other_file')
+    xiao_du_gui_path = config.get_value('info', 'xiao_du_gui_path') + '\\'
