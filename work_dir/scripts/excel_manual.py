@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2019-09-05 22:45
 # @Author  : Yu xiang
-# @File    : test_login.py
+# @File    : excel_manual.py
+# @Company : BEIJING INTENGINE
 
 from openpyxl import *
 from scripts.base_path import EXCEL_PATH

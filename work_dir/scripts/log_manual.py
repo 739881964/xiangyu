@@ -4,7 +4,8 @@ from scripts.conf_manual import config
 # -*- coding: utf-8 -*-
 # @Time    : 2019-09-05 22:45
 # @Author  : Yu xiang
-# @File    : test_login.py
+# @File    : log_manual.py
+# @Company : BEIJING INTENGINE
 
 from scripts.base_path import LOG_FILE_PATH
 

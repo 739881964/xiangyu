@@ -16,7 +16,7 @@ all_file = get_all_file(Info.all_txt)  # 55个txt文件
 all_file_path = get_all_file_path(Info.all_txt, all_file)  # 55个txt文件路径
 one_data = read_log_to_list(all_file_path[0])  # 一个txt文件的内容
 # print(len(one_data))  # 100
-new_txt_file = [r'C:\Users\xiangyu\Desktop\xiangzheng\zhengxiang' + '\\' + i  for i in all_file]  # 新的txt文件路径
+new_txt_file = [Info.new_txt_file + i  for i in all_file]  # 新的txt文件路径
 
 for num in range(len(new_txt_file)):  # 55个文件
     for data in one_data:

@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2019-09-05 22:45
 # @Author  : 余翔
-# @File    : test_login.py
+# @File    : twice_package.py
+# @Company : BEIJING INTENGINE
 
 from scripts.conf_manual import ConfManual, config
 from scripts.excel_manual import ExcelManual

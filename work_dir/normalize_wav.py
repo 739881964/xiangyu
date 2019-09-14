@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2019-09-11 19:26
 # @Author  : 余翔
-# @File    : to_be_one_zhengxiang.py
+# @File    : normalize_wav.py
 # @Company : BEIJING INTENGINE
 
 import os

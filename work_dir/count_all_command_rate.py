@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2019-09-05 22:45
 # @Author  : Yu xiang
-# @File    : test_login.py
+# @File    : count_all_command_rate.py
+# @Company : BEIJING INTENGINE
 
 from time import sleep
 from scripts.excel_manual import ExcelManual

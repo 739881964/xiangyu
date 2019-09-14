@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2019-09-05 22:45
 # @Author  : Yu xiang
-# @File    : test_login.py
+# @File    : test_command_pass_rate.py
+# @Company : BEIJING INTENGINE
 
 from scripts.text_manual import *
 from scripts.base_path import *

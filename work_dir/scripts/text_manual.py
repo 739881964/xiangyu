@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2019-09-05 22:45
 # @Author  : Yu xiang
-# @File    : test_login.py
+# @File    : text_manual.py
+# @Company : BEIJING INTENGINE
 
 import re
 from datetime import datetime, timedelta

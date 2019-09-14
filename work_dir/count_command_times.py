@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2019-09-05 22:45
 # @Author  : Yu xiang
-# @File    : test_login.py
+# @File    : count_command_times.py
+# @Company : BEIJING INTENGINE
 
 from scripts.text_manual import get_res_count_data, read_rstrip_data, get_one_key, get_start_time_list_str
 from scripts.base_path import FILES_PATH

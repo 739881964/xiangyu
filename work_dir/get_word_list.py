@@ -2,15 +2,17 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2019-09-05 22:45
 # @Author  : 余翔
-# @File    : test_login.py
+# @File    : get_word_list.py
 # @Company : BEIJING INTENGINE
 
 import time
-from scripts.base_path import ALL_TXT_PATH
+from scripts.base_path import ALL_COMMANDS_TXT_PATH
 from scripts.excel_manual import ExcelManual
 from scripts.conf_manual import config
 import re
 from scripts.log_manual import log
+from path.test_path import Info
+from scripts.text_manual import read_log_to_list, write_txt_once
 
 
 command_path = config.get_value('excel', 'command_path')
@@ -18,7 +20,8 @@ excel = ExcelManual(command_path, '建议北京公司内部采集列表')
 
 
 if __name__ == '__main__':
-    print(time.ctime() + '\n' + 'starting......')
+    one_time = time.ctime()
+    print('starting......')
     data = excel.read_data()
     commands = []  # 59个
     for i in data:
@@ -26,36 +29,23 @@ if __name__ == '__main__':
 
     # 打开wav.map，获取相应的信息
     # 文件中需要替换一下字符串
-    src_str = r"/speech_data/wav/"  # to be replaced
-    dst_str = r"\\192.168.200.20\backup\Algorithm\speech_data\wav"
-    dst_str = dst_str + '\\'
+    be_replaced = Info.be_replaced  # to be replaced
+    replace_other = Info.replace_else + '\\'
 
-    file_path_name = r'\\192.168.1.12\hftest\project\20190903daxian\doc\wav_test.map'
-
-    L_file_name = []
-    l_str_chn_word = commands
-
+    file_path_name = Info.map_path_name  # map文件路径
     # 生成各个语音文件的txt文件
-    for i in range(0, len(l_str_chn_word)):
-        L_file_name.append(ALL_TXT_PATH + '\\' + l_str_chn_word[i] + '.txt')
+    all_txt_name = [ALL_COMMANDS_TXT_PATH + '\\' + commands[i] + '.txt' for i in range(len(commands))]
 
-    with open(file_path_name, 'r', encoding='utf-8') as fp_in:
-        str_file_row_list = fp_in.readlines()
-
-    # open every file and read wav.map.
-    # then write info to related file
-
-    for str_row in str_file_row_list:
-        l_row_str = str_row.split()
-        for i in range(0, len(l_str_chn_word)):
-            # for i in range(4):
-            if l_str_chn_word[i] == l_row_str[2]:  # f the value is valid
-                # file_cur = dic_file_out[l_row_str[2]]
-                with open(L_file_name[i], 'a+', encoding='utf-8') as fp_out:
-                    str_dst = l_row_str[1].replace(src_str, dst_str)
-                    if re.findall('/', str_dst):
-                        str_dst = re.sub('/', r'\\', str_dst)
-                        fp_out.write(str_dst + '\n')
-                        log.error(str_dst)
+    rows = read_log_to_list(file_path_name)
+    for one_row in rows:
+        row = one_row.split()
+        for i in range(0, len(commands)):
+            # for i in range(1):
+            if commands[i] == row[2]:
+                    final_data = row[1].replace(be_replaced, replace_other)
+                    if re.findall('/', final_data):
+                        final_data = re.sub('/', r'\\', final_data)
+                    write_txt_once(all_txt_name[i], final_data)
+                    log.error(final_data)
     print("SUCCESS")
-    print(time.ctime())
+    print(one_time, '   ', time.ctime())
