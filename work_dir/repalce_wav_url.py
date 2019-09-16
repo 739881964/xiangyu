@@ -14,24 +14,17 @@ from scripts.log_manual import log
 
 
 if __name__ == '__main__':
+    """替换音频前面的地址，切到本地音频，name不变"""
     all_file = get_all_file(Info.all_txt)  # txt文件个数
     all_file_path = get_all_file_path(Info.all_txt, all_file)  # txt文件路径
     new_txt_file = [Info.new_txt_file + file for file in all_file]  # 新的txt文件路径
 
     for num in range(len(new_txt_file)):  # 文件l个数
-        # for num in [0, 2]:
         data = read_log_to_list(all_file_path[num])
         for one_data in data:
-            pos = 0
-            st = 0
-            while True:
-                index = one_data.find('\\', st)
-                if index == -1:
-                    break
-                pos = index
-                st  = index + 1
-            wav_name = one_data[pos+1:-1]  # 文件名称
-            wav_info = Info.new_path + wav_name
+            one_wav_path = re.search(r'.*\\', one_data).group()
+            one_wav_name = one_data[len(one_wav_path):]
+            wav_info = Info.after_replace_product_path + one_wav_name
             write_txt_once(new_txt_file[num], wav_info)
             log.error(wav_info)
 

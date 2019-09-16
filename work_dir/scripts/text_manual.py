@@ -85,7 +85,7 @@ def get_zh(str):
 
 def get_one_key(str):
     """get Chinese"""
-    res = re.findall('[\u4e00-\u9fa5]+', str)[0]
+    res = re.findall('[\u4e00-\u9fa5]+.*[\u4e00-\u9fa5]+', str)[0]
     return res
 
 
@@ -109,7 +109,7 @@ def command_str(data):
     return commands
 
 
-def get_command(data, n):
+def get_command(data, n=5):
     commands = []  # get commands * n
     for i in data:
         res = i.replace('\n', '')
@@ -119,11 +119,12 @@ def get_command(data, n):
 
 
 def get_time_list(data):
-    time_list = []  # get time set
-    for i in data:
-        all_time = re.findall('[[](.*)[.]', i)
-        time_list.append(all_time[0])
-    return time_list
+    list = []  # 时间-list
+    for one_data in data:
+        if re.findall('[[](.*?)[]]', one_data):
+            res = re.findall('[[](.*?)[]]', one_data)[0]
+            list.append(res)
+    return list
 
 
 def get_key(data, time):
@@ -138,9 +139,22 @@ def get_key_word(data):
     """get command depend on list"""
     keys = []
     for i in data:
-        key_word = get_zh(i)
-        keys.append(key_word[0])
+        if get_zh(i):
+            key_word = get_zh(i)
+            keys.append(key_word[0])
     return keys
+
+
+def get_all_commands(list, n):
+    set = []
+    for i in list:
+        if i not in set:
+            set.append(i)
+    command_list = []
+    for k in set:
+        for j in range(n):
+            command_list.append(k)
+    return command_list
 
 
 def get_time(data):
@@ -169,7 +183,7 @@ def get_start_time_list_str(data):  # str-list
     start_time_list_str = []
     for i in data:
         if re.findall('[[](.*)[.]', i):
-            start_time_str = re.findall('[[](.*)[.]', i)[0]
+            start_time_str = re.findall('[[](.*)[]]', i)[0]
             start_time_list_str.append(start_time_str)
     return start_time_list_str
 
@@ -209,6 +223,15 @@ def get_last_wav(data):
             last_wav.append(i)
     return last_wav
 
+
+def get_new_wav(data):
+    wav_list = []
+    for i in data:
+        if re.findall(r'\\\\.*\.wav', i):
+            res = re.findall(r'\\\\.*\.wav', i)[0]
+            resp = 'D' + res + 'wav'
+            wav_list.append(resp)
+    return wav_list
 
 def get_all_time(data):
     """abandon time, if 240, return 240, else filter then return 240 time_list"""

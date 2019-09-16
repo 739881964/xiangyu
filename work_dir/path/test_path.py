@@ -15,7 +15,6 @@ class Info(object):
     replace_else = config.get_value('info', 'replace_else') + '\\'  # 替换
     map_path_name = config.get_value('info', 'map_path')  # 音频——.map路径
     all_txt = config.get_value('info', 'all_txt')  # word_list 路径
-    new_path = config.get_value('info', 'new_path') + '\\'
     new_txt_file = config.get_value('info', 'new_txt_file') + '\\'
-    new_other_file = config.get_value('info', 'new_other_file')
-    xiao_du_gui_path = config.get_value('info', 'xiao_du_gui_path') + '\\'
+    after_replace_product_path = config.get_value('info', 'product_path') + '\\'
+    da_xian_word_list = config.get_value('info', 'da_xian_word_list')

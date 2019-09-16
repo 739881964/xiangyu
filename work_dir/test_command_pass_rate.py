@@ -24,7 +24,7 @@ if __name__ == "__main__":
     all_count_data = read_rstrip_data(RESULT_LOG)  # get log_content to_list
     count_data = get_res_count_data(all_count_data)  # get need res.log data
 
-    all_compare_data = read_rstrip_data(COMPARE_FILE)  # get wav data to list
+    all_compare_data = read_rs_trip_data(COMPARE_FILE)  # get wav data to list
     require_wav = get_last_wav(all_compare_data)  # 240 wav
 
     all_time = get_start_time_list_str(all_compare_data)
