@@ -31,7 +31,8 @@ if __name__ == '__main__':
     rows = read_log_to_list(Info.map_path_name)  # map文件路径
     for one_row in rows:
         for i in range(0, len(commands)):
-            if get_one_key(one_row) == commands[i]:
+            word = get_one_key(one_row)
+            if word == commands[i]:
                     replace_other = Info.replace_else + '\\'
                     wav_url = re.search('/.*\.wav', one_row).group()
                     final_data = wav_url.replace(Info.be_replaced, replace_other)

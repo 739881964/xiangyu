@@ -171,7 +171,6 @@ def get_start_time_list(data):  # datetime-list
     """return wav broadcast start_time"""
     start_time_list = []
     for i in data:
-        # time = compare_data[2::5][0]
         start_time_str = re.findall('[[](.*)[.]', i)[0]
         start_time = get_time(start_time_str)
         start_time_list.append(start_time)

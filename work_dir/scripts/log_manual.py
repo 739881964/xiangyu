@@ -1,5 +1,3 @@
-import logging
-from scripts.conf_manual import config
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Time    : 2019-09-05 22:45
@@ -8,6 +6,8 @@ from scripts.conf_manual import config
 # @Company : BEIJING INTENGINE
 
 from scripts.base_path import LOG_FILE_PATH
+import logging
+from scripts.conf_manual import config
 
 
 class LogManual(object):

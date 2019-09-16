@@ -19,7 +19,7 @@ if __name__ == '__main__':
     all_file_path = get_all_file_path(Info.all_txt, all_file)  # txt文件路径
     new_txt_file = [Info.new_txt_file + file for file in all_file]  # 新的txt文件路径
 
-    for num in range(len(new_txt_file)):  # 文件l个数
+    for num in range(len(new_txt_file)):  # 文件个数
         data = read_log_to_list(all_file_path[num])
         for one_data in data:
             one_wav_path = re.search(r'.*\\', one_data).group()
@@ -28,4 +28,4 @@ if __name__ == '__main__':
             write_txt_once(new_txt_file[num], wav_info)
             log.error(wav_info)
 
-        pass
+    pass
