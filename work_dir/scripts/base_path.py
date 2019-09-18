@@ -32,7 +32,5 @@ COMMANDS_FILE = os.path.join(FILES_PATH, 'commands.txt')
 RESULT_LOG = os.path.join(FILES_PATH, 'result.log')
 COMPARE_FILE = os.path.join(FILES_PATH, 'compare2.log')
 COMMAND_WRITE_FILE_PATH = os.path.join(FILES_PATH, 'command_write.txt')
-ALL_COMMANDS_TXT_PATH = os.path.join(BASE_PATH, 'all_commands_txts')
-ALL_TXT_PATH = os.path.join(BASE_PATH, 'all_txts')
 
 pass

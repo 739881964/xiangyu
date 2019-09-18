@@ -51,10 +51,18 @@ def read_rstrip_data(file_name):
     return data
 
 
+def get_split_zh(list):
+    """获取字符串第一个中文词"""
+    res = []
+    for data in list:
+        res.append(data.split()[0])
+    return res
+
+
 def read_rs_trip_data(file_name):
     """abandon \n from data to list"""
     data = []
-    for line in open(file_name, encoding='utf-8'):
+    for line in open(file_name, 'r', encoding='utf-8'):
         res = line.rstrip('\n')
         data.append(res)
     return data
@@ -85,8 +93,16 @@ def get_zh(str):
 
 def get_one_key(str):
     """get Chinese"""
-    res = re.findall('[\u4e00-\u9fa5]+.*[\u4e00-\u9fa5]+', str)[0]
-    return res
+    res = re.findall('[\u4e00-\u9fa5]+', str)
+    if res:
+        return res[0]
+
+
+def _get_key(str):
+    """get Chinese"""
+    res = re.findall('[\u4e00-\u9fa5]+', str)
+    if res:
+        return res[0]
 
 
 def count_times(text, data):

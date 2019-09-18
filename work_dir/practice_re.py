@@ -7,15 +7,20 @@
 # @Company : BEIJING INTENGINE
 
 import re
-
 from scripts.base_path import RESULT_LOG
 from scripts.text_manual import *
 from scripts.conf_manual import config
 from scripts.excel_manual import ExcelManual
+from path.test_path import Info
 
 
 content = read_rs_trip_data(r'C:\Users\xiangyu\xiangyu_git\work_dir\files\compare2.log')
 data = "[2019-09-15 09:25:54.878]  dxsz_isr_index_result SpottingWordList[1][28584] 森歌森歌"
+
+
+res = read_rs_trip_data(Info.commands_file)
+resp = get_split_zh(res)
+print(resp)
 
 
 def write_in_txt():
@@ -27,7 +32,8 @@ def write_in_txt():
 
 
 if __name__ == '__main__':
-    write_in_txt()
+    # write_in_txt()
+    '''
     all_count_data = read_rstrip_data(RESULT_LOG)  # 获取result日志的内容-list
     count_data = get_res_count_data(all_count_data)  # 获取需要的日志内容
     list = []
@@ -35,3 +41,4 @@ if __name__ == '__main__':
         if re.findall('[[](.*?)[]]', data):
             res = re.findall('[[](.*?)[]]', data)[0]
             list.append(res)
+    '''

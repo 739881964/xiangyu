@@ -9,7 +9,6 @@
 from path.test_path import Info
 from scripts.text_manual import *
 import re
-from scripts.base_path import ALL_TXT_PATH
 from scripts.log_manual import log
 
 

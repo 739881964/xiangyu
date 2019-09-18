@@ -7,7 +7,6 @@
 # @Company : BEIJING INTENGINE
 
 from scripts.text_manual import read_log_to_list, write_txt_once
-from scripts.base_path import ALL_TXT_PATH
 from scripts.excel_manual import ExcelManual
 from scripts.conf_manual import config
 import re
@@ -20,11 +19,11 @@ command_path = config.get_value('excel', 'command_path')
 excel = ExcelManual(command_path, config.get_value('excel', 'sheet_name'))
 data = excel.read_data()
 commands = [i['命令词'] for i in data]  # 命令词
+map_content = read_log_to_list(Info.normalize_file_path)  # get .map data
 
 
 def create_wav_txt(i):
-    one_txt_name = ALL_TXT_PATH + '\\' + commands[i] + '.txt'  # txt_name
-    map_content = read_log_to_list(Info.map_path_name)  # get .map data
+    one_txt_name = Info.new_word_list_path + '\\' + commands[i] + '.txt'  # txt_name
     for one_row in map_content:
         row = one_row.split()
         if commands[i] == row[2]:

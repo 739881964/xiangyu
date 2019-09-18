@@ -1,8 +1,8 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time    : 2019-09-05 22:45
+# @Time    : 2019-09-15 22:45
 # @Author  : Yu xiang
-# @File    : new_test_command_recognization_rate.py
+# @File    : new_recognization_rate.py
 # @Company : BEIJING INTENGINE
 
 from scripts.text_manual import *
