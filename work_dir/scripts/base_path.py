@@ -3,6 +3,7 @@
 # @Time    : 2019-09-05 22:45
 # @Author  : Yu xiang
 # @File    : base_path.py
+# @Software: PyCharm
 # @Company : BEIJING INTENGINE
 
 import os
@@ -13,7 +14,7 @@ BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # dat file dir
 DATA_PATH = os.path.join(BASE_PATH, 'datas')
-EXCEL_PATH = os.path.join(DATA_PATH, 'excel_01.xlsx')
+EXCEL_PATH = os.path.join(DATA_PATH, 'excel_03.xlsx')
 EXCEL_PATH_2 = os.path.join(DATA_PATH, 'excel_02.xlsx')
 TEXT_PATH = os.path.join(DATA_PATH, 'data.txt')
 PANDAS_DATA = os.path.join(DATA_PATH, 'pandas_data.xlsx')

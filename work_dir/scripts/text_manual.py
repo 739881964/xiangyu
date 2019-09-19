@@ -3,6 +3,7 @@
 # @Time    : 2019-09-05 22:45
 # @Author  : Yu xiang
 # @File    : text_manual.py
+# @Software: PyCharm
 # @Company : BEIJING INTENGINE
 
 import re
@@ -57,6 +58,14 @@ def get_split_zh(list):
     for data in list:
         res.append(data.split()[0])
     return res
+
+
+def get_one_zh(data):
+    return data.split()[-1]
+
+
+def get_one_time(data):
+    return data.split()[0][1:-1]
 
 
 def read_rs_trip_data(file_name):
@@ -248,6 +257,7 @@ def get_new_wav(data):
             wav_list.append(resp)
     return wav_list
 
+
 def get_all_time(data):
     """abandon time, if 240, return 240, else filter then return 240 time_list"""
     if len(data) == 240:  # 可以再优化
@@ -300,7 +310,6 @@ def get_wav_name(file_name):
 
 
 if __name__ == "__main__":
-
     xyz = 'abc03efg004pp05'
     m = re.search('\d+$', xyz)
     print(m.group())

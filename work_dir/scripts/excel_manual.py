@@ -5,7 +5,7 @@
 # @File    : excel_manual.py
 # @Company : BEIJING INTENGINE
 
-from openpyxl import *
+from openpyxl import load_workbook
 from scripts.base_path import EXCEL_PATH
 from scripts.conf_manual import config
 

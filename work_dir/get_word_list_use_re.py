@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Time    : 2019-09-05 22:45
-# @Author  : 余翔
+# @Author  : Xiang Yu
 # @File    : get_word_list_use_replace.py
 # @Company : BEIJING INTENGINE
 
@@ -16,8 +16,8 @@ from scripts.text_manual import write_txt_once, read_rs_trip_data, get_one_key, 
 
 if __name__ == '__main__':
     """从.map文件获取命令词的语音"""
+    print('Beginning......')
     one_time = time.ctime()
-    print('starting......')
     data = read_rs_trip_data(Info.commands_file)
     commands = get_split_zh(data)  # 获取命令词
     all_txt_name = [Info.new_word_list_path + '\\' + commands[i] + '.txt' for i in range(len(commands))]
@@ -34,5 +34,5 @@ if __name__ == '__main__':
                 print(final_data)
                 # log.error(final_data)
 
-    print("SUCCESS")
+    print("Finished")
     print(one_time, '   ', time.ctime())

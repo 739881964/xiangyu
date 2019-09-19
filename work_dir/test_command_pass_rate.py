@@ -37,10 +37,10 @@ if __name__ == "__main__":
     # after_time_str = list(map(lambda x: get_str_time(x), after_time))  # str-time-list
 
     print('Start first read_and_write excel operate ......')
-    for i in range(0, len(before_time)):  # circulate 240 times
+    for j in all_res_time_list:
+        time = get_time(j)
+        for i in range(0, len(before_time)):  # circulate 240 times
         # for i in range(3):
-        for j in all_res_time_list:
-            time = get_time(j)
             # res_list = []
             if after_time[i] > time > before_time[i]:
                 # print(time)

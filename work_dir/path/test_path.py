@@ -10,7 +10,7 @@ from scripts.conf_manual import config
 
 
 class Info(object):
-    """数据作为类属性"""
+    """URL作为类属性"""
     be_replaced = '/speech_data/wav/'  # 被替换
     replace_else = r'\\192.168.200.20\backup\Algorithm\speech_data\wav' + '\\'  # 替换
     local_map_file = r'C:\Users\xiangyu\Desktop\new_word_file\wav_test.map'  # 音频——.map路径
@@ -21,3 +21,5 @@ class Info(object):
     normalize_file_path = '\\\\192.168.1.12\\hftest\\hfwav\\daxian\\zhengxiang\\'
     new_word_list_path = r'C:\Users\xiangyu\Desktop\new_word_file\new_word_list'
     commands_file = r'C:\Users\xiangyu\Desktop\new_word_file\commands.txt'
+    final_wav_path = r'D:\new0916'
+    init_wav_path = r'D:\git_\Bach_test\test_sw\Board\coffee_word_list_file\higher'

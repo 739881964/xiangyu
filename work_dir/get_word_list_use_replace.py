@@ -15,8 +15,8 @@ from scripts.text_manual import write_txt_once, read_rs_trip_data, get_split_zh,
 
 if __name__ == '__main__':
     """从.map文件获取命令词的语音"""
+    print('Beginning......')
     one_time = time.ctime()
-    print('starting......')
     data = read_rs_trip_data(Info.commands_file)
     commands = get_split_zh(data)  # 获取命令词
 
@@ -31,5 +31,5 @@ if __name__ == '__main__':
                 write_txt_once(one_txt_name[j], write_data)
                 # log.error(write_data)
 
-    print("SUCCESS")
+    print("Finished")
     print(one_time, '   ', time.ctime())
