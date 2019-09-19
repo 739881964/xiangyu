@@ -41,8 +41,9 @@ def get_log_name():
         reverse=True)[0]
     log_2 = sorted(
         glob.glob(os.path.join('D:\\', 'slave*.log')),
-        key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S",
-                                    time.localtime(os.path.getctime(x))),
+        key=lambda x: time.strftime(
+            "%Y-%m-%d %H:%M:%S",
+            time.localtime(os.path.getctime(x))),
         reverse=True
     )
 
@@ -135,7 +136,7 @@ def get_xls_list():
     return files_list, _name
 
 
-# 根据list分成多个listlog,根据返回值判断是否有多个播放的log
+# 根据list分成多个list_log,根据返回值判断是否有多个播放的log
 def get_mic_list(mic_filename, name):
     all_list = []
     with open(mic_filename, 'r') as f:
@@ -223,7 +224,7 @@ def get_play_time(filename, all_word):
                             break
     except (TypeError, IndexError, NameError, ValueError):
         print('读取主log(播放时间)出现问题')
-        os.system('pause')
+        os.popen('pause')
     else:
         return wav_list
 
@@ -249,7 +250,7 @@ def del_slaver(filename):
                     ver = line.split('] ')[1]
     except (UnicodeTranslateError, TypeError) as e:
         print('读取从log(识别log)出现问题')
-        os.system('pause')
+        os.popen('pause')
         raise e
     return a_list, ver
 
@@ -815,10 +816,10 @@ def send_mail(list_file, __name):
         sp.quit()
     except smtplib.SMTPException:
         print('处理结果应该是成功,但是邮件发送失败')
-        os.system('pause')
+        os.popen('pause')
     else:
         print('OK!')
-        os.system('pause')
+        os.popen('pause')
 
 
 if __name__ == '__main__':
@@ -973,7 +974,7 @@ if __name__ == '__main__':
             get_xls(allWord, log1, log2[i])
     except IndexError:
         print('确定跑的产品索引是从1开始,如果是从0开始的话请使用deal_mic.py或deal_mic.exe跑分析结果')
-        os.system('pause')
+        os.popen('pause')
     finally:
         list_name = log1.split('.')[0]
         if get_mic_list(log1, list_name):
@@ -991,6 +992,6 @@ if __name__ == '__main__':
         file_list, name = get_xls_list()
     except IndexError:
         print("应该是没有产生xls结果文件,请查看主从文件名的时间是否超过1小时？")
-        os.system("pause")
+        os.popen("pause")
     else:
         send_mail(file_list, name)
