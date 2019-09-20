@@ -2,7 +2,7 @@ from config.urlConf import urls
 from inter.ConfirmHB import confirmHB
 
 
-class passengerInitApi:
+class passengerInitApi(object):
     def __init__(self, session, secretList, tickerNo):
         """
         获取候补信息

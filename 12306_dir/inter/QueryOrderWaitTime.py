@@ -9,7 +9,7 @@ from myException.ticketIsExitsException import ticketIsExitsException
 from myException.ticketNumOutException import ticketNumOutException
 
 
-class queryOrderWaitTime:
+class queryOrderWaitTime(object):
     """
     排队
     """

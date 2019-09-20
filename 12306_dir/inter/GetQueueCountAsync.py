@@ -11,7 +11,7 @@ import wrapcache
 from inter.ConfirmSingleForQueueAsys import confirmSingleForQueueAsys
 
 
-class getQueueCountAsync:
+class getQueueCountAsync(object):
     """
     排队
     """

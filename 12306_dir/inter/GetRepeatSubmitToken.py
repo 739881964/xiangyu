@@ -3,7 +3,7 @@ import json
 import re
 
 
-class getRepeatSubmitToken:
+class getRepeatSubmitToken(object):
     def __init__(self, session):
         self.session = session
 

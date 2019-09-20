@@ -7,7 +7,7 @@ import wrapcache
 import TickerConfig
 
 
-class getPassengerDTOs:
+class getPassengerDTOs(object):
     """
     获取乘客信息
     :return:

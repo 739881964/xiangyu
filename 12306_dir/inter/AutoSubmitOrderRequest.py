@@ -8,7 +8,7 @@ from inter.GetQueueCountAsync import getQueueCountAsync
 from inter.GetRandCode import getRandCode
 
 
-class autoSubmitOrderRequest:
+class autoSubmitOrderRequest(object):
     """
     快读提交订单通道
     """

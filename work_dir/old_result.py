@@ -5,14 +5,14 @@
 # @File    : old_result.py
 # @Software: PyCharm
 # @Company : BEIJING INTENGINE
-'''
+"""
 注：
 本脚本适合用于2019.08以后的新编译出的V1.之后的版本，对应的命令词索引有改变
 本脚本是为了测试mic，其中主的是只播放wav，不做识别
 其他的log是板子的识别情况
 产生过程先产生总体的识别情况，之后生成list的log，在进行分析
 data:2019.06.18
-'''
+"""
 
 import xlrd
 import xlwt
@@ -32,11 +32,11 @@ from email.mime.multipart import MIMEMultipart
 # 获取播放wav的log和识别log的列表
 def get_log_name():
     slave_list = []
-    log1 = sorted(glob.glob(os.path.join('D:\\', 'MIC_*.log')), \
-                  key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S", \
+    log1 = sorted(glob.glob(os.path.join('D:\\', 'MIC_*.log')), 
+                  key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S", 
                                               time.localtime(os.path.getctime(x))), reverse=True)[0]
-    log2 = sorted(glob.glob(os.path.join('D:\\', 'slave*.log')), \
-                  key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S", \
+    log2 = sorted(glob.glob(os.path.join('D:\\', 'slave*.log')),
+                  key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S",
                                               time.localtime(os.path.getctime(x))), reverse=True)
     mic = log1.split('.log')[0].split('_')[-1].split('-')[0].replace('.', '-') \
           + ' ' + log1.split('.log')[0].split('_')[-1].split('-')[1].replace('.', ':')
@@ -52,8 +52,8 @@ def get_log_name():
 
 # 如果有LIST，则使用该函数进行获取log之后分析得出结果
 def get_list_log():
-    log_list = sorted(glob.glob(os.path.join('D:\\', "*list*.log")), \
-                      key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S", \
+    log_list = sorted(glob.glob(os.path.join('D:\\', "*list*.log")),
+                      key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S",
                                                   time.localtime(os.path.getctime(x))), reverse=True)
     return log_list
 
@@ -124,10 +124,8 @@ def get_mic_list(mic_filename, name):
             else:
                 line = line.strip('\n')
                 all_list.append(line)
-    start = [i for i in range(len(all_list) - 1, -1, -1) \
-             if 'begin with' in all_list[i]][0]
-    list_index = [i for i in range(start, len(all_list)) \
-                  if 'LIST' in all_list[i]]
+    start = [i for i in range(len(all_list) - 1, -1, -1) if 'begin with' in all_list[i]][0]
+    list_index = [i for i in range(start, len(all_list)) if 'LIST' in all_list[i]]
     if len(list_index) > 1:
         list_index.append(len(all_list) - 1)
     else:
@@ -170,8 +168,7 @@ def get_play_time(filename, allWord):
                 else:
                     line = line.strip('\n')
                     all_list.append(line)
-        start = [i for i in range(len(all_list) - 1, -1, -1) \
-                 if 'begin with' in all_list[i]][0]
+        start = [i for i in range(len(all_list) - 1, -1, -1) if 'begin with' in all_list[i]][0]
         cont = 1
         for i in range(start, len(all_list)):
             if '<end>' not in all_list[i]:
@@ -186,8 +183,7 @@ def get_play_time(filename, allWord):
         for key, value in totaldic.items():
             for i in range(len(value)):
                 for j in value:
-                    if '[' in value[i] and ':' in value[i] and '.wav' in j \
-                            and 'IET>' not in j and i == value.index(j) - 1:
+                    if '[' in value[i] and ':' in value[i] and '.wav' in j and 'IET>' not in j and i == value.index(j) - 1:
                         wav_time = value[value.index(j) - 1] + j
                         while value[i].strip(' ') not in allWord:
                             print(value[i])
@@ -195,8 +191,7 @@ def get_play_time(filename, allWord):
                         else:
                             wavlist.append(value[i] + ',' + wav_time)
                             break
-                    elif '[' in value[i] and ':' in value[i] and '.wav' in j \
-                            and 'IET>' in j and i == value.index(j):
+                    elif '[' in value[i] and ':' in value[i] and '.wav' in j and 'IET>' in j and i == value.index(j):
                         wav_time = j
                         while value[i].strip(' ') not in allWord:
                             i += 1
@@ -777,6 +772,56 @@ def get_xls(allWord, filename_1, filename_2):
 
 
 # 设置发件人和接收人信息
+def send_mail(list_file, __name):
+    try:
+        sender = 'xiangyu@intenginetech.com'  # 'tanjingtest@foxmail.com'
+        password = 'Intengine1'  # 'ncydbifncdkbdehd'  # 腾讯QQ邮箱或腾讯企业邮箱必须使用授权码进行第三方登陆
+        receivers = ['slxie@intenginetech.com', 'xiangyu@intenginetech.com']
+        '''
+        receivers = [
+            'hswang@intenginetech.com', 
+            'weisun@intenginetech.com',
+            'zjyan@intenginetech.com',
+            'zytang@intenginetech.com',
+            'yfwang@intenginetech.com'
+        ]
+        cc_mail = ['jjli@intenginetech.com']
+        '''
+        mail_host = 'smtp.qq.com'  # 腾讯服务器地址
+
+        # #邮件正文
+        content = '''
+                  <p>Hello,各位好：</p>
+                  <p>&emsp;&emsp;&emsp;最新测试结果见附件,如有问题及时沟通!</p>
+                  '''
+
+        message = MIMEMultipart()
+        message.attach(MIMEText(content, 'html', 'utf-8'))  # 如果只发文本，用这个就够了。
+
+        message['From'] = sender
+        message['To'] = ','.join(receivers)
+        # message['Cc'] = ','.join(cc_mail)
+        subject = __name + '应用测试结果'
+        message['Subject'] = subject
+        for l in list_file:
+            with open(l, 'rb') as f:
+                mime = MIMEApplication(f.read())
+                mime.add_header('Content-Disposition', 'attachment', file__name=l)
+                message.attach(mime)
+        sp = smtplib.SMTP_SSL(mail_host, 465)
+        sp.login(sender, password)
+        sp.sendmail(sender, receivers, str(message))  # receivers+cc_mail
+        sp.quit()
+    except smtplib.SMTPException:
+        print('处理结果应该是成功,但是邮件发送失败')
+        os.popen('pause')
+    else:
+        print('OK!')
+        os.popen('pause')
+
+
+"""
+# 设置发件人和接收人信息
 def send_mail(filelist, name):
     try:
         sender = 'tanjingtest@foxmail.com'
@@ -821,6 +866,7 @@ def send_mail(filelist, name):
     else:
         print('OK!')
         os.popen('pause')
+"""
 
 
 if __name__ == '__main__':

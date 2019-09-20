@@ -7,7 +7,7 @@ from config import configCommon
 from config.TicketEnmu import ticket
 
 
-class checkUser:
+class checkUser(object):
     def __init__(self, session):
         self.session = session
 

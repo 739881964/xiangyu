@@ -3,6 +3,7 @@
 # 功能：对图像进行预处理，将文字部分单独提取出来
 # 并存放到ocr目录下
 # 文件名为原验证码文件的文件名
+
 import TickerConfig
 if TickerConfig.AUTO_CODE_TYPE == 2:
     import hashlib

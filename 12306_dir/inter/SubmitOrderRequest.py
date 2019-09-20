@@ -19,7 +19,7 @@ def time():
     return today.strftime('%Y-%m-%d')
 
 
-class submitOrderRequest:
+class submitOrderRequest(object):
     def __init__(self, session, secretStr, from_station, to_station, train_no, set_type,
                  passengerTicketStrList, oldPassengerStr, train_date, ticke_peoples):
         self.session = session

@@ -8,7 +8,7 @@ from inter.GetRandCode import getRandCode
 from inter.QueryOrderWaitTime import queryOrderWaitTime
 
 
-class confirmSingleForQueue:
+class confirmSingleForQueue(object):
     def __init__(self, session, ifShowPassCodeTime, is_node_code, token, set_type, ticket_peoples, ticketInfoForPassengerForm,
                  oldPassengerStr, passengerTicketStrList):
         self.session = session

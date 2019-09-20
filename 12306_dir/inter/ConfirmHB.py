@@ -4,7 +4,7 @@ import TickerConfig
 from inter.GetQueueCount import queryQueueByAfterNate
 
 
-class confirmHB:
+class confirmHB(object):
     def __init__(self, secretList, session, tickerNo, jzdhDate):
         """
         人脸识别

@@ -8,7 +8,7 @@ from myException.ticketConfigException import ticketConfigException
 import wrapcache
 
 
-class chechFace:
+class chechFace(object):
     def __init__(self, session, secretList, train_no):
         """
         人脸识别

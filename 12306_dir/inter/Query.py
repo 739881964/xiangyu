@@ -9,7 +9,7 @@ from config.configCommon import seat_conf_2
 import TickerConfig
 
 
-class query:
+class query(object):
     """
     查询接口
     """

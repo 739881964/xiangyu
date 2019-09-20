@@ -91,10 +91,10 @@ def get_xls_list():
     files_list = []
     for k in file:
         _name = k.split('\\')[1].split('.xls')[0].split('_')[-1]
-        name_time = datetime.datetime.strptime(name, '%Y-%m-%d-%H.%M.%S')
+        name_time = datetime.datetime.strptime(_name, '%Y-%m-%d-%H.%M.%S')
         if (now_time - name_time).total_seconds() < 600:
             files_list.append(k)
-    _name = None
+    # _name = None
     if 'XIAOMEI' in files_list[0]:
         _name = '小美项目'
     elif 'XIAORUI' in files_list[0]:
@@ -141,7 +141,7 @@ def get_mic_list(mic_filename, name):
     all_list = []
     with open(mic_filename, 'r') as f:
         lines = f.readlines()
-        # lines_line = []
+        lines_line = []
         for line in lines:
             if '\n' == line or ' \n' == line:
                 continue
@@ -185,14 +185,14 @@ def get_play_time(filename, all_word):
     try:
         with open(filename, 'r', encoding=file_encoding) as f:
             lines = f.readlines()
-            # lines_line = []
+            lines_line = []
             for line in lines:
                 if '\n' == line or ' \n' == line:
                     continue
                 else:
                     line = line.strip('\n')
                     all_list.append(line)
-        start = [j for j in range(len(all_list)-1, -1, -1) if 'begin with' in all_list[j]][0]
+        start = [j for j in range(len(all_list) - 1, -1, -1) if 'begin with' in all_list[j]][0]
         cont = 1
         for k in range(start, len(all_list)):
             if '<end>' not in all_list[k]:
@@ -222,9 +222,11 @@ def get_play_time(filename, all_word):
                         else:
                             wav_list.append(value[k] + ',' + wav_time)
                             break
-    except (TypeError, IndexError, NameError, ValueError):
+    except Exception as e:
+        # except (TypeError, IndexError, NameError, ValueError):
         print('读取主log(播放时间)出现问题')
         os.popen('pause')
+        print(e)
     else:
         return wav_list
 
@@ -248,10 +250,11 @@ def del_slaver(filename):
                     a_list.append(line)
                 elif 'Version' in line:
                     ver = line.split('] ')[1]
-    except (UnicodeTranslateError, TypeError) as e:
+    # except (UnicodeTranslateError, TypeError) as e:
+    except Exception as e:
         print('读取从log(识别log)出现问题')
         os.popen('pause')
-        raise e
+        print(e)
     return a_list, ver
 
 
@@ -264,7 +267,7 @@ def sort_list(time_list, a_w_list):
     time_in = word_in = 0
     result = []
     while time_list and a_w_list:
-        a0 = None  # ......
+        # a0 = None  # ......
         if '\\' in time_list[time_in]:
             chang_time = time_list[time_in].replace('\\', '/')
             if 'IET>' in chang_time:
@@ -805,10 +808,10 @@ def send_mail(list_file, __name):
         # message['Cc'] = ','.join(cc_mail)
         subject = __name + '应用测试结果'
         message['Subject'] = subject
-        for i in list_file:
-            with open(i, 'rb') as f:
+        for l in list_file:
+            with open(l, 'rb') as f:
                 mime = MIMEApplication(f.read())
-                mime.add_header('Content-Disposition', 'attachment', file__name=i)
+                mime.add_header('Content-Disposition', 'attachment', file__name=l)
                 message.attach(mime)
         sp = smtplib.SMTP_SSL(mail_host, 465)
         sp.login(sender, password) 
@@ -969,6 +972,8 @@ if __name__ == '__main__':
             '玉米皮', '玉米芯', '照片', '指甲', '指甲刀', '指甲油', '纸杯', '纸袋', '纸盒',
             '纸巾', '纸箱', '纸制品', '中性笔', '中药药渣', '竹牙签', '粽叶'
         ]
+    get_xls(allWord, log1, log2[0])
+
     try:
         for i in range(len(log2)):
             get_xls(allWord, log1, log2[i])

@@ -6,7 +6,7 @@ from collections import OrderedDict
 from inter.QueryOrderWaitTime import queryOrderWaitTime
 
 
-class confirmSingleForQueueAsys:
+class confirmSingleForQueueAsys(object):
     """
     订单快读排队
     """

@@ -18,7 +18,7 @@ def get_text(img, offset=0):
     text = pretreatment.get_text(img, offset)
     text = cv2.cvtColor(text, cv2.COLOR_BGR2GRAY)
     text = text / 255.0
-    h, w = text.shape
+    h, w = text.shape()
     text.shape = (1, h, w, 1)
     return text
 

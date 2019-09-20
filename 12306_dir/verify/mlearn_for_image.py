@@ -71,10 +71,10 @@ def learn():
     model.save('12306.image.model.h5', include_optimizer=False)
 
 
-def predict(imgs):
-    imgs = preprocess_input(imgs)
+def predict(img):
+    _img = preprocess_input(img)
     model = models.load_model('12306.image.model.h5')
-    labels = model.predict(imgs)
+    labels = model.predict(_img)
     return labels
 
 
