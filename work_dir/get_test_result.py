@@ -413,7 +413,7 @@ def get_new_name(filename_1, filename_2):
 
 
 # 生成mic的xls文件
-def get_xls(word_list, filename_1, filename_2):
+def get_xls(allWord, filename_1, filename_2):
     work_book = xlwt.Workbook(encoding='utf-8')
     borders = xlwt.Borders()    # 都有黑边框
     borders1 = xlwt.Borders()   # 右边框没有
@@ -516,13 +516,13 @@ def get_xls(word_list, filename_1, filename_2):
     sheet1.write(3, 4, 'recall', style)
     
     wordlist, ver = del_slaver(filename_2)    # 获取slave的识别结果词
-    wavList = get_play_time(filename_1, word_list)
+    wavList = get_play_time(filename_1, allWord)
     sheet1.write(0, 0, '版本信息', style)
     sheet1.write_merge(0, 0, 1, 4, ver, style)
     if wavList:
         result_sort = sort_list(wavList, wordlist)
         write_log(result_sort, filename_2)
-        dicnew, wav_result = del_result(result_sort, word_list)
+        dicnew, wav_result = del_result(result_sort, allWord)
         LR, LE, LL = reco_dic(dicnew)
         Lrlen = len(LR) // 2
         Lelen = len(LE) // 3
@@ -533,29 +533,29 @@ def get_xls(word_list, filename_1, filename_2):
         cmdtp = 0
         cmdall = 0
         cmdfp = 0
-        for i in range(len(word_list)):
+        for i in range(len(allWord)):
             if '你好nomi' == i:
                 continue
             le = 0
             FP = 0
-            TP = LR.count(word_list[i])
+            TP = LR.count(allWord[i])
             re = 1  # 标记误识别的列数
-            sheet5.write(1, i, word_list[i])
+            sheet5.write(1, i, allWord[i])
 
             for j in range(0, len(LE)-1, 3):   
                 five_col = sheet5.col(i)
                 five_col.width = 256 * 18         
-                if LE[j] == word_list[i]:
+                if LE[j] == allWord[i]:
                     le += 1
                     re += 1
                     sheet5.write(re, i, LE[j+1] + '     ' + LE[j+2], style)
-                if LE[j+1] == word_list[i]:
+                if LE[j+1] == allWord[i]:
                     FP += 1
-            FN = le + LL.count(word_list[i])
+            FN = le + LL.count(allWord[i])
             TOTAL = TP + FN
             # 进行了命令词和唤醒词的情况分类
             if 'XIAOMEI' in filename_1 or 'FUQIANG' in filename_1 or 'JIANFENG' in filename_1:
-                if word_list[i] == '你好小美':
+                if allWord[i] == '你好小美':
                     waketp += TP
                     wakeall += TOTAL
                 else:
@@ -563,7 +563,7 @@ def get_xls(word_list, filename_1, filename_2):
                     cmdall += TOTAL
                     cmdfp += FP
             elif 'XIAORUI' in filename_1:
-                if word_list[i] == '你好小睿' or word_list[i] == '小睿你好':
+                if allWord[i] == '你好小睿' or allWord[i] == '小睿你好':
                     waketp += TP
                     wakeall += TOTAL
                 else:
@@ -571,7 +571,7 @@ def get_xls(word_list, filename_1, filename_2):
                     cmdall += TOTAL
                     cmdfp += FP
             elif 'DAXIANJICHENGZAO' in filename_1:
-                if word_list[i] == '森歌森歌' or word_list[i] == '达显达显':
+                if allWord[i] == '森歌森歌' or allWord[i] == '达显达显':
                     waketp += TP
                     wakeall += TOTAL
                 else:
@@ -579,8 +579,8 @@ def get_xls(word_list, filename_1, filename_2):
                     cmdall += TOTAL
                     cmdfp += FP
             elif 'TONGYONGYUYINDENG' in filename_1:
-                if word_list[i] == '你好小美' or word_list[i] == '智能管家' or word_list[i] == '你好小白'\
-                or word_list[i] == '小白你好':
+                if allWord[i] == '你好小美' or allWord[i] == '智能管家' or allWord[i] == '你好小白'\
+                or allWord[i] == '小白你好':
                     waketp += TP
                     wakeall += TOTAL
                 else:
@@ -588,8 +588,8 @@ def get_xls(word_list, filename_1, filename_2):
                     cmdall += TOTAL
                     cmdfp += FP
             elif 'TONGYONGYUYINKONGTIAO' in filename_1:
-                if word_list[i] == '空调空调' or word_list[i] == '你好空调' or word_list[i] == '你好小美'\
-                or word_list[i] == '小康小康':
+                if allWord[i] == '空调空调' or allWord[i] == '你好空调' or allWord[i] == '你好小美'\
+                or allWord[i] == '小康小康':
                     waketp += TP
                     wakeall += TOTAL
                 else:
@@ -597,7 +597,7 @@ def get_xls(word_list, filename_1, filename_2):
                     cmdall += TOTAL
                     cmdfp += FP
             elif 'XIAOYOU' in filename_1:
-                if word_list[i] == '小优小优':
+                if allWord[i] == '小优小优':
                     waketp += TP
                     wakeall += TOTAL
                 else:
@@ -605,7 +605,7 @@ def get_xls(word_list, filename_1, filename_2):
                     cmdall += TOTAL
                     cmdfp += FP
             elif 'XIAOKANGAC' in filename_1 or 'XIAOKANGCURTAIN' in filename_1:
-                if word_list[i] == '小康小康':
+                if allWord[i] == '小康小康':
                     waketp += TP
                     wakeall += TOTAL
                 else:
@@ -613,7 +613,7 @@ def get_xls(word_list, filename_1, filename_2):
                     cmdall += TOTAL
                     cmdfp += FP
             elif 'DIYUAN' in filename_1:
-                if word_list[i] == '你好帝源':
+                if allWord[i] == '你好帝源':
                     waketp += TP
                     wakeall += TOTAL
                 else:
@@ -621,7 +621,7 @@ def get_xls(word_list, filename_1, filename_2):
                     cmdall += TOTAL
                     cmdfp += FP
             elif 'TUOBANGZHINENGMATONG' in filename_1:
-                if word_list[i] == '智能马桶':
+                if allWord[i] == '智能马桶':
                     waketp += TP
                     wakeall += TOTAL
                 else:
@@ -629,7 +629,7 @@ def get_xls(word_list, filename_1, filename_2):
                     cmdall += TOTAL
                     cmdfp += FP
             elif 'XIAOKA' in filename_1:
-                if word_list[i] == '你好小咖':
+                if allWord[i] == '你好小咖':
                     waketp += TP
                     wakeall += TOTAL
                 else:
@@ -637,7 +637,7 @@ def get_xls(word_list, filename_1, filename_2):
                     cmdall += TOTAL
                     cmdfp += FP
             elif 'SIJIMUGE' in filename_1:
-                if word_list[i] == '小沐你好':
+                if allWord[i] == '小沐你好':
                     waketp += TP
                     wakeall += TOTAL
                 else:
@@ -656,7 +656,7 @@ def get_xls(word_list, filename_1, filename_2):
             else:
                 recall = '%.2f%%' % (TP / TOTAL * 100)
                 frr = '%.2f%%' % (FN / TOTAL * 100)
-            sheet1.write(i+4, 0, word_list[i], style1)
+            sheet1.write(i+4, 0, allWord[i], style1)
             sheet1.write(i+4, 1, TOTAL, style)
             sheet1.write(i+4, 2, TP, style)
             sheet1.write(i+4, 3, FN, style)
@@ -665,17 +665,17 @@ def get_xls(word_list, filename_1, filename_2):
                 FAR = 0
             else:
                 FAR = '%.2f%%' % (FP / (All - TOTAL) * 100)
-            sheet2.write(i+1, 0, word_list[i], style1)
+            sheet2.write(i+1, 0, allWord[i], style1)
             sheet2.write(i+1, 1, All - TOTAL, style)
             sheet2.write(i+1, 2, FP, style)
             sheet2.write(i+1, 3, FAR, style)
 
-            sheet3.write(i+1, 0, word_list[i], style)
+            sheet3.write(i+1, 0, allWord[i], style)
             sheet3.write(i+1, 1, TOTAL, style2)
             sheet3.write(i+1, 2, FN, style2)
             sheet3.write(i+1, 3, frr, style4)
-            for key, value in recol_word(word_list, LE, LL).items():
-                if word_list[i] == key:
+            for key, value in recol_word(allWord, LE, LL).items():
+                if allWord[i] == key:
                     numdict = Counter(value)
                     numlist = numdict.most_common()
                     fr = 1
@@ -687,20 +687,20 @@ def get_xls(word_list, filename_1, filename_2):
                         sheet3.write(i+1, 3+n+fr, numlist[n][0], style4)
                         sheet3.write(i+1, 4+n+fr, fw, style4)
                         fr += 1        
-            sheet4.write(1, i, word_list[i])
+            sheet4.write(1, i, allWord[i])
             rr = 1
             for k in range(0, len(LR)-1, 2):
                 # 标记正确的列数
                 four_col = sheet4.col(i)
                 four_col.width = 256 * 18
-                if word_list[i] == LR[k]:
+                if allWord[i] == LR[k]:
                     rr += 1
                     sheet4.write(rr, i, LR[k+1], style)
-        sheet1.write(len(word_list)+4, 0, '总计', style)
-        sheet1.write(len(word_list)+5, 0, '唤醒情况统计', style)
-        sheet1.write(len(word_list)+5, 1, wakeall,style)
-        sheet1.write(len(word_list)+5, 2, waketp, style)
-        sheet1.write(len(word_list)+5, 3, wakeall-waketp, style)
+        sheet1.write(len(allWord)+4, 0, '总计', style)
+        sheet1.write(len(allWord)+5, 0, '唤醒情况统计', style)
+        sheet1.write(len(allWord)+5, 1, wakeall,style)
+        sheet1.write(len(allWord)+5, 2, waketp, style)
+        sheet1.write(len(allWord)+5, 3, wakeall-waketp, style)
         if wakeall == 0:
             Rcall = 0
         else:
@@ -713,20 +713,20 @@ def get_xls(word_list, filename_1, filename_2):
             cmdfar = 0
         else:
             cmdfar = FAR = '%.2f%%'%(cmdfp / All * 100)
-        sheet1.write(len(word_list)+5, 4, Rcall, style)
-        sheet1.write(len(word_list)+6, 0, '识别情况统计', style)
-        sheet1.write(len(word_list)+6, 1, cmdall, style)
-        sheet1.write(len(word_list)+6, 2, cmdtp, style)
-        sheet1.write(len(word_list)+6, 3, cmdall-cmdtp, style)
-        sheet1.write(len(word_list)+6, 4, cmdrcall, style)
-        sheet1.write(len(word_list)+4, 1, All, style)
-        sheet1.write(len(word_list)+4, 2, Lrlen, style)
-        sheet1.write(len(word_list)+4, 3, Lelen+Lllen, style)
-        sheet1.write(len(word_list)+4, 4, '%.2f%%'%(Lrlen / All * 100), style)
-        sheet2.write(len(word_list)+1, 0, '命令词误识别统计', style)
-        sheet2.write(len(word_list)+1, 1, All, style)
-        sheet2.write(len(word_list)+1, 2, cmdfp, style)
-        sheet2.write(len(word_list)+1, 3, cmdfar, style)
+        sheet1.write(len(allWord)+5, 4, Rcall, style)
+        sheet1.write(len(allWord)+6, 0, '识别情况统计', style)
+        sheet1.write(len(allWord)+6, 1, cmdall, style)
+        sheet1.write(len(allWord)+6, 2, cmdtp, style)
+        sheet1.write(len(allWord)+6, 3, cmdall-cmdtp, style)
+        sheet1.write(len(allWord)+6, 4, cmdrcall, style)
+        sheet1.write(len(allWord)+4, 1, All, style)
+        sheet1.write(len(allWord)+4, 2, Lrlen, style)
+        sheet1.write(len(allWord)+4, 3, Lelen+Lllen, style)
+        sheet1.write(len(allWord)+4, 4, '%.2f%%'%(Lrlen / All * 100), style)
+        sheet2.write(len(allWord)+1, 0, '命令词误识别统计', style)
+        sheet2.write(len(allWord)+1, 1, All, style)
+        sheet2.write(len(allWord)+1, 2, cmdfp, style)
+        sheet2.write(len(allWord)+1, 3, cmdfar, style)
         y = 1
         x = 0
         for w in range(len(wav_result)):
@@ -827,7 +827,7 @@ def send_mail(list_file, __name):
 
 if __name__ == '__main__':
     log1, log2 = get_log_name()
-    allWord = []
+    # allWord = []
     if 'XIAOMEI' in log1:
         allWord = [
             '上下摆动', '中等风', '二十一度', '二十七度', '二十三度', '二十九度',
@@ -973,7 +973,7 @@ if __name__ == '__main__':
             '纸巾', '纸箱', '纸制品', '中性笔', '中药药渣', '竹牙签', '粽叶'
         ]
     get_xls(allWord, log1, log2[0])
-
+    
     try:
         for i in range(len(log2)):
             get_xls(allWord, log1, log2[i])

@@ -14,6 +14,7 @@
 data:2019.06.18
 """
 
+from email.header import Header
 import xlrd
 import xlwt
 import os
@@ -27,6 +28,7 @@ from collections import Counter
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
+from email.mime.image import MIMEImage
 
 
 # 获取播放wav的log和识别log的列表
@@ -186,7 +188,7 @@ def get_play_time(filename, allWord):
                     if '[' in value[i] and ':' in value[i] and '.wav' in j and 'IET>' not in j and i == value.index(j) - 1:
                         wav_time = value[value.index(j) - 1] + j
                         while value[i].strip(' ') not in allWord:
-                            print(value[i])
+                            # print(value[i])
                             i += 1
                         else:
                             wavlist.append(value[i] + ',' + wav_time)
@@ -281,7 +283,7 @@ def del_result(allist, allWord):
     dicnew = {}
     cont = 0
     wav_result = []
-    print(allist)
+    # print(allist)
     for i in range(len(allist) - 1):
         if '.wav' in allist[i]:
             dicnew.setdefault(cont, []).append('<begin>')
@@ -772,10 +774,10 @@ def get_xls(allWord, filename_1, filename_2):
 
 
 # 设置发件人和接收人信息
-def send_mail(list_file, __name):
+def send_mail(list_file, _name):
     try:
-        sender = 'xiangyu@intenginetech.com'  # 'tanjingtest@foxmail.com'
-        password = 'Intengine1'  # 'ncydbifncdkbdehd'  # 腾讯QQ邮箱或腾讯企业邮箱必须使用授权码进行第三方登陆
+        sender = 'tanjingtest@foxmail.com'  # '739881964@qq.com'  # 'xiangyu@intenginetech.com'  # 'tanjingtest@foxmail.com'
+        password = 'ncydbifncdkbdehd'   # 'Yx201308'  # 'Intengine1'  # 'ncydbifncdkbdehd'  # 腾讯QQ邮箱或腾讯企业邮箱必须使用授权码进行第三方登陆
         receivers = ['slxie@intenginetech.com', 'xiangyu@intenginetech.com']
         '''
         receivers = [
@@ -801,7 +803,7 @@ def send_mail(list_file, __name):
         message['From'] = sender
         message['To'] = ','.join(receivers)
         # message['Cc'] = ','.join(cc_mail)
-        subject = __name + '应用测试结果'
+        subject = _name + '应用测试结果'
         message['Subject'] = subject
         for l in list_file:
             with open(l, 'rb') as f:
@@ -820,12 +822,11 @@ def send_mail(list_file, __name):
         os.popen('pause')
 
 
-"""
 # 设置发件人和接收人信息
 def send_mail(filelist, name):
     try:
-        sender = 'tanjingtest@foxmail.com'
-        password = 'ncydbifncdkbdehd'  # 腾讯QQ邮箱或腾讯企业邮箱必须使用授权码进行第三方登陆
+        sender = '739881964@qq.com'
+        password = 'xilnonunqhlabcji'  # 腾讯QQ邮箱或腾讯企业邮箱必须使用授权码进行第三方登陆
         # receivers = ['yfwang@intenginetech.com']
         # #cc_mail = ['jjli@intenginetech.com']
         # mail_host = 'smtp.qq.com'
@@ -866,7 +867,6 @@ def send_mail(filelist, name):
     else:
         print('OK!')
         os.popen('pause')
-"""
 
 
 if __name__ == '__main__':
@@ -1033,8 +1033,8 @@ if __name__ == '__main__':
             log_list = get_list_log()    # 获取mic_list的列表
             for j in range(log_num):
                 for m in range(len(log2)):
-                    print(log_list[j])
-                    print(log2[m])
+                    # print(log_list[j])
+                    # print(log2[m])
                     get_xls(allWord, log_list[j], log2[m])
         else:
             pass
