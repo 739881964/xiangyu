@@ -779,9 +779,9 @@ def get_xls(allWord, filename_1, filename_2):
 # 设置发件人和接收人信息
 def send_mail(list_file, __name):
     try:
-        sender = 'xiangyu@intenginetech.com'  # 'tanjingtest@foxmail.com'
-        password = 'Intengine1'  # 'ncydbifncdkbdehd'  # 腾讯QQ邮箱或腾讯企业邮箱必须使用授权码进行第三方登陆
-        receivers = ['slxie@intenginetech.com', 'xiangyu@intenginetech.com']
+        sender = 'tanjingtest@foxmail.com'
+        password = 'ncydbifncdkbdehd'  # 腾讯QQ邮箱或腾讯企业邮箱必须使用授权码进行第三方登陆
+        receivers = 'xiangyu@intenginetech.com'
         '''
         receivers = [
             'hswang@intenginetech.com', 
@@ -825,9 +825,8 @@ def send_mail(list_file, __name):
         os.popen('pause')
 
 
-if __name__ == '__main__':
-    log1, log2 = get_log_name()
-    # allWord = []
+def get_all_word():
+    allWord = []
     if 'XIAOMEI' in log1:
         allWord = [
             '上下摆动', '中等风', '二十一度', '二十七度', '二十三度', '二十九度',
@@ -912,7 +911,7 @@ if __name__ == '__main__':
             '声音小一点', '小声点', '小点声', '开启空调', '打开空调', '开启电源', '开机', '关闭空调',
             '关闭电源', '关机', '打开灯光', '请开灯', '开灯', '关闭灯光', '请关灯', '关灯', '关闭显示',
             '制冷模式', '清凉模式', '制热模式', '温暖模式', '送风模式', '自动模式', '智能模式', '空调自动',
-            '全自动', '电加热', '加热模式', '关闭电加热', '除湿模式', '关闭除湿','睡眠模式', '关闭睡眠模式', 
+            '全自动', '电加热', '加热模式', '关闭电加热', '除湿模式', '关闭除湿','睡眠模式', '关闭睡眠模式',
             '节能模式', '关闭节能模式', '安静模式', '空气净化', '空气清新', '清新模式', '关闭空气清新',
             '温度升高', '升高温度', '调高温度', '升高一度', '调高一度', '温度降低', '降低温度', '调低温度',
             '降低一度', '调低一度', '升高五度', '降低五度', '十六度', '十七度', '十八度', '十九度', '二十度',
@@ -972,11 +971,19 @@ if __name__ == '__main__':
             '玉米皮', '玉米芯', '照片', '指甲', '指甲刀', '指甲油', '纸杯', '纸袋', '纸盒',
             '纸巾', '纸箱', '纸制品', '中性笔', '中药药渣', '竹牙签', '粽叶'
         ]
-    get_xls(allWord, log1, log2[0])
+
+    return allWord
+
+
+if __name__ == '__main__':
+    log1, log2 = get_log_name()
+
+    all_word = get_all_word()
+    get_xls(all_word, log1, log2[0])
     
     try:
         for i in range(len(log2)):
-            get_xls(allWord, log1, log2[i])
+            get_xls(all_word, log1, log2[i])
     except IndexError:
         print('确定跑的产品索引是从1开始,如果是从0开始的话请使用deal_mic.py或deal_mic.exe跑分析结果')
         os.popen('pause')
@@ -989,7 +996,7 @@ if __name__ == '__main__':
                 for m in range(len(log2)):
                     print(log_list[j])
                     print(log2[m])
-                    get_xls(allWord, log_list[j], log2[m])                
+                    get_xls(all_word, log_list[j], log2[m])
         else:
             pass
     time.sleep(5)

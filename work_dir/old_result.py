@@ -5,6 +5,7 @@
 # @File    : old_result.py
 # @Software: PyCharm
 # @Company : BEIJING INTENGINE
+
 """
 注：
 本脚本适合用于2019.08以后的新编译出的V1.之后的版本，对应的命令词索引有改变
@@ -30,40 +31,55 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.image import MIMEImage
 
+from path.test_path import Info
+from scripts.text_manual import read_rs_trip_data, get_split_zh
+
 
 # 获取播放wav的log和识别log的列表
 def get_log_name():
     slave_list = []
-    log1 = sorted(glob.glob(os.path.join('D:\\', 'MIC_*.log')), 
-                  key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S", 
-                                              time.localtime(os.path.getctime(x))), reverse=True)[0]
-    log2 = sorted(glob.glob(os.path.join('D:\\', 'slave*.log')),
-                  key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S",
-                                              time.localtime(os.path.getctime(x))), reverse=True)
-    mic = log1.split('.log')[0].split('_')[-1].split('-')[0].replace('.', '-') \
-          + ' ' + log1.split('.log')[0].split('_')[-1].split('-')[1].replace('.', ':')
+    log_1 = sorted(
+        glob.glob(os.path.join('D:\\', 'MIC_*.log')),
+        key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S",
+                                    time.localtime(os.path.getctime(x))),
+        reverse=True)[0]
+    log_2 = sorted(
+        glob.glob(os.path.join('D:\\', 'slave*.log')),
+        key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S",
+                                    time.localtime(os.path.getctime(x))),
+        reverse=True)
+    mic = log_1.split('.log')[0].split('_')[-1].split('-')[0].replace('.', '-') \
+          + ' ' + log_1.split('.log')[0].split('_')[-1].split('-')[1].replace('.', ':')
     mic_time = datetime.datetime.strptime(mic, '%Y-%m-%d %H:%M:%S')
-    for i in log2:
+    for i in log_2:
         slave = i.split('.log')[0].split('_')[-1].split('-')[0].replace('.', '-') \
                 + ' ' + i.split('.log')[0].split('_')[-1].split('-')[1].replace('.', ':')
         slave_time = datetime.datetime.strptime(slave, '%Y-%m-%d %H:%M:%S')
         if (mic_time - slave_time).total_seconds() < 3600:
             slave_list.append(i)
-    return log1, slave_list
+    return log_1, slave_list
 
 
 # 如果有LIST，则使用该函数进行获取log之后分析得出结果
 def get_list_log():
-    log_list = sorted(glob.glob(os.path.join('D:\\', "*list*.log")),
-                      key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S",
-                                                  time.localtime(os.path.getctime(x))), reverse=True)
-    return log_list
+    _log_list = sorted(
+        glob.glob(os.path.join('D:\\', "*list*.log")),
+        key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S",
+                                    time.localtime(os.path.getctime(x))),
+        reverse=True)
+
+    return _log_list
 
 
 # 发送邮件的主题的名字
 def get_xls_list():
     filelist = []
-    file = sorted(glob.glob(os.path.join('D:\\', '*.xls')), key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(os.path.getctime(x))), reverse=True)
+    file = sorted(
+        glob.glob(os.path.join('D:\\', '*.xls')),
+        key=lambda x: time.strftime("%Y-%m-%d %H:%M:%S",
+                                    time.localtime(os.path.getctime(x))),
+        reverse=True
+    )
     nowtime = time.strftime("%Y-%m-%d-%H.%M.%S", time.localtime())
     now_time = datetime.datetime.strptime(nowtime, '%Y-%m-%d-%H.%M.%S')
     for i in file:
@@ -570,7 +586,6 @@ def get_xls(allWord, filename_1, filename_2):
                     cmdall += TOTAL
                     cmdfp += FP
 
-
             elif 'TONGYONGYUYINDENG' in filename_1:
                 if allWord[i] == '你好小美' or allWord[i] == '智能管家' or allWord[i] == '你好小白' \
                         or allWord[i] == '小白你好':
@@ -769,69 +784,69 @@ def get_xls(allWord, filename_1, filename_2):
             work_book.save(r'D:\XIAODUGUI' + name)
         elif 'ZHENGXIANG' in filename_1:
             work_book.save(r'D:\ZHENGXIANG' + name)
-    else:
-        pass
 
 
 # 设置发件人和接收人信息
-def send_mail(list_file, _name):
-    try:
-        sender = 'tanjingtest@foxmail.com'  # '739881964@qq.com'  # 'xiangyu@intenginetech.com'  # 'tanjingtest@foxmail.com'
-        password = 'ncydbifncdkbdehd'   # 'Yx201308'  # 'Intengine1'  # 'ncydbifncdkbdehd'  # 腾讯QQ邮箱或腾讯企业邮箱必须使用授权码进行第三方登陆
-        receivers = ['slxie@intenginetech.com', 'xiangyu@intenginetech.com']
-        '''
-        receivers = [
-            'hswang@intenginetech.com', 
-            'weisun@intenginetech.com',
-            'zjyan@intenginetech.com',
-            'zytang@intenginetech.com',
-            'yfwang@intenginetech.com'
-        ]
-        cc_mail = ['jjli@intenginetech.com']
-        '''
-        mail_host = 'smtp.qq.com'  # 腾讯服务器地址
-
-        # #邮件正文
-        content = '''
-                  <p>Hello,各位好：</p>
-                  <p>&emsp;&emsp;&emsp;最新测试结果见附件,如有问题及时沟通!</p>
-                  '''
-
-        message = MIMEMultipart()
-        message.attach(MIMEText(content, 'html', 'utf-8'))  # 如果只发文本，用这个就够了。
-
-        message['From'] = sender
-        message['To'] = ','.join(receivers)
-        # message['Cc'] = ','.join(cc_mail)
-        subject = _name + '应用测试结果'
-        message['Subject'] = subject
-        for l in list_file:
-            with open(l, 'rb') as f:
-                mime = MIMEApplication(f.read())
-                mime.add_header('Content-Disposition', 'attachment', file__name=l)
-                message.attach(mime)
-        sp = smtplib.SMTP_SSL(mail_host, 465)
-        sp.login(sender, password)
-        sp.sendmail(sender, receivers, str(message))  # receivers+cc_mail
-        sp.quit()
-    except smtplib.SMTPException:
-        print('处理结果应该是成功,但是邮件发送失败')
-        os.popen('pause')
-    else:
-        print('OK!')
-        os.popen('pause')
+# def send_mail(list_file, _name):
+#     try:
+#         sender = 'tanjingtest@foxmail.com'  # '739881964@qq.com'  # 'xiangyu@intenginetech.com'  # 'tanjingtest@foxmail.com'
+#         password = 'ncydbifncdkbdehd'   # 'Yx201308'  # 'Intengine1'  # 'ncydbifncdkbdehd'  # 腾讯QQ邮箱或腾讯企业邮箱必须使用授权码进行第三方登陆
+#         receivers = ['slxie@intenginetech.com', 'xiangyu@intenginetech.com']
+#         '''
+#         receivers = [
+#             'hswang@intenginetech.com',
+#             'weisun@intenginetech.com',
+#             'zjyan@intenginetech.com',
+#             'zytang@intenginetech.com',
+#             'yfwang@intenginetech.com'
+#         ]
+#         cc_mail = ['jjli@intenginetech.com']
+#         '''
+#         mail_host = 'smtp.qq.com'  # 腾讯服务器地址
+#
+#         # #邮件正文
+#         content = '''
+#                   <p>Hello,各位好：</p>
+#                   <p>&emsp;&emsp;&emsp;最新测试结果见附件,如有问题及时沟通!</p>
+#                   '''
+#
+#         message = MIMEMultipart()
+#         message.attach(MIMEText(content, 'html', 'utf-8'))  # 如果只发文本，用这个就够了。
+#
+#         message['From'] = sender
+#         message['To'] = ','.join(receivers)
+#         # message['Cc'] = ','.join(cc_mail)
+#         subject = _name + '应用测试结果'
+#         message['Subject'] = subject
+#         for l in list_file:
+#             with open(l, 'rb') as f:
+#                 mime = MIMEApplication(f.read())
+#                 mime.add_header('Content-Disposition', 'attachment', file__name=l)
+#                 message.attach(mime)
+#         sp = smtplib.SMTP_SSL(mail_host, 465)
+#         sp.login(sender, password)
+#         sp.sendmail(sender, receivers, str(message))  # receivers+cc_mail
+#         sp.quit()
+#     except smtplib.SMTPException:
+#         print('处理结果应该是成功,但是邮件发送失败')
+#         os.popen('pause')
+#     else:
+#         print('OK!')
+#         os.popen('pause')
 
 
 # 设置发件人和接收人信息
 def send_mail(filelist, name):
     try:
-        sender = '739881964@qq.com'
-        password = 'xilnonunqhlabcji'  # 腾讯QQ邮箱或腾讯企业邮箱必须使用授权码进行第三方登陆
+        sender = 'tanjingtest@foxmail.com'
+        # sender = '739881964@qq.com'
+        password = 'ncydbifncdkbdehd'  # password = 'xilnonunqhlabcji'  # 腾讯QQ邮箱或腾讯企业邮箱必须使用授权码进行第三方登陆
         # receivers = ['yfwang@intenginetech.com']
         # #cc_mail = ['jjli@intenginetech.com']
         # mail_host = 'smtp.qq.com'
 
-        receivers = ['yfwang@intenginetech.com']
+        receivers = 'xiangyu@intenginetech.com',
+        # receivers = ['yfwang@intenginetech.com']
         # receivers = ['hswang@intenginetech.com', 'weisun@intenginetech.com', 'zjyan@intenginetech.com',
         #              'zytang@intenginetech.com', 'yfwang@intenginetech.com', 'slxie@intenginetech.com', 'xiangyu@intenginetech.com',
         #            'xqzhang@intenginetech.com', 'jywei@intenginetech.com']
@@ -843,7 +858,6 @@ def send_mail(filelist, name):
                   <p>Hello,各位好：</p>
                   <p>&emsp;&emsp;&emsp;最新测试结果见附件,如有问题及时沟通!</p>
                   '''
-
         message = MIMEMultipart()
         message.attach(MIMEText(content, 'html', 'utf-8'))  # 如果只发文本，用这个就够了。
 
@@ -857,169 +871,56 @@ def send_mail(filelist, name):
                 mime = MIMEApplication(f.read())
                 mime.add_header('Content-Disposition', 'attachment', filename=i)
                 message.attach(mime)
-        smtp = smtplib.SMTP_SSL(mail_host, 465)
-        smtp.login(sender, password)
-        smtp.sendmail(sender, receivers, str(message))  # receivers + cc_mail
-        smtp.quit()
-    except smtplib.SMTPException:
+        sp = smtplib.SMTP_SSL(mail_host, 465)
+        sp.login(sender, password)
+        sp.sendmail(sender, receivers, str(message))  # receivers = receivers + cc_mail
+        sp.quit()
+    except smtplib.SMTPException as e:
         print('处理结果应该是成功,但是邮件发送失败')
+        print(e)
         os.popen('pause')
     else:
-        print('OK!')
+        print('成功发送测试结果邮件!')
         os.popen('pause')
+
+
+def get_all_word():
+    """获取命令词"""
+    data = read_rs_trip_data(Info.commands_file)
+    all_word = get_split_zh(data)
+
+    return all_word
 
 
 if __name__ == '__main__':
     log1, log2 = get_log_name()
-    if 'XIAOMEI' in log1:
-        allWord = ['上下摆动', '中等风', '二十一度', '二十七度', '二十三度', '二十九度', \
-                   '二十二度', '二十五度', '二十八度', '二十六度', '二十四度', '二十度', '你好nomi', \
-                   '你好小美', '停止摆动', '关闭睡眠模式', '关闭空气清新', '关闭空调', '关闭节能模式', \
-                   '关闭语音模式', '关闭除湿', '减小风速', '制冷模式', '制热模式', '十七度', '十九度', \
-                   '十八度', '十六度', '升高一度', '升高五度', '增大风速', '定时一小时', '定时两小时', \
-                   '左右摆动', '强劲风', '打开空调', '最大风', '最小风', '睡眠模式', '空气净化', \
-                   '空气清新', '节能模式', '送风模式', '降低一度', '降低五度', '除湿模式', '风大点', \
-                   '风小点', '高速风']
-    elif 'XIAORUI' in log1:
-        allWord = ['你好小睿', '小睿你好', '最大风量', '中等风量', '最小风量', '爆炒风量', '打开灯光', \
-                   '关闭灯光', '关闭风机', '定时关机', '小睿关机']
-    elif 'XIAOYOU' in log1:
-        allWord = ['小优小优', '开启上升', '衣物挂好了', '我要晾衣服', '开启下降', '我要收衣服', \
-                   '关闭上升', '关闭下降', '开启照明', '把灯打开', '关闭照明', '把灯关上', '开启风干', \
-                   '打开风干', '关闭风干', '停止风干', '开启热风', '打开热风', '关闭烘干', '停止烘干', \
-                   '开启消毒', '打开消毒', '关闭消毒', '停止消毒', '打开语音', '开启语音', '关闭语音', \
-                   '声音大一点', '音量大一点', '声音小一点', '音量小一点', '要', '好的', '可以', '下降', \
-                   '降下', '是', '降下来', '行', '没有问题', 'OK']
-    elif 'XIAOKANGAC' in log1:
-        allWord = ['小康小康', '开启空调', '关闭空调', '加热模式', '制冷模式', '除湿模式', \
-                   '关闭除湿', '睡眠模式', '节能模式', '空气净化', '空气清新', '送风模式', '升高温度', \
-                   '降低温度', '升高风速', '降低风速', '最小风', '最大风', '高速风', '中等风', '强劲风', \
-                   '左右摆动', '上下摆动', '停止摆动', '十六度', '十七度', '十八度', '十九度', '二十度', \
-                   '二十一度', '二十二度', '二十三度', '二十四度', '二十五度', '二十六度', '二十七度', \
-                   '二十八度', '二十九度', '三十度', '恢复出厂设置']
-    elif 'XIAOKANGCURTAIN' in log1:
-        allWord = ['关闭灯光', '小康小康', '停止窗帘', '打开灯光', '打开窗帘', '关闭窗帘']
-    elif 'FUQIANG' in log1:
-        allWord = ['你好小美', '打开净化器', '关闭净化器', '调到一档', '调到二档', \
-                   '调到三档', '智能模式']
-    elif 'SANXING' in log1:
-        allWord = ['airconditioneron', 'airconditioneroff', 'temperatureup', 'temperaturedown']
-    elif 'JIANFENG' in log1:
-        allWord = ['你好小美', '开灯', '请开灯', '关灯', '请关灯', '调亮一点', '再亮一点', \
-                   '灯太暗', '调暗一点', '再暗一点', '灯太亮', '播放音乐', '暂停播放', '关闭声音', \
-                   '打开声音', '上一曲', '上一首', '下一首', '下一曲', '调到一档', '调到二档', \
-                   '调到三档', '调到四档', '增大音量', '减小音量', '音源切换']
-    elif 'TUOBANGXIAOMA' in log1:
-        allWord = ['小马播报血压', '增大音量', '减小音量', '开启播报', '关闭播报']
-    elif 'DIYUAN' in log1:
-        allWord = ['你好帝源', '开机', '关机', '请开机', '请关机', '调高档', '调低档']
-    elif 'TUOBANGZHINENGMATONG' in log1:
-        allWord = ['智能马桶', '开始冲水', '开始烘干', '开始便洗', '开始妇洗', '开始童洗', \
-                   '开始宽幅', '运行停止', '水温一档', '水温二档', '水温三档', '水温四档', '水温五档', \
-                   '水温关闭', '座温一档', '座温二档', '座温三档', '座温四档', '座温五档', '座温关闭', \
-                   '风温一档', '风温二档', '风温三档', '风温四档', '风温五档', '风温关闭', '水压一档', \
-                   '水压二档', '水压三档', '水压四档', '水压五档', '喷枪一档', '喷枪二档', '喷枪三档', \
-                   '喷枪四档', '喷枪五档', '夜灯开启', '夜灯开', '夜灯关闭', '夜灯关', '测量体脂', \
-                   '开启播报', '关闭播报', '开启节能', '关闭节能', '开启电源', '关闭电源']
-    elif 'YUXIANQIUJIU' in log1:
-        allWord = ['救命', '救命啊', '幺幺零', '着火了', '快跑', '杀人了', '啊啊啊']
-    elif 'TONGYONGYUYINDENG' in log1:
-        allWord = ['你好小美', '智能管家', '你好小白', '小白你好', '打开语音', '关闭语音', \
-                   '打开声音', '关闭声音', '增大音量', '音量大一点', '减小音量', '音量小一点', '打开灯光', \
-                   '开灯', '关闭灯光', '关灯', '调亮一点', '亮一点', '调暗一点', '暗一点', '调到最亮', \
-                   '中等亮度', '调到最暗', '调到一档', '调到二档', '调到三档', '调到四档', '冷白光', \
-                   '自然光', '暧色光', '改变颜色', '切换模式', '打开台灯', '关闭台灯', '打开卧室灯', \
-                   '关闭卧室灯', '打开主卧灯', '关闭主卧灯', '打开客房灯', '关闭客房灯', '打开书房灯', \
-                   '关闭书房灯', '打开阳台灯', '关闭阳台灯', '打开花园灯', '关闭花园灯', '打开厕所灯', \
-                   '关闭厕所灯', '打开餐厅灯', '关闭餐厅灯 ', '打开吸顶灯', '关掉吸顶灯', '打开灯带', \
-                   '关掉灯带', '打开廊灯', '关掉廊灯', '打开夜灯', '关闭夜灯', '定时关灯', '取消', \
-                   '定时十分钟', '定时半小时', '定时一小时', '定时两小时']
-    elif 'TONGYONGYUYINKONGTIAO' in log1:
-        allWord = ['空调空调', '你好空调', '你好小美', '小康小康', '打开语音', '开启语音', \
-                   '语音开', '关闭语音', '关掉语音', '语音关', '关闭语音模式', '打开声音', '关闭声音', \
-                   '增大音量', '音量大一点', '声音大一点', '大声点', '大点声', '减小音量', '音量小一点', \
-                   '声音小一点', '小声点', '小点声', '开启空调', '打开空调', '开启电源', '开机', '关闭空调', \
-                   '关闭电源', '关机', '打开灯光', '请开灯', '开灯', '关闭灯光', '请关灯', '关灯', '关闭显示', \
-                   '制冷模式', '清凉模式', '制热模式', '温暖模式', '送风模式', '自动模式', '智能模式', '空调自动', \
-                   '全自动', '电加热', '加热模式', '关闭电加热', '除湿模式', '关闭除湿', '睡眠模式', '关闭睡眠模式', \
-                   '节能模式', '关闭节能模式', '安静模式', '空气净化', '空气清新', '清新模式', '关闭空气清新', \
-                   '温度升高', '升高温度', '调高温度', '升高一度', '调高一度', '温度降低', '降低温度', '调低温度', \
-                   '降低一度', '调低一度', '升高五度', '降低五度', '十六度', '十七度', '十八度', '十九度', '二十度', \
-                   '二十一度', '二十二度', '二十三度', '二十四度', '二十五度', '二十六度', '二十七度', '二十八度', \
-                   '二十九度', '三十度', '三十一度', '三十二度', '增大风速', '升高风速', '调大风力', '风大点', \
-                   '减小风速', '降低风速', '调小风力', '风小点', '最小风力', '最小风量', '最小风', '调到低档', '中等风', \
-                   '中等风量', '调到中档', '最大风力', '最大风量', '最大风', '高速风', '强劲风', '调到高档', '自动风速', \
-                   '自然风', '打开扫风', '打开摇头', '风扇摇头', '关掉扫风', '关闭摇头', '摇头停止', '停止摇头', \
-                   '停止摆动', '打开上下扫风', '上下摆动', '关闭上下扫风', '打开左右扫风', '左右摆动', '关闭左右扫风', \
-                   '取消', '定时十分钟', '定时二十分钟', '定时半小时', '定时一小时', '定时二小时', '定时两小时', \
-                   '定时三小时', '定时四小时', '定时六小时', '定时八小时', '定时十小时', '查询状态', '查询帮助', \
-                   '恢复出厂设置']
-    elif 'XIAOKA' in log1:
-        allWord = ['你好小咖', '拿铁', '美式']
-    elif 'SIJIMUGE' in log1:
-        allWord = ['小沐你好', '小沐开机', '请关机', '提高温度', '降低温度', '调为高档', \
-                   '调为中档', '低档温度', '待机模式', '儿童模式', '成人模式', '老人模式', '智能模式', \
-                   '增压功能', '冷水功能', '三十度', '三十一度', '三十二度', '三十三度', '三十四度', \
-                   '三十五度', '三十六度', '三十七度', '三十八度', '三十九度', '四十度', '四十一度', \
-                   '四十二度', '四十三度', '四十四度', '四十五度']
-    elif 'DAXIANJICHENGZAO' in log1:
-        allWord = ['森歌森歌', '达显达显', '打开低档', '打开小风', '打开低速', \
-                   '打开中档', '打开中风', '打开中速', '打开高档', '打开大风', '打开高速', \
-                   '关闭低档', '关闭小风', '关闭低速', '关闭中档', '关闭中风', '关闭中速', \
-                   '关闭高档', '关闭大风', '关闭高速', '关闭风机', '关闭烟机', '打开照明', \
-                   '打开灯光', '关闭照明', '关闭灯光', '打开消毒', '关闭消毒', '打开烘干', \
-                   '关闭烘干', '打开自动', '关闭自动', '打开延时', '打开延迟', '关闭延时', \
-                   '关闭延迟', '打开电源', '打开屏幕', '打开显示', '关闭电源', '关闭屏幕', \
-                   '关闭显示', '返回上级', '返回上一步', '返回上一页', '打开音乐', '打开歌曲', \
-                   '关闭音乐', '关闭歌曲', '打开视频', '关闭视频', '打开菜谱', '打开菜单', \
-                   '关闭菜谱', '关闭菜单']
-    elif 'LAJIFENLEI' in log1:
-        allWord = ['502胶水', '优盘', '棒棒胶', '保健品', '保温杯', '报纸', \
-                   '贝壳', '编织袋', '饼干', '玻璃', '菜叶', '餐巾纸', '茶叶', '茶叶渣', \
-                   '尘土', '充电宝', '充电线', '宠物饲料', '创可贴', '创口贴', '瓷器', \
-                   '打火机', '大骨头', '大肉', '蛋糕', '蛋壳', '灯管', '灯泡', '滴眼液', \
-                   '电池', '电动玩具', '电路板', '调料', '调料瓶', '帆布袋', '干果仁', \
-                   '干燥剂', '甘蔗皮', '瓜子皮', '果核', '果皮', '核桃壳', '红花油', \
-                   '花卉', '花露水', '花生壳', '化妆品', '化妆品瓶', '积木', '鸡蛋', \
-                   '鸡骨头', '坚果壳', '酱料', '胶带', '胶囊', '洁厕液', '金属制品', \
-                   '镜子', '酒瓶', '旧包', '咖啡渣', '卡片', '口香糖', '口罩', '筷子', \
-                   '矿泉水瓶', '零食', '螺丝刀', '绿植', '猫砂', '毛发', '毛巾', '棉签', \
-                   '面包', '面膜', '木制品', '内衣', '尿不湿', '牛奶盒', '泡沫塑料', '泡腾片', \
-                   '皮带', '皮鞋', '气泡袋', '气球', '铅笔', '巧克力', '染发剂', '杀虫剂', \
-                   '剩菜', '剩饭', '湿巾纸', '食用油', '手机', '手套', '书本', '梳子', '鼠标', \
-                   '树叶', '双面胶', '水彩笔', '水银温度计', '塑料', '塑料袋', '塑料盒', '塑料盆', \
-                   '塑料瓶', '塑料玩具', '塑料碗', '糖果', '贴纸', '铁钉', '铁罐', '铁盒', '头发', \
-                   '维生素', '卫生纸', '洗甲水', '虾壳', '相片', '香蕉皮', '橡皮泥', '消毒剂', '牙膏皮', \
-                   '牙刷', '烟盒', '烟头', '颜料盒', '眼镜', '药片', '药品', '药品内包装', '药瓶', \
-                   '药物', '一次性餐具', '衣服', '易拉罐', '饮料瓶', '油漆刷', '鱼骨头', '雨伞', \
-                   '玉米皮', '玉米芯', '照片', '指甲', '指甲刀', '指甲油', '纸杯', '纸袋', '纸盒', \
-                   '纸巾', '纸箱', '纸制品', '中性笔', '中药药渣', '竹牙签', '粽叶']
+    # allWord = [
+    #     '森歌森歌', '达显达显', '打开低档', '打开小风', '打开低速',
+    #     '打开中档', '打开中风', '打开中速', '打开高档', '打开大风', '打开高速',
+    #     '关闭低档', '关闭小风', '关闭低速', '关闭中档', '关闭中风', '关闭中速',
+    #     '关闭高档', '关闭大风', '关闭高速', '关闭风机', '关闭烟机', '打开照明',
+    #     '打开灯光', '关闭照明', '关闭灯光', '打开消毒', '关闭消毒', '打开烘干',
+    #     '关闭烘干', '打开自动', '关闭自动', '打开延时', '打开延迟', '关闭延时',
+    #     '关闭延迟', '打开电源', '打开屏幕', '打开显示', '关闭电源', '关闭屏幕',
+    #     '关闭显示', '返回上级', '返回上一步', '返回上一页', '打开音乐', '打开歌曲',
+    #     '关闭音乐', '关闭歌曲', '打开视频', '关闭视频', '打开菜谱', '打开菜单',
+    #     '关闭菜谱', '关闭菜单'
+    # ]
 
-    elif 'XIAODUGUI' in log1:
-        allWord = ['森歌森歌', '达显达显', '打开低档', '打开小风', '打开低速', '打开中档', '打开中风', \
-                   '打开中速', '打开高档', '打开大风', '打开高速', '关闭低档', '关闭小风', '关闭低速', \
-                   '关闭中档', '关闭中风', '关闭中速', '关闭高档', '关闭大风', '关闭高速', '关闭风机', \
-                   '关闭烟机', '打开照明', '打开灯光', '关闭照明', '关闭灯光', '打开延时', '打开延迟', \
-                   '关闭延时', '关闭延迟', '打开电源', '打开屏幕', '打开显示', '关闭电源', '关闭屏幕', \
-                   '关闭显示', '返回上级', '返回上一步', '返回上一页', '打开音乐', '打开歌曲', '关闭音乐', \
-                   '关闭歌曲', '打开视频', '关闭视频', '打开菜谱', '打开菜单', '关闭菜谱', '关闭菜单', \
-                   '打开肉类', '打开鱼类', '打开蛋类', '打开糕点', '打开蹄筋', '打开蔬菜', '打开面食', \
-                   '打开海鲜', '打开解冻', '停止工作', '结束工作', '开始工作', '暂停工作', '继续工作', \
-                   '返回主页', '打开消毒', '关闭消毒', '打开烘干', '关闭烘干', '打开自动', '关闭自动']
-
-    elif 'ZHENGXIANG' in log1:
-        allWord = ['森歌森歌', '达显达显', '打开低档', '打开小风', '打开低速', '打开中档', '打开中风', \
-                   '打开中速', '打开高档', '打开大风', '打开高速', '关闭低档', '关闭小风', '关闭低速', \
-                   '关闭中档', '关闭中风', '关闭中速', '关闭高档', '关闭大风', '关闭高速', '关闭风机', \
-                   '关闭烟机', '打开照明', '打开灯光', '关闭照明', '关闭灯光', '打开延时', '打开延迟', \
-                   '关闭延时', '关闭延迟', '打开电源', '打开屏幕', '打开显示', '关闭电源', '关闭屏幕', \
-                   '关闭显示', '返回上级', '返回上一步', '返回上一页', '打开音乐', '打开歌曲', '关闭音乐', \
-                   '关闭歌曲', '打开视频', '关闭视频', '打开菜谱', '打开菜单', '关闭菜谱', '关闭菜单', \
-                   '打开肉类', '打开鱼类', '打开蛋类', '打开糕点', '打开蹄筋', '打开蔬菜', '打开面食', \
-                   '打开海鲜', '打开解冻', '停止工作', '结束工作', '开始工作', '暂停工作', '继续工作', \
-                   '返回主页', '打开消毒', '关闭消毒', '打开烘干', '关闭烘干', '打开自动', '关闭自动']
+    allWord = [
+        '森歌森歌', '达显达显', '打开低档', '打开小风', '打开低速', '打开中档', '打开中风',
+        '打开中速', '打开高档', '打开大风', '打开高速', '关闭低档', '关闭小风', '关闭低速',
+        '关闭中档', '关闭中风', '关闭中速', '关闭高档', '关闭大风', '关闭高速', '关闭风机',
+        '关闭烟机', '打开照明', '打开灯光', '关闭照明', '关闭灯光', '打开延时', '打开延迟',
+        '关闭延时', '关闭延迟', '打开电源', '打开屏幕', '打开显示', '关闭电源', '关闭屏幕',
+        '关闭显示', '返回上级', '返回上一步', '返回上一页', '打开音乐', '打开歌曲', '关闭音乐',
+        '关闭歌曲', '打开视频', '关闭视频', '打开菜谱', '打开菜单', '关闭菜谱', '关闭菜单',
+        '打开肉类', '打开鱼类', '打开蛋类', '打开糕点', '打开蹄筋', '打开蔬菜', '打开面食',
+        '打开海鲜', '打开解冻', '停止工作', '结束工作', '开始工作', '暂停工作', '继续工作',
+        '返回主页', '打开消毒', '关闭消毒', '打开烘干', '关闭烘干', '打开自动', '关闭自动'
+    ]
+    # allWord = get_all_word()
     get_xls(allWord, log1, log2[0])
-
     try:
         for i in range(len(log2)):
             get_xls(allWord, log1, log2[i])
@@ -1030,19 +931,16 @@ if __name__ == '__main__':
         list_name = log1.split('.')[0]
         if get_mic_list(log1, list_name):
             log_num = get_mic_list(log1, list_name)
-            log_list = get_list_log()    # 获取mic_list的列表
+            log_list = get_list_log()  # 获取mic_list的列表
             for j in range(log_num):
                 for m in range(len(log2)):
-                    # print(log_list[j])
-                    # print(log2[m])
                     get_xls(allWord, log_list[j], log2[m])
-        else:
-            pass
-    time.sleep(5)
+
+    time.sleep(2)
     try:
-        filelist, name = get_xls_list()
+        file_list, name = get_xls_list()
     except IndexError:
         print("应该是没有产生xls结果文件,请查看主从文件名的时间是否超过1小时？")
         os.popen("pause")
     else:
-        send_mail(filelist, name)
+        send_mail(file_list, name)

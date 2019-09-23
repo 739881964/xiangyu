@@ -52,10 +52,10 @@ def read_rstrip_data(file_name):
     return data
 
 
-def get_split_zh(list):
+def get_split_zh(a_list):
     """获取字符串第一个中文词"""
     res = []
-    for data in list:
+    for data in a_list:
         res.append(data.split()[0])
     return res
 
@@ -107,9 +107,9 @@ def get_one_key(str):
         return res[0]
 
 
-def _get_key(str):
+def _get_key(st):
     """get Chinese"""
-    res = re.findall('[\u4e00-\u9fa5]+', str)
+    res = re.findall('[\u4e00-\u9fa5]+', st)
     if res:
         return res[0]
 
@@ -121,9 +121,10 @@ def count_times(text, data):
             res = word + 'appear times is : ' + str(text.count(word)) + '次'
             write_txt_once(COMMAND_WRITE_FILE_PATH, res)
             print(res)
-        except:
+        except Exception as e:
             res = f'Search word: {word} not exist'
             write_txt_once(COMMAND_WRITE_FILE_PATH, res)
+            print(e)
 
 
 def command_str(data):
@@ -144,18 +145,18 @@ def get_command(data, n=5):
 
 
 def get_time_list(data):
-    list = []  # 时间-list
+    a_list = []  # 时间-list
     for one_data in data:
         if re.findall('[[](.*?)[]]', one_data):
             res = re.findall('[[](.*?)[]]', one_data)[0]
-            list.append(res)
+            a_list.append(res)
     return list
 
 
-def get_key(data, time):
+def get_key(data, _time):
     """find command depend on time"""
     for i in data:
-        if time in i:
+        if _time in i:
             key = get_zh(i)
             return key
 
@@ -170,13 +171,13 @@ def get_key_word(data):
     return keys
 
 
-def get_all_commands(list, n):
-    set = []
-    for i in list:
-        if i not in set:
-            set.append(i)
+def get_all_commands(a_list, n):
+    _set = []
+    for i in a_list:
+        if i not in _set:
+            _set.append(i)
     command_list = []
-    for k in set:
+    for k in _set:
         for j in range(n):
             command_list.append(k)
     return command_list
@@ -212,9 +213,9 @@ def get_start_time_list_str(data):  # str-list
     return start_time_list_str
 
 
-def get_actual_time(time):
+def get_actual_time(one_time):
     """return wav broadcast start_time add five s"""
-    return time + timedelta(minutes=1/12)  # +5秒
+    return one_time + timedelta(minutes=1/12)  # +5秒
 
 
 def get_res_count_data(data):
@@ -304,8 +305,8 @@ def get_wav_name(file_name):
             if '\n' == i:
                 continue
             else:
-                l = i.strip('\r\n')
-                wav_list.append(l)
+                j = i.strip('\r\n')
+                wav_list.append(j)
     return wav_list
 
 

@@ -5,6 +5,7 @@
 # @File    : excel_manual.py
 # @Company : BEIJING INTENGINE
 
+import pandas as pd
 from openpyxl import load_workbook
 from scripts.base_path import EXCEL_PATH
 from scripts.conf_manual import config
@@ -92,10 +93,15 @@ class ExcelManual(object):
 
 
 if __name__ == '__main__':
-    excel = ExcelManual(EXCEL_PATH, 'user_register')
-    __data = excel.read_data()
-    # excel.write_data(16, 1, 2, 3, 4)
-    # for i in __data:
-    #     print(i)
-    # print(len(__data))
-    print(__data)
+
+    header = ['case_id', 'wav_name', 'start_time', 'expected_command', 'reback_time', 'reback_command', 'signel']
+    sum_list = [[1, 2, 32, 3, 44, 55, 33]]
+    sum_data = pd.DataFrame(sum_list)
+    sum_data.to_excel(EXCEL_PATH, encoding='utf-8', header=header, index=False)
+    # excel = ExcelManual(EXCEL_PATH, 'user_register')
+    # __data = excel.read_data()
+    # # excel.write_data(16, 1, 2, 3, 4)
+    # # for i in __data:
+    # #     print(i)
+    # # print(len(__data))
+    # print(__data)

@@ -40,7 +40,7 @@ if __name__ == "__main__":
     for j in all_res_time_list:
         time = get_time(j)
         for i in range(0, len(before_time)):  # circulate 240 times
-        # for i in range(3):
+            # for i in range(3):
             # res_list = []
             if after_time[i] > time > before_time[i]:
                 # print(time)
