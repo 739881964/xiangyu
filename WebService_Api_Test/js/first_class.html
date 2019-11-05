@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>余翔的主页</title>
+<style>
+        .content{
+                color: white;
+                background-color: #d9534f;
+        }
+        {
+                text-align: center;
+        }
+</style>
+</head>
+        <h2>
+        个人主页
+        </h2>
+<body>
+<form>
+        用户名：<input type="text" id="username" placeholder="请输入用户名"/><br>
+        密码：<input type="text" id="password" placeholder="请输入密码"/><br>
+
+        <!--单选框-->
+        最喜欢的电影：
+        <input type="radio" name="电影名称" checked/>阿凡达
+        <input type="radio" name="电影名称"/>英雄
+        <input type="radio" name="电影名称"/>战狼2
+        <!--下拉菜单-->
+        <br>
+
+        最喜欢的城市：
+        <select>
+        <option>北京</option>
+        <option>上海</option>
+        <option>南京</option>
+        <option>杭州</option>
+                                </select>
+        <br>
+        <!--资料上传-->
+        请上传个人资料:
+        <input type="file"/><br>
+        <!--按钮-->
+        <input type="button" id='sub' value="确认"/>
+        <input type="reset" id='reset' value="重置"/>
+<script>
+        document.getElementById('sub').onclick=function(){alert('已提交')};
+        document.getElementById('reset').onclick=function(){alert('已重置')};
+        </script>
+</form>
+</body>
+</html>
