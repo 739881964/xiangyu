@@ -210,7 +210,7 @@ class PandasManual(FixExcel):
     def read_data(self, sheet=None):
         """
         read excel file by openpyxl
-        :return: content is dict-list
+        return: content is dict-list
         """
         wb = load_workbook(self.file_path)
         if sheet:
@@ -284,26 +284,14 @@ if __name__ == '__main__':
     # data = panda.get_data(sheet='com_rate')
     #
     # print(data['命令词'].tolist())
-
-
-    def get_new_wav(data):
-        # 获取全部播放的音频
-        wav_list = list()
-        # pattern = re.compile(r'\\\\.*\.wav')
-        pattern = re.compile(r'.*\.wav')
-        for i in data:
-            if pattern.findall(i):
-                res = pattern.findall(i)[0]
-                # resp = 'D' + res + 'wav'
-                wav_list.append(res)
-
-        return wav_list
-
-
-    _data = [r'C:\Users\hftest1\Desktop\wav\TJ0030009@TJ0030009A02_0063.wav',
-             r'C:\Users\hftest1\Desktop\wav\TJ0030033@TJ0030033A03_0065.wav',
-             'xiangyu'
-             ]
-    result = get_new_wav(_data)
-    print(result)
+    # path = 'D:\\test_result.xlsx'
+    # panda = PandasManual(path)
+    # data = panda.get_data(sheet='all_com_wav')['wav_name'].tolist()
+    # for i in data:
+    #     if data.count(i) != 1:
+    #         print(i)
+    path = r'C:\Users\xiangyu\Desktop\all_wav'
+    # for i in range(1, 25):
+    #     os.mkdir(os.path.join(path, str(i)))
+    # print(data)
 

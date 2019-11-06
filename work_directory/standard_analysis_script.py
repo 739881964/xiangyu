@@ -8,8 +8,8 @@
 
 
 """ 
-识别率分析脚本   分析日志应放在D盘根目录下，只需要两个.log文件即可(MIC和slaver_board开头)，
-其他的文件名称含有MIC或slaver_board的建议删除， 唤醒词的个数根据项目需要修改，修改616行的 __n 参数即可。
+识别率分析脚本  分析日志应放在D盘根目录下，只需要两个.log文件即可(MIC和slaver_board开头)，
+其他的文件名称含有MIC或slaver_board的建议删除， 唤醒词的个数根据项目需要修改，修改617行的 __n 参数即可。
 生成的测试结果在D盘根目录下为 "test_result.xlsx" 的excel文件
 """
 
@@ -111,7 +111,7 @@ class PandasManual(FixExcel):
     def read_data(self, sheet=None):
         """
         read excel file by openpyxl
-        :return: content is dict-list
+        return: content is dict-list
         """
         wb = load_workbook(self.file_path)
         if sheet:
