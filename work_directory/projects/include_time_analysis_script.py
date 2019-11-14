@@ -2,21 +2,28 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2019/10/10 14:51
 # @Author  : Xiang Yu
-# @File    : standard_analysis_script.py
+# @File    : include_time_analysis_script.py
 # @Software: PyCharm
 # @Company : BEIJING INTENGINE
 
 
 """ 
 识别率分析脚本  分析日志应放在D盘根目录下，只需要两个.log文件即可(MIC和slaver_board开头)，
-其他的文件名称含有MIC或slaver_board的建议删除， 唤醒词的个数根据项目需要修改，修改617行的 __n 参数即可。
-生成的测试结果在D盘根目录下为 "test_result.xlsx" 的excel文件
+其他的文件名称含有MIC或slaver_board的建议删除，唤醒词的个数根据项目需要修改，修改 640行 的 __n 参数即可。
+生成的测试结果在D盘根目录下为 "test_result.xlsx" 的 excel文件
 """
 
 
-__all__ = ['FixExcel', 'PandasManual']
+__all__ = [
+        'FixExcel', 'PandasManual', 'get_res_count_data', 'get_every_command_times',
+        'get_all_command_times', 'run_time', 'get_start_time_list', 'get_all_broadcast_wav',
+        'read_rs_trip_data', 'get_slaver_board_log', 'get_mic_log', 'get_lost_wav_start_time',
+        'get_lost_wav', 'get_lost_command', 'operation', 'recognize_rate', 'main'
+]
 
 
+
+import sys
 import os
 import re
 import time
@@ -25,6 +32,7 @@ import pandas as pd
 from openpyxl import load_workbook, Workbook
 from openpyxl.utils import get_column_letter
 from warnings import simplefilter
+
 simplefilter(action='ignore', category=FutureWarning)
 
 
@@ -100,7 +108,7 @@ class PandasManual(FixExcel):
         return data
 
     def get_data(self, sheet=None):
-        """ read excel whole data by pandas"""
+        """ read excel whole data by pandas """
         if sheet:
             data = pd.read_excel(self.file_path, sheet_name=sheet)
         else:
@@ -151,8 +159,8 @@ class PandasManual(FixExcel):
 
     # @run_time()
     def excel_add_sheet(self, data: list, sheet: list, _sheet_name='首页', header=None, index=None):
-        """ not kill before operation when write after depend on column by pandas"""
-        ''' if not exists excel txt, then create it '''
+        """ not kill before operation when write after depend on column by pandas """
+        ''' if not exists excel result, then create it '''
         try:
             if not os.path.exists(self.file_path):
                 df = pd.DataFrame(['测试结果已生成!'])
@@ -175,8 +183,8 @@ class PandasManual(FixExcel):
         # excel_writer.close()
 
 
-def get_res_count_data(data):
-    """get Chinese depend on data where from slaver_board.log """
+def get_res_count_data(data) -> list:
+    """ get Chinese depend on data where from slaver_board.log """
     _count_data = list()
     pattern = re.compile('[\u4e00-\u9fa5]+')
     for i in data:  # i is str
@@ -187,8 +195,8 @@ def get_res_count_data(data):
     return _count_data
 
 
-def get_every_command_times(data):
-    """get Chinese depend on data where from slaver_board.log """
+def get_every_command_times(data) -> list:
+    """ get Chinese depend on data where from slaver_board.log """
     count_data = list()
     pattern = re.compile('[\u4e00-\u9fa5]+')
     for i in data:  # i is str
@@ -199,8 +207,8 @@ def get_every_command_times(data):
     return count_data
 
 
-def get_all_command_times(a_list):
-    # 统计每个命令次出现的次数-list
+def get_all_command_times(a_list) -> tuple:
+    """ 统计每个命令次出现的次数-list """
     one_list = list()
     for i in a_list:
         if i not in one_list:
@@ -212,11 +220,14 @@ def get_all_command_times(a_list):
 
 
 def run_time(num: int = 0):
-    """calculate run count time"""
+    """
+    calculate test run time
+    log have time list
+    """
     def count_run_time(func):
-        def run(*args, **kw):
+        def run(*args, **kwargs):
             one_time = time.perf_counter()
-            res = func(*args, **kw)
+            res = func(*args, **kwargs)
             spent_time = time.perf_counter() - one_time
             if spent_time > num:
                 print('测试执行的时间为: %.2f 秒' % spent_time)
@@ -225,15 +236,15 @@ def run_time(num: int = 0):
     return count_run_time
 
 
-def get_start_time_list(data):
+def get_start_time_list(data) -> list:
     """return wav broadcast start_time"""
     start_time_list = list()
     pattern = re.compile('[[](.*)[.]')
     for i in range(len(data)):
         one_data = data[i]
-        res = pattern.findall(one_data)
-        if res:
+        if pattern.findall(one_data):
             if ('IET' and 'wav') in one_data:
+                res = pattern.findall(one_data)
                 start_time_list.append(res[0][0:23])
         elif ('IET' not in one_data) and ('wav' in one_data):
             start_time_list.append(data[i-1][1:-2])
@@ -241,11 +252,11 @@ def get_start_time_list(data):
     return start_time_list
 
 
-def get_new_wav(data):
-    # 获取全部播放的音频
+def get_all_broadcast_wav(data) -> list:
+    """ 获取全部播放的音频 """
     wav_list = list()
     # pattern = re.compile(r'\\\\.*\.wav')
-    pattern = re.compile(r'.*\.wav')
+    pattern = re.compile('.*\.wav')
     for i in data:
         if pattern.findall(i):
             res = pattern.findall(i)[0]
@@ -255,7 +266,7 @@ def get_new_wav(data):
     return wav_list
 
 
-def read_rs_trip_data(file_name):
+def read_rs_trip_data(file_name) -> list:
     """ abandon \n from data to list """
     try:
         with open(file_name, 'r', encoding='gbk') as f:
@@ -267,7 +278,8 @@ def read_rs_trip_data(file_name):
     return data
 
 
-def get_slaver_board_log(base_path):
+def get_slaver_board_log(base_path) -> str:
+    """ 获取识别到语音的 slaver.log """
     d_files = os.listdir(base_path)
     for file in d_files:
         # if ('slaver_board' and '.log') in file:
@@ -277,7 +289,8 @@ def get_slaver_board_log(base_path):
             return slaver_board_file
 
 
-def get_mic_log(base_path):
+def get_mic_log(base_path) -> str:
+    """ 获取播放语音的 MIC.log """
     d_files = os.listdir(base_path)
     for file in d_files:
         # if ('MIC' and '.log') in file:
@@ -287,8 +300,8 @@ def get_mic_log(base_path):
             return mic_file
 
 
-def get_lost_wav_start_time(all_start_time, data):
-    """获取未识别语音播放开始时间"""
+def get_lost_wav_start_time(all_start_time, data) -> list:
+    """ 获取未识别语音播放开始时间 """
     one_data = data['start_time'].tolist()
     time_list = list(filter(lambda x: x not in one_data, all_start_time))
     # time_list = []
@@ -299,10 +312,10 @@ def get_lost_wav_start_time(all_start_time, data):
     return time_list
 
 
-def get_lost_wav(require_wav, data):
+def get_lost_wav(require_wav, data) -> list:
     """
     获取未识别的音频
-    data: 必须是DataFrame形式的数据，用pandas.DataFrame()转换
+    data: 必须是 DataFrame 形式的数据，用 pandas.DataFrame() 转换
     """
     res = data['wav_name'].tolist()
     # lost_wav = list(filter(lambda x: True if x not in res else False, require_wav))
@@ -315,8 +328,8 @@ def get_lost_wav(require_wav, data):
     return lost_wav
 
 
-def get_lost_command(all_wav, require_wav, need_command):
-    """ 通过音频名称获取命令词 """
+def get_lost_command(all_wav, require_wav, need_command) -> list:
+    """ 通过音频名称获取未识别的命令词 """
     commands = list()
     for i in range(len(all_wav)):
         for j in range(len(require_wav)):
@@ -327,7 +340,7 @@ def get_lost_command(all_wav, require_wav, need_command):
     return commands
 
 
-def operation(log_res_len, test_count, need_wav, compare_command):
+def operation(log_res_len, test_count, need_wav, compare_command) -> tuple:
     """ 计算 pass 和 fail """
     num = 1
     case_id = list()
@@ -390,7 +403,7 @@ def operation(log_res_len, test_count, need_wav, compare_command):
     return case_id, wav_name, start_time, expected_command, reback_time, reback_command, signel
 
 
-def recognize_rate(data, count_times, times, awake_command, time_list, all_command, count_command):
+def recognize_rate(data, count_times, times, awake_command, time_list, all_command, count_command) -> tuple:
 
     """ 计算识别率 """
 
@@ -477,7 +490,7 @@ def recognize_rate(data, count_times, times, awake_command, time_list, all_comma
 
 @run_time()
 def main(test_result_path, base_path, n: int = 1):
-    """如果存在以前的excel结果，自动删除"""
+    """ 如果存在以前的excel结果，自动删除 """
     try:
         if os.path.exists(test_result_path):
             os.remove(test_result_path)
@@ -500,7 +513,7 @@ def main(test_result_path, base_path, n: int = 1):
     all_word, times = get_all_command_times(need_command)
 
     # 获取全部播放的音频
-    require_wav = get_new_wav(data)
+    require_wav = get_all_broadcast_wav(data)
 
     # 获取MIC.log音频开始播放的时间
     all_start_time = get_start_time_list(data)
@@ -549,7 +562,12 @@ def main(test_result_path, base_path, n: int = 1):
 
     res_list = [all_wav, have_res]
     sheet_1 = ['all_com_wav', 'pass_fail_info']
-    to_excel.excel_add_sheet(res_list, sheet_1)
+    try:
+        to_excel.excel_add_sheet(res_list, sheet_1)
+    except:
+        print(lines)
+        print('第一次写入测试excel的数据矩阵长度不等，无法成功写入......')
+        sys.exit()
 
     # pandas 写入未识别的数据
     second_data = to_excel.get_data()
@@ -596,7 +614,12 @@ def main(test_result_path, base_path, n: int = 1):
 
     wav_list = [lost_wav_command, rate_dict]
     sheet_2 = ['loss_info', 'com_rate']
-    to_excel.excel_add_sheet(wav_list, sheet_2)
+    try:
+        to_excel.excel_add_sheet(wav_list, sheet_2)
+    except:
+        print(lines)
+        print('写入测试excel的数据矩阵长度不等，无法成功写入......')
+        sys.exit()
 
     # 修改excel单元格显示问题
     to_excel.modify_excel()
@@ -614,7 +637,7 @@ if __name__ == "__main__":
     # 初始化PandasManual
     to_excel = PandasManual(__test_result_path)
 
-    __n = 3  # 传入唤醒词个数, 默认为1，修改时只需改动 __n即可
+    __n = 3  # 传入唤醒词个数, 默认为 1，修改时只需改动 __n 即可
     main(__test_result_path, __base_path, n=__n)
     print(lines)
     print('测试结果在 {}'.format(__test_result_path))

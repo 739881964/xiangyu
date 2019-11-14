@@ -278,6 +278,8 @@ class PandasManual(FixExcel):
 
 if __name__ == '__main__':
     pass
+    string = '5A 01 0A 07 00 04 00 00 00 00 00 52 0D'
+    print(list(string))
     # __base_path = 'D:\\'
     # __test_result_path = os.path.join(__base_path, 'test_result.xlsx')
     # panda = PandasManual(__test_result_path)
@@ -290,8 +292,9 @@ if __name__ == '__main__':
     # for i in data:
     #     if data.count(i) != 1:
     #         print(i)
-    path = r'C:\Users\xiangyu\Desktop\all_wav'
-    # for i in range(1, 25):
-    #     os.mkdir(os.path.join(path, str(i)))
-    # print(data)
-
+    # all_file = os.listdir(r'C:\Users\xiangyu\Desktop\finally_list')
+    # path = r'C:\Users\xiangyu\Desktop\多联41-60-new\1-20女'
+    # for i in range(len(all_file)):
+    #     # os.mkdir(os.path.join(path, all_file[i]))
+    #     with open(os.path.join(path, all_file[i]), 'a+') as f:
+    #         f.write('')

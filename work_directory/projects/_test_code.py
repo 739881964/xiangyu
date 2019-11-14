@@ -152,5 +152,5 @@ def speech_to_text(wav_file):
         print(output)
 
 
-speech_to_text(r"\\192.168.1.12\hftest\hfwav\tongyongduolian2\TJ0041108@TJ0041108A01_0135.wav")
+speech_to_text(r"C:\Download\wav\zoujilin@zoujilin_20190515_203.wav")
 

@@ -13,7 +13,7 @@ from functools import reduce
 from scripts.text_manual import read_rs_trip_data
 
 
-src_path = r'C:\Users\xiangyu\Desktop\1-60'
+src_path = r'C:\Users\xiangyu\Desktop\finally_list'
 
 files = os.listdir(src_path)
 files_path = list(map(lambda x: os.path.join(src_path, x), files))

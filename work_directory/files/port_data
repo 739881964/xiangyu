@@ -1,0 +1,129 @@
+b'Z\x01\n'
+b'\x07\x01\x00\x00\x00\x00\x00\x00W\rZ\x01\n'
+b'\x07\x01\x00\x00\x00\x00\x00\x00W\rZ\x01\n'
+b'\x07\x01\x00\x00\x00\x00\x00\x00W\rZ\x01\n'
+b'\x07\x10\x00\x00\x00\x00\x00\x00F\rZ\x01\n'
+b'Z\x01\n'
+b'Z\x01\n'
+b'Z'
+b'Z\x01\n'
+b'Z\x01\n'
+b'\x07\x01\x00\x00\x00\x00\x00\x00W\rZ\x01\n'
+b'Z\x01\n'
+b'\x07\x01\x00\x00\x00\x00\x00\x00W\rZ\x01\n'
+b'Z\x01\n'
+b'\r\n'
+b' hiban_isr_index_result SpottingWordList[1][30617] \xe4\xbd\xa0\xe5\xa5\xbd\xe5\xb0\x8f\xe6\x80\x9d\r\n'
+b'\r\n'
+b' hiban_isr_index_result SpottingWordList[3][26478] \xe5\xb0\x8f\xe6\x80\x9d\xe5\x90\x8c\xe5\xad\xa6\r\n'
+b'\r\n'
+b' hiban_isr_index_result SpottingWordList[1][30855] \xe4\xbd\xa0\xe5\xa5\xbd\xe5\xb0\x8f\xe6\x80\x9d\r\n'
+b'\r\n'
+b' hiban_isr_index_result SpottingWordList[3][24154] \xe5\xb0\x8f\xe6\x80\x9d\xe5\x90\x8c\xe5\xad\xa6\r\n'
+
+
+
+ hiban_isr_index_result SpottingWordList[1][30798] 你好小思
+
+
+
+
+
+ hiban_isr_index_result SpottingWordList[3][27234] 小思同学
+
+
+
+
+
+ hiban_isr_index_result SpottingWordList[3][26478] 小思同学
+
+
+
+
+
+ hiban_isr_index_result SpottingWordList[1][23649] 你好小思
+
+
+
+
+
+ hiban_isr_index_result SpottingWordList[3][29071] 小思同学
+
+
+
+
+
+ hiban_isr_index_result SpottingWordList[1][30827] 你好小思
+
+
+
+
+
+ hiban_isr_index_result SpottingWordList[3][30911] 小思同学
+
+
+['0x7', '0x14', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x42', '0xd', '0x5a', '0x1', '0xa']
+5A 01 0A 07 14 00 00 00 00 00 00 42 0D
+
+
+ isr_index_result SpottingWordList[2][29938] 你好小白
+
+
+
+ isr_index_result SpottingWordList[3][27376] 小白你好
+
+
+
+ isr_index_result SpottingWordList[1][30521] 你好小美
+
+Set volume 15
+
+
+
+ isr_index_result SpottingWordList[6][29598] 声音大一点
+
+Set volume 10
+
+
+
+ isr_index_result SpottingWordList[11][29553] 声音小一点
+
+Set volume 15
+
+
+
+ isr_index_result SpottingWordList[5][29643] 音量大一点
+
+Set volume 20
+
+
+
+ isr_index_result SpottingWordList[8][27584] 大点声
+
+Set volume 15
+
+
+
+ isr_index_result SpottingWordList[13][28044] 小点声
+
+Set volume 10
+
+
+
+ isr_index_result SpottingWordList[13][29773] 小点声
+
+
+
+ isr_index_result SpottingWordList[13][27916] 小点声
+
+Set volume 15
+
+
+
+ isr_index_result SpottingWordList[8][28044] 大点声
+
+
+
+ isr_index_result SpottingWordList[2][29553] 你好小白
+
+

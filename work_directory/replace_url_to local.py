@@ -23,14 +23,14 @@ from scripts.text_manual import (get_all_file,
                                  )
 
 
-base_path = r'C:\Users\xiangyu\Desktop\new_list'
 local_path = r'C:\Users\hftest1\Desktop\wav'
-old_path = r'C:\Users\xiangyu\Desktop\new_word_file\new_word_list'
+old_path = r'C:\Users\xiangyu\Desktop\new_1-20'
+new_path = r'C:\Users\xiangyu\Desktop\finally_list'
 
 
 old_file_name = get_all_file(old_path)
 old_file_path = get_all_file_path(old_path, old_file_name)
-new_file_path = get_all_file_path(base_path, old_file_name)
+new_file_path = get_all_file_path(new_path, old_file_name)
 
 # for i in range(len(old_file_name)):
 
@@ -45,17 +45,17 @@ def replace_url(i):
 
 @run_time()
 def main():
-    with ThreadPoolExecutor(max_workers=58) as pool:
+    with ThreadPoolExecutor(max_workers=100) as pool:
         for i in range(len(old_file_name)):
             pool.map(replace_url, [i])
 
 
 if __name__ == "__main__":
     try:
-        if not os.path.exists(base_path):
-            os.mkdir(base_path)
+        if not os.path.exists(new_path):
+            os.mkdir(new_path)
         else:
-            remove_txt(base_path)
+            remove_txt(new_path)
     except:
         pass
 

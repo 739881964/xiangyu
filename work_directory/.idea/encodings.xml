@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/datas/excel.csv" charset="GBK" />
     <file url="file://$PROJECT_DIR$/files/commands.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/files/port_data" charset="GBK" />
     <file url="file://$PROJECT_DIR$/files/result.log" charset="GBK" />
     <file url="file://$PROJECT_DIR$/logs/test_log" charset="GBK" />
   </component>

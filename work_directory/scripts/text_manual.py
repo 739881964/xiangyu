@@ -169,7 +169,7 @@ def get_command(data: list, n: int) -> list:
     return commands
 
 
-def get_time_list(data):
+def get_time_list(data) -> list:
     a_list = list()
     pattern = re.compile('[[](.*?)[]]')
     for one_data in data:
@@ -187,7 +187,7 @@ def get_key(data, _time):
             return key
 
 
-def get_key_word(data):
+def get_key_word(data) -> list:
     """get command depend on list"""
     keys = list()
     for i in data:
@@ -198,7 +198,7 @@ def get_key_word(data):
     return keys
 
 
-def get_all_commands(a_list, n):
+def get_all_commands(a_list, n) -> list:
     _set = list()
     for i in a_list:
         if i not in _set:
@@ -211,7 +211,7 @@ def get_all_commands(a_list, n):
     return command_list
 
 
-def get_all_word(file_path):
+def get_all_word(file_path) -> list:
     """获取命令词"""
     data = read_rs_trip_data(file_path)
     all_word = get_split_zh(data)

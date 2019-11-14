@@ -18,8 +18,8 @@ data = f.items()
 
 # 可以查看所有的主键
 # for key in f.keys():
-for key, value in data:
-    print(key, value)
+# for key, value in data:
+    # print(key, value)
     # print(f[key].name)
     # print(f[key].shape)
     # print(f[key].value)
