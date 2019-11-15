@@ -178,10 +178,10 @@ class OperationSerial:
                 res = ' '.join(list(map(lambda y: y.replace('x', '').upper()[-2:], r)))
                 for excel in excel_data:
                     if excel['语音模块发送给主控MCU的UART数据'] == res:
-                        print('命令或状态：[{}]  -> 串口码响应正确： [{}]'.format(excel['命令 或 状态'], res))
+                        print('响应串口码: [{}] -> 对应的命令或状态：[{}]'.format(res, excel['命令 或 状态']))
                         break
                 else:
-                    print('响应的串口码 [{}] 不正确，无法在excel中找到'.format(res))
+                    print('响应的串口码 [{}] 无法在excel中找到'.format(res))
 
                 # print(res)
                 print()
@@ -201,16 +201,18 @@ class OperationSerial:
                 self.port.write(_data)
                 print('命令或状态: [{}] 串口码：[{}] -> 发送成功 '.format(comm_data[i], one_data))
                 while True:
-                    result = input('请输入语音反馈是否正确(y/n?)： ')
+                    result = input('请输入语音反馈是否正确(y/n/q?)： ')
                     try:
                         if (result == 'y') or (result == 'Y'):
-                            print('串口码 [{}] -> 响应成功'.format(one_data))
+                            print('发送串口码 [{}] -> MCU -> 语音响应成功'.format(one_data))
                             break
                         elif (result == 'n') or (result == 'N'):
-                            print('串口码 [{}] -> 响应错误'.format(one_data))
+                            print('发送串口码 [{}] -> MCU -> 语音响应错误'.format(one_data))
                             break
+                        elif (result == 'q') or (result == 'Q'):
+                            return
                     except:
-                        print('请输入合法的测试结果(y/n?)')
+                        print('请输入合法的测试结果(y/n/q?)')
             except:
                 print('命令或状态: [{}] 串口码：[{}] -> 发送失败 '.format(comm_data[i], one_data))
             print()
@@ -233,7 +235,7 @@ class OperationSerial:
                 res = ' '.join(list(map(lambda y: y.replace('x', '').upper()[-2:], r)))
                 for i in range(len(dic_data)):
                     if dic_data[i]['语音模块发送给主控MCU的UART数据'] == res:
-                        print('命令或状态：[{}] -> 串口码响应正确： [{}]'.format(dic_data[i]['命令 或 状态'], res))
+                        print('响应的串口码: [{}] -> 命令或状态：[{}]'.format(res, dic_data[i]['命令 或 状态']))
 
                         time.sleep(sleep_time)
                         one_data = dic_data[i]['主控MCU发送给语音模块的UART数据']
@@ -242,20 +244,21 @@ class OperationSerial:
                             self.port.write(_data)
                             print('命令或状态: [{}] -> 发给主控MCU串口码：[{}] -> 发送成功 '.format(cmd_data[i], one_data))
                             while True:
-                                result = input('请输入语音反馈是否正确(y/n?)： ')
+                                result = input('请输入语音反馈是否正确(y/n/q?)： ')
                                 try:
                                     if result == 'y':
-                                        print('串口码 [{}] -> 响应成功'.format(one_data))
+                                        print('发送串口码 [{}] -> MCU -> 语音响应成功'.format(one_data))
+                                        break
                                     elif result == 'n':
-                                        print('串口码 [{}] -> 响应错误'.format(one_data))
-                                    break
+                                        print('发送串口码 [{}] -> MCU -> 语音响应错误'.format(one_data))
+                                        break
                                 except:
-                                    print('请输入合法的测试结果(y/n?)')
+                                    print('请输入合法的测试结果(y/n/q?)')
                         except:
                             print('命令或状态: [{}] 串口码：[{}] -> 发送失败 '.format(dic_data[i]['命令 或 状态'], one_data))
                         break
                 else:
-                    print('响应的串口码 [{}] 不正确，无法在excel中找到'.format(res))
+                    print('响应的串口码 [{}] 无法在excel中找到'.format(res))
                 print()
 
 
@@ -302,5 +305,6 @@ if __name__ == "__main__":
         # 根据项目需求：输入端口、模式、接收字节数、接收与发送数据的时间间隔参数
         choose_method(all_data, tara_data, command_data, port='COM10', model='SPS', recv_bytes=13, sp_time=3)
     finally:
+        print()
         print('Test End !')
 
