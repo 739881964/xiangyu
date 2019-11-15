@@ -24,7 +24,17 @@ from scripts.text_manual import (read_rstrip_data,
 
 
 a = [1, 2, 3, 4, 5]
-print(a[:0])
+
+
+def pr(data, n):
+    for i in data:
+        if i == n:
+            print(n)
+    else:
+        print(None)
+
+
+pr(a, 7)
 
 
 # with open('path.yaml', 'r', encoding='utf-8') as f:
