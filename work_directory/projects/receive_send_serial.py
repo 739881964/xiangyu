@@ -236,7 +236,6 @@ class OperationSerial:
                 for i in range(len(dic_data)):
                     if dic_data[i]['语音模块发送给主控MCU的UART数据'] == res:
                         print('响应的串口码: [{}] -> 命令或状态：[{}]'.format(res, dic_data[i]['命令 或 状态']))
-
                         time.sleep(sleep_time)
                         one_data = dic_data[i]['主控MCU发送给语音模块的UART数据']
                         _data = bytes.fromhex(one_data)
