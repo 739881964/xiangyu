@@ -7,7 +7,7 @@
 # @Company : BEIJING INTENGINE
 
 
-__all__ = ["PandasManual", "OperationSerial", 'choose_method']
+__all__ = ["PandasManual", "OperationSerial", 'main']
 
 
 import sys
@@ -262,7 +262,7 @@ class OperationSerial:
                 print()
 
 
-def choose_method(r_data, t_data, c_data, port: '端口号', model: '选择模式', recv_bytes: int, sp_time: int):
+def main(r_data, t_data, c_data, port: '端口号', model: '选择模式', recv_bytes: int, sp_time: int):
     """
     根据需要选择测试的模式
     :param r_data: excel预期接收到的串口码
@@ -303,7 +303,7 @@ if __name__ == "__main__":
         sys.exit()
     else:
         # 根据项目需求：输入端口、模式、接收字节数、接收与发送数据的时间间隔参数
-        choose_method(all_data, tara_data, command_data, port='COM10', model='SPS', recv_bytes=13, sp_time=3)
+        main(all_data, tara_data, command_data, port='COM10', model='SPR', recv_bytes=13, sp_time=3)
     finally:
         print()
         print('Test End !')
