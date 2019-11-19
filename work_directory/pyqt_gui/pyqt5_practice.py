@@ -9,12 +9,12 @@
 
 import sys
 import serial
-
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtWidgets import QMainWindow, QApplication, QTextEdit, QAction, QFileDialog, QMessageBox, QPushButton
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog
+from PyQt5 import QtCore
 
 
 class SetButton(object):
@@ -22,7 +22,7 @@ class SetButton(object):
     def __init__(self):
         pass
 
-    def set_button(self, name, width, high, method):
+    def set_button(self, name, width, high, method=None):
         # 设置确认，退出按钮
         btn = QPushButton(name, self)
         eval(f"btn.clicked.connect(QCoreApplication.instance().{method})")
@@ -31,37 +31,34 @@ class SetButton(object):
         btn.move(width, high)
 
 
-class SetSerialPort(object):
-    # 设置端口号
-    def __init__(self):
-        port = self.get_port()
-        self.port = serial.Serial(port)
-        if not self.port:
-            self.port.open()
-
-    @staticmethod
-    def get_port():
-        return 1
+class QTCore(object):
+    pass
 
 
 class MyWindow(QtWidgets.QWidget, SetButton):
-    _port = list(range(1, 30))
+    _port = list(map(lambda x: str(x), list(range(1, 30))))
 
     def __init__(self):
         super(MyWindow, self).__init__()
         self.myButton = QtWidgets.QPushButton(self)
         self.myButton.setObjectName("my_button")
-        self.myButton.setText("选择文件")
+        self.myButton.setText("选择文件/*.bin")
         self.myButton.clicked.connect(self.select_file)
-        self.myButton.move(20, 20)
-        self.comboBox = QtWidgets.QComboBox()
+        self.myButton.move(20, 15)
+        self.comboBox = QtWidgets.QComboBox(self)
+        # self.comboBox.setObjectName('my_port')
+        # self.comboBox.setEditText('port')
         self.comboBox.addItems(MyWindow._port)
-        self.comboBox.setCurrentIndex(3)  # 设置默认值
+        self.comboBox.setCurrentIndex(0)  # 设置默认值
         self.comboBox.currentText()  # 获得当前内容
-        self.myButton.move(20, 40)
-        self.init_ui()
+        self.comboBox.move(22, 60)
+        self.init_ui(self)
 
-    def init_ui(self):
+    def get_port(self):
+        pass
+
+    def init_ui(self, form):
+        port_label = '端口号'
         # 设置窗口的位置和大小
         self.setGeometry(200, 200, 900, 520)
         # 设置窗口的标题
@@ -72,6 +69,10 @@ class MyWindow(QtWidgets.QWidget, SetButton):
         self.set_button('确认', 690, 450, 'quit')
         # 设置退出按钮
         self.set_button('退出', 780, 450, 'quit')
+        # 设置端口文本提示
+        # _translate = QtCore.QCoreApplication.translate
+        # self.setLayout(port_label)
+        # self.set_button('端口', 50, 60, '')
         # 显示窗口
         self.show()
 
@@ -99,11 +100,26 @@ class MyWindow(QtWidgets.QWidget, SetButton):
         #     event.accept()
         # else:
         #     event.ignore()
-        #
+
         if reply == QMessageBox.Yes:
             event.accept()
         else:
             event.ignore()
+
+
+class SetSerialPort(MyWindow):
+    # 设置端口号
+    def __init__(self):
+        super(SetSerialPort, self).__init__()
+        port = self.get_port()
+        self.port = serial.Serial(port)
+        if not self.port:
+            self.port.open()
+
+    def get_port(self):
+        my_window = MyWindow()
+        # my_port = my_window()
+        return 1
 
 
 if __name__ == "__main__":
