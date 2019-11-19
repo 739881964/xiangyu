@@ -33,6 +33,10 @@ from PyQt5.QtWidgets import (QApplication,
 from PyQt5.QtGui import QIcon, QFont, QPainter, QPen, QColor
 from PyQt5.uic.properties import QtGui
 
+
+jpg_path = r'C:\Users\xiangyu\Desktop\image\Python.jpg'
+
+
 """
 class Example(QWidget):
 
@@ -43,11 +47,11 @@ class Example(QWidget):
 
     def init_ui(self):
         # 设置窗口的位置和大小
-        self.setGeometry(300, 300, 300, 220)
+        self.setGeometry(300, 300, 780, 500)
         # 设置窗口的标题
         self.setWindowTitle('Icon')
         # 设置窗口的图标，引用当前目录下的web.png图片
-        self.setWindowIcon(QIcon('web.png'))
+        self.setWindowIcon(QIcon(jpg_path))
 
         # 显示窗口
         self.show()
@@ -85,7 +89,6 @@ class Example(QWidget):
 """
 
 
-"""
 class Example(QWidget):
 
     def __init__(self):
@@ -97,16 +100,14 @@ class Example(QWidget):
         qbtn = QPushButton('Quit', self)
         qbtn.clicked.connect(QCoreApplication.instance().quit)
         qbtn.resize(qbtn.sizeHint())
-        qbtn.move(50, 50)
+        qbtn.move(100, 100)
 
-        self.setGeometry(300, 300, 250, 150)
+        self.setGeometry(300, 300, 780, 500)
         self.setWindowTitle('Quit button')
         self.show()
-"""
 
 
-"""
-class Example(QWidget):
+class _Example(QWidget):
 
     def __init__(self):
         super().__init__()
@@ -115,7 +116,7 @@ class Example(QWidget):
 
     def init_ui(self):
 
-        self.setGeometry(300, 300, 250, 150)
+        self.setGeometry(300, 300, 800, 520)
         self.setWindowTitle('Message box')
         self.show()
 
@@ -134,7 +135,6 @@ class Example(QWidget):
             event.accept()
         else:
             event.ignore()
-"""
 
 
 """
