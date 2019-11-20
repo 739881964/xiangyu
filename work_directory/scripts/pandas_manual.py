@@ -6,13 +6,15 @@
 # @Software: PyCharm
 # @Company : BEIJING INTENGINE
 
-
 __all__ = ['FixExcel', 'ModifyExcelFormat', 'PandasManual']
 
+
+import numpy as np
 
 import os
 import sys
 import re
+from datetime import datetime, timedelta
 # sys.path.append('../')
 # cur_path = os.path.abspath(os.path.dirname(__file__))
 # root_path = os.path.split(cur_path)[0]
@@ -207,7 +209,7 @@ class PandasManual(FixExcel):
 
         return data
 
-    def read_data(self, sheet=None):
+    def read_data(self, sheet=''):
         """
         read excel file by openpyxl
         return: content is dict-list
@@ -225,6 +227,31 @@ class PandasManual(FixExcel):
             data_list.append(dic)
 
         return data_list
+
+    def open_write_data(self, the_row, wav_name1, start_time, wav_name2, end_time, spend_time, sheet_name=''):  # , expected_command, reback_time, reback_command, signel):
+        """
+        写入数据到excel,行
+        """
+        wb = load_workbook(self.file_path)
+        if sheet_name:
+            sheet = wb[sheet_name]
+        else:
+            sheet = wb.active
+
+        if isinstance(the_row, int) and 2 <= the_row <= sheet.max_row:
+            sheet.cell(the_row, 2).value = wav_name1  # config file's excel col
+            sheet.cell(the_row, 3).value = start_time
+            sheet.cell(the_row, 4).value = wav_name2  # config file's excel col
+            sheet.cell(the_row, 5).value = end_time
+            sheet.cell(the_row, 6).value = spend_time
+            # sheet.cell(the_row, config.get_int('col', 'expected_command')).value = expected_command
+            # sheet.cell(the_row, config.get_int('col', 'reback_time')).value = reback_time
+            # sheet.cell(the_row, config.get_int('col', 'reback_command')).value = reback_command
+            # sheet.cell(the_row, config.get_int('col', 'signel')).value = signel
+
+            wb.save(self.file_path)
+        else:
+            print("unknow the_row")
 
     # @run_time(2)
     def write_data(self, rows: list, columns: list, res: list, sheet=None):
@@ -276,10 +303,42 @@ class PandasManual(FixExcel):
         # excel_writer.close()
 
 
+def get_time(data):
+    """return wav datetime"""
+    return datetime.strptime(data, "%Y-%m-%d %H:%M:%S")
+
+
+def get_str_time(data):
+    """get str-list"""
+    return data.strftime('%Y-%m-%d %H:%M:%S')
+
+
 if __name__ == '__main__':
-    pass
-    string = '5A 01 0A 07 00 04 00 00 00 00 00 52 0D'
-    print(list(string))
+
+    path = r'D:\\ret.xlsx'
+    obj = PandasManual(path)
+    data = obj.read_data(sheet='pass_fail_info')
+    case_id = 0
+    for i in range(1, len(data)):
+        time = get_time(data[i]['start_time']) - get_time(data[i-1]['start_time'])
+        h, m, s = str(time).split(':')
+        time_len = int(h) * 3600 + int(m) * 60 + int(s)
+        if time_len > 15:
+            case_id += 1
+            print(data[i]['wav_name'], data[i-1]['wav_name'])
+            obj.open_write_data(case_id+1,
+                                data[i-1]['wav_name'],
+                                data[i-1]['start_time'],
+                                data[i]['wav_name'],
+                                data[i]['start_time'],
+                                time_len,
+                                sheet_name='ret'
+                                )
+        # if get_str_time(time)[-3:] > 15:
+        #     print(data)
+
+    # string = '5A 01 0A 07 00 04 00 00 00 00 00 52 0D'
+    # print(list(string))
     # __base_path = 'D:\\'
     # __test_result_path = os.path.join(__base_path, 'test_result.xlsx')
     # panda = PandasManual(__test_result_path)

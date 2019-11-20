@@ -23,9 +23,9 @@ from scripts.text_manual import (get_all_file,
                                  )
 
 
-local_path = r'C:\Users\hftest1\Desktop\wav'
-old_path = r'C:\Users\xiangyu\Desktop\new_1-20'
-new_path = r'C:\Users\xiangyu\Desktop\finally_list'
+local_path = r'\\192.168.1.12\hftest\hfwav\duoliankaiguan\wav'
+old_path = r'C:\Users\xiangyu\Desktop\1-60'
+new_path = r'C:\Users\xiangyu\Desktop\new_1_60'
 
 
 old_file_name = get_all_file(old_path)
