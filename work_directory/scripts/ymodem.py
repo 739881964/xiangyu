@@ -7,6 +7,7 @@
 # @Company : BEIJING INTENGINE
 
 
+"""
 import serial
 import time
 import os
@@ -89,6 +90,7 @@ if __name__ == "__main__":
     except Exception as e:
         print('%s:' % str(Exception))
         print('%s:' % str(e))
+"""
 
 
 # from ctypes import *

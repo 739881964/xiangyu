@@ -301,7 +301,7 @@ if __name__ == "__main__":
         sys.exit()
     else:
         # 根据项目需求：输入端口、模式、接收字节数、接收与发送数据的时间间隔参数
-        main(all_data, tara_data, command_data, port='COM10', model='SPD', recv_bytes=13, sp_time=3)
+        main(all_data, tara_data, command_data, port='COM4', model='SPD', recv_bytes=13, sp_time=3)
     finally:
         print()
         print('Test End !')

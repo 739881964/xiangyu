@@ -201,8 +201,8 @@ def get_every_command_times(data) -> list:
     for i in data:  # i is str
         res = pattern.findall(i)
         if res and ('NO' not in i):
-            if 'wav' not in i:
-                count_data.append(res[0])
+            # if 'wav' not in i:
+            count_data.append(res[0])
 
     return count_data
 
