@@ -25,9 +25,6 @@ from openpyxl import load_workbook
 
 class UiForm(object):
 
-    def __init__(self):
-        pass
-
     def setup_ui(self, Form):
         Form.setObjectName("Form")
         Form.resize(707, 520)

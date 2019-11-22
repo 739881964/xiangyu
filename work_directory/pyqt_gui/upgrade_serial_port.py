@@ -49,10 +49,11 @@ class SetButton(object):
         label.setAlignment(Qt.AlignBottom | Qt.AlignRight)
 
 
-class MyWindow(QtWidgets.QWidget, SetButton):
+class MyWindow(SetButton):
     _port = list(map(lambda x: str(x), list(range(1, 30))))
 
-    def __init__(self):
+    """
+    def init(self):
         super(MyWindow, self).__init__()
         self.myButton = QtWidgets.QPushButton(self)
         self.myButton.setObjectName("my_button")
@@ -67,9 +68,10 @@ class MyWindow(QtWidgets.QWidget, SetButton):
         self.comboBox.currentText()  # 获得当前内容
         self.comboBox.move(22, 10)
         self.init_ui()
+    """
 
-    def get_port(self):
-        pass
+    # def get_port(self):
+    #     pass
 
     def init_ui(self):
         port_label = '端口号'
@@ -80,7 +82,7 @@ class MyWindow(QtWidgets.QWidget, SetButton):
         # self.set_button('确认', 690, 450)  # 设置queen按钮
         # self.set_button('确认', 690, 450, self).clicked.connect(self.click_button)
 
-        self.set_button('退出', 780, 450, 'quit')  # 设置退出按钮
+        self.set_button('退出', 780, 410, 'quit')  # 设置退出按钮
         # self.text_edit = QTextEdit()
         self.set_label(55, 20, 80, 10, '设置端口')
 
@@ -95,18 +97,16 @@ class MyWindow(QtWidgets.QWidget, SetButton):
         self.text_browser_2.resize(400, 381)
 
         # 清除文本框
-        """
-        btn_1 = QPushButton("清除", self)
-        btn_1.move(143, 410)
+        btn_1 = QPushButton("清空文件", self)
+        btn_1.move(22, 410)
         btn_1.resize(80, 20)
-        btn_1.clicked.connect(self)
-        """
-        
-        # btn_2 = QPushButton('清除', self)
-        # btn_2.move(143, 410)
-        # btn_2.resize(80, 20)
+        # btn_1.clicked.connect(self)
 
-        self.show()  # 显示窗口
+        btn_2 = QPushButton('确认升级', self)
+        btn_2.move(143, 410)
+        btn_2.resize(80, 20)
+
+        # self.show()  # 显示窗口
 
     def click_button(self):
         data = self.file_name()
@@ -156,21 +156,28 @@ class MyWindow(QtWidgets.QWidget, SetButton):
         #     event.ignore()
 
 
-class SetSerialPort(MyWindow):
+class SetSerialPort(QtWidgets.QWidget, MyWindow):
     # 设置端口号
     _port_dict = {}
 
     def __init__(self):
         # object.__setattr__(SetSerialPort, '_port_dict', {})
         super(SetSerialPort, self).__init__()
-        port = self.check_port()
-        self.port = serial.Serial(port)
-        if not self.port.is_open:
-            self.port.open()
+        self.myButton = QtWidgets.QPushButton(self)
+        self.myButton.setObjectName("my_button")
+        self.myButton.setText("点击选择文件/*.bin")
+        self.myButton.clicked.connect(self.select_file)
+        self.myButton.move(20, 50)
+        self.comboBox = QtWidgets.QComboBox(self)
+        self.comboBox.setObjectName('my_port')
+        self.comboBox.setEditText('port')
+        self.comboBox.addItems(MyWindow._port)
+        self.comboBox.setCurrentIndex(0)  # 设置默认值
+        self.comboBox.currentText()  # 获得当前内容
+        self.comboBox.move(22, 10)
+        self.init_ui()
 
     def check_port(self):
-        # my_window = MyWindow()
-        # my_port = my_window()
         port_list = list(serial.tools.list_ports.comports())
         self.comboBox.clear()
         for port in port_list:
@@ -190,8 +197,8 @@ class SetSerialPort(MyWindow):
 if __name__ == "__main__":
     jpg_path = r'C:\Users\xiangyu\Desktop\image\Python.jpg'
     app = QtWidgets.QApplication(sys.argv)
-    show = MyWindow()
-    show.show()
+    _show = SetSerialPort()
+    _show.show()
     sys.exit(app.exec_())
 
 

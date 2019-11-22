@@ -9,7 +9,7 @@
 
 """
 识别率分析脚本  分析日志应放在D盘根目录下，只需要两个.log文件即可(MIC和slaver_board开头)，
-其他的文件名称含有MIC或slaver_board的建议删除，唤醒词的个数根据项目需要修改，修改 640行 的 __n 参数即可。
+其他的文件名称含有MIC或slaver_board的建议删除，唤醒词的个数根据项目需要修改，修改 644行 的 __n 参数即可。
 生成的测试结果在D盘根目录下为 "test_result.xlsx" 的 excel文件
 """
 
@@ -197,12 +197,15 @@ def get_res_count_data(data) -> list:
 def get_every_command_times(data) -> list:
     """ get Chinese depend on data where from slaver_board.log """
     count_data = list()
-    pattern = re.compile('[\u4e00-\u9fa5]+')
-    for i in data:  # i is str
-        res = pattern.findall(i)
-        if res and ('NO' not in i):
-            # if 'wav' not in i:
-            count_data.append(res[0])
+    for i in range(len(data)):
+        if '***' in data[i]:
+            count_data.append(data[i-1].strip())
+    # pattern = re.compile('[\u4e00-\u9fa5]+')
+    # for i in data:  # i is str
+    #     res = pattern.findall(i)
+    #     if res and ('NO' not in i):
+    #         # if 'wav' not in i:
+    #         count_data.append(res[0])
 
     return count_data
 
@@ -259,12 +262,15 @@ def get_all_broadcast_wav(data) -> list:
     """ 获取全部播放的音频 """
     wav_list = list()
     # pattern = re.compile(r'\\\\.*\.wav')
-    pattern = re.compile('.*\.wav')
+    # pattern = re.compile('.*\.wav')
     for i in data:
-        if pattern.findall(i):
-            res = pattern.findall(i)[0]
+        if ('IET' not in i) and ('wav' in i):
+            # if pattern.findall(i):
+            #     res = pattern.findall(i)[0]
             # resp = 'D' + res + 'wav'
-            wav_list.append(res)
+            wav_list.append(i)
+        elif ('IET' and 'wav') in i:
+            wav_list.append(i.split('>')[-1])
 
     return wav_list
 
