@@ -9,7 +9,7 @@
 
 """
 识别率分析脚本  分析日志应放在D盘根目录下，只需要两个.log文件即可(MIC和slaver_board开头)，
-其他的文件名称含有MIC或slaver_board的建议删除，唤醒词的个数根据项目需要修改，修改 670行 的 __n 参数即可。
+其他的文件名称含有MIC或slaver_board的建议删除，唤醒词的个数根据项目需要修改，修改 674行 的 __n 参数即可。
 生成的测试结果在D盘根目录下为 "board_XXX_result.xlsx" 的 excel文件
 """
 
@@ -228,7 +228,7 @@ def get_all_command_times(a_list) -> tuple:
 
 
 def run_time(num: int = 0):
-    """ calculate test run time log have time list """
+    """ calculate test run time """
     def count_run_time(func):
         def run(*args, **kwargs):
             one_time = time.perf_counter()
@@ -295,7 +295,10 @@ def read_rs_trip_data(file_name) -> list:
 def get_slaver_board_name(file_name):
     """ 获取slaver_log对应板卡的名称作为测试文件名 """
     list_content = file_name.split('\\')[-1]
-    board_name = re.split('board_|_gain', list_content)[1]
+    try:
+        board_name = re.split('board_|_gain', list_content)[1]
+    except:
+        board_name = 'None'
     # board_name = None
     # try:
     #     if isinstance(int(list_content[3]), int):
@@ -521,10 +524,11 @@ def recognize_rate(data, count_times, times, awake_command, time_list, all_comma
 
 # @run_time()
 def test_run(base_path, log_file, n: int = 1):
-
+    # 创建对应板子的日志结果
     board_name = get_slaver_board_name(log_file)
     result_name = f'board_{board_name}_result.xlsx'
     test_result_path = os.path.join(base_path, result_name)
+
     # 初始化PandasManual
     to_excel = PandasManual(test_result_path)
 
