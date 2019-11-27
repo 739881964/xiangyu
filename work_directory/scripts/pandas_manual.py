@@ -6,6 +6,7 @@
 # @Software: PyCharm
 # @Company : BEIJING INTENGINE
 
+
 __all__ = ['FixExcel', 'ModifyExcelFormat', 'PandasManual']
 
 
@@ -26,6 +27,7 @@ from scripts.text_manual import run_time
 from scripts.log_manual import log
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import Color, Font, Alignment, PatternFill, Border, Side, Protection
+from scripts.text_manual import read_rs_trip_data, write_txt_once
 
 
 class FixExcel:
@@ -313,27 +315,39 @@ def get_str_time(data):
     return data.strftime('%Y-%m-%d %H:%M:%S')
 
 
+def sub(x, y):
+    return y - x
+
+
 if __name__ == '__main__':
 
-    path = r'D:\\ret.xlsx'
-    obj = PandasManual(path)
-    data = obj.read_data(sheet='pass_fail_info')
-    case_id = 0
-    for i in range(1, len(data)):
-        time = get_time(data[i]['start_time']) - get_time(data[i-1]['start_time'])
+    path = r'C:\Users\xiangyu\Desktop\1\amaoComDataLog.txt'
+    _path = r'C:\Users\xiangyu\Desktop\1\ret.txt'
+    data = read_rs_trip_data(path)
+    _data = list(map(lambda x: ' '.join([x.split()[1][:-1], x.split()[2][:-6]]).replace('/', '-'), data))
+    # _data = list(map(lambda x: x.split()[2][:-6], data))
+
+    # obj = PandasManual(path)
+    # data = obj.read_data(sheet='pass_fail_info')
+    # case_id = 0
+    for i in range(1, len(_data)):
+        time = get_time(_data[i]) - get_time(_data[i-1])
         h, m, s = str(time).split(':')
         time_len = int(h) * 3600 + int(m) * 60 + int(s)
-        if time_len > 15:
-            case_id += 1
-            print(data[i]['wav_name'], data[i-1]['wav_name'])
-            obj.open_write_data(case_id+1,
-                                data[i-1]['wav_name'],
-                                data[i-1]['start_time'],
-                                data[i]['wav_name'],
-                                data[i]['start_time'],
-                                time_len,
-                                sheet_name='ret'
-                                )
+        if time_len > 10:
+            write_data = _data[i-1] + ' -> ' + _data[i]
+            write_txt_once(_path, write_data)
+
+    #         case_id += 1
+    #         print(data[i]['wav_name'], data[i-1]['wav_name'])
+    #         obj.open_write_data(case_id+1,
+    #                             data[i-1]['wav_name'],
+    #                             data[i-1]['start_time'],
+    #                             data[i]['wav_name'],
+    #                             data[i]['start_time'],
+    #                             time_len,
+    #                             sheet_name='ret'
+    #                             )
         # if get_str_time(time)[-3:] > 15:
         #     print(data)
 
@@ -357,3 +371,4 @@ if __name__ == '__main__':
     #     # os.mkdir(os.path.join(path, all_file[i]))
     #     with open(os.path.join(path, all_file[i]), 'a+') as f:
     #         f.write('')
+

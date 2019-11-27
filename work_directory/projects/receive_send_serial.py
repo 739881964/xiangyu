@@ -5,7 +5,7 @@
 # @File    : receive_send_serial.py
 # @Software: PyCharm
 # @Company : BEIJING INTENGINE
-
+import re
 
 __all__ = ["PandasManual", "OperationSerial", 'main']
 
@@ -178,7 +178,7 @@ class OperationSerial:
                 print()
 
 
-def main(r_data, port: '端口号', model: '选择模式', recv_bytes: int, sp_time: int):
+def main(r_data, port: str, model: str, recv_bytes: int, sp_time: int):
     """
     根据需要选择测试的模式
     :param r_data: excel预期接收到的串口码
@@ -207,16 +207,19 @@ def main(r_data, port: '端口号', model: '选择模式', recv_bytes: int, sp_t
 
 
 if __name__ == "__main__":
-    try:
-        panda = PandasManual(r'C:\Users\xiangyu\Desktop\串口数据.xlsx', sheet='串口通信数据详表以及语音播报内容')
-        all_data = panda.read_data()
-    except:
-        print('获取excel数据失败')
-        sys.exit()
-    else:
-        # 根据项目需求：输入端口、模式、接收字节数、接收与发送数据的时间间隔参数
-        main(all_data, port='COM4', model='SPD', recv_bytes=13, sp_time=3)
-    finally:
-        print()
-        print('Test End !')
+    str = 'slaver_board_sz_2_gain_12_COM31_2019.11.26-17.29.22.log'
+    ret = re.split('board_|_gain', str)
+    print(ret)
+    # try:
+    #     panda = PandasManual(r'C:\Users\xiangyu\Desktop\串口数据.xlsx', sheet='串口通信数据详表以及语音播报内容')
+    #     all_data = panda.read_data()
+    # except:
+    #     print('获取excel数据失败')
+    #     sys.exit()
+    # else:
+    #     # 根据项目需求：输入端口、模式、接收字节数、接收与发送数据的时间间隔参数
+    #     main(all_data, port='COM4', model='SPD', recv_bytes=13, sp_time=3)
+    # finally:
+    #     print()
+    #     print('Test End !')
 

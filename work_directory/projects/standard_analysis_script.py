@@ -9,28 +9,31 @@
 
 """
 识别率分析脚本  分析日志应放在D盘根目录下，只需要两个.log文件即可(MIC和slaver_board开头)，
-其他的文件名称含有MIC或slaver_board的建议删除，唤醒词的个数根据项目需要修改，修改 644行 的 __n 参数即可。
-生成的测试结果在D盘根目录下为 "test_result.xlsx" 的 excel文件
+其他的文件名称含有MIC或slaver_board的建议删除，唤醒词的个数根据项目需要修改，修改 670行 的 __n 参数即可。
+生成的测试结果在D盘根目录下为 "board_XXX_result.xlsx" 的 excel文件
 """
 
 
 __all__ = [
         'FixExcel', 'PandasManual', 'get_res_count_data', 'get_every_command_times',
         'get_all_command_times', 'run_time', 'get_start_time_list', 'get_all_broadcast_wav',
-        'read_rs_trip_data', 'get_slaver_board_log', 'get_mic_log', 'get_lost_wav_start_time',
-        'get_lost_wav', 'get_lost_command', 'operation', 'recognize_rate', 'main'
-]
+        'read_rs_trip_data', 'get_slaver_board_name', 'get_mic_log', 'get_lost_wav_start_time',
+        'get_lost_wav', 'get_lost_command', 'operation', 'recognize_rate', 'test_run', 'main',
+        'get_all_log_file'
+        ]
 
 
 import sys
 import os
 import re
 import time
-
 import pandas as pd
+
 from openpyxl import load_workbook, Workbook
 from openpyxl.utils import get_column_letter
 from warnings import simplefilter
+from concurrent.futures.thread import ThreadPoolExecutor
+
 
 simplefilter(action='ignore', category=FutureWarning)
 
@@ -81,12 +84,14 @@ class FixExcel:
 class PandasManual(FixExcel):
     """ pandas operate excel """
 
+    '''
     def __new__(cls, *args, **kwargs):
         """ only create one object address """
         if not hasattr(PandasManual, '_instance'):
             cls._instance = super(PandasManual, cls).__new__(cls)
             # print(cls._instance)  obj -> address
             return cls._instance
+    '''
 
     def __init__(self, file_path):
         super().__init__(file_path)
@@ -164,7 +169,7 @@ class PandasManual(FixExcel):
             if not os.path.exists(self.file_path):
                 df = pd.DataFrame(['测试结果已生成!'])
                 df.to_excel(self.file_path, sheet_name=_sheet_name, header=header, index=index)
-                print('创建测试结果文件xlsx成功！')
+                # print('创建测试结果文件xlsx成功！')
         except Exception as e:
             print(f'xlsx测试结果文件已存在，自动创建失败-{e}')
             pass
@@ -287,15 +292,31 @@ def read_rs_trip_data(file_name) -> list:
     return data
 
 
-def get_slaver_board_log(base_path) -> str:
-    """ 获取识别到语音的 slaver.log """
+def get_slaver_board_name(file_name):
+    """ 获取slaver_log对应板卡的名称作为测试文件名 """
+    list_content = file_name.split('\\')[-1]
+    board_name = re.split('board_|_gain', list_content)[1]
+    # board_name = None
+    # try:
+    #     if isinstance(int(list_content[3]), int):
+    #         board_name = '_'.join([list_content[2], list_content[3]])
+    # except:
+    #     board_name = list_content[2]
+
+    return board_name
+
+
+def get_all_log_file(base_path):
+    """ 获取 D 盘下所有的slaver_board.log """
+    all_slaver = list()
     d_files = os.listdir(base_path)
     for file in d_files:
-        # if ('slaver_board' and '.log') in file:
-        if 'slaver_board' in file:
-            slaver_board_file = os.path.join(base_path, file)
+        if file.endswith('.log'):
+            if 'slaver_board' in file:
+                slaver_board_file = os.path.join(base_path, file)
+                all_slaver.append(slaver_board_file)
 
-            return slaver_board_file
+    return all_slaver
 
 
 def get_mic_log(base_path) -> str:
@@ -303,10 +324,11 @@ def get_mic_log(base_path) -> str:
     d_files = os.listdir(base_path)
     for file in d_files:
         # if ('MIC' and '.log') in file:
-        if 'MIC' in file:
-            mic_file = os.path.join(base_path, file)
+        if file.endswith('.log'):
+            if 'MIC' in file:
+                mic_file = os.path.join(base_path, file)
 
-            return mic_file
+                return mic_file
 
 
 def get_lost_wav_start_time(all_start_time, data) -> list:
@@ -446,7 +468,7 @@ def recognize_rate(data, count_times, times, awake_command, time_list, all_comma
         awake_false = round(len(ak_error) / times * 100, 2)  # 错误率
         awake_loss = round(ak_null / times * 100, 2)  # 未识别率
     except:
-        print(lines)
+        # print(lines)
         print('测试日志无唤醒词！')
         awake_rate = 0
         awake_false = 0
@@ -457,7 +479,7 @@ def recognize_rate(data, count_times, times, awake_command, time_list, all_comma
         false_recognition = round(len(re_error) / count_times * 100, 2)  # 错误率
         un_recognition_rate = round(re_null / count_times * 100, 2)  # 未识别率
     except:
-        print(lines)
+        # print(lines)
         print('测试日志只有唤醒词！')
         recognition_rate = 0
         false_recognition = 0
@@ -497,13 +519,20 @@ def recognize_rate(data, count_times, times, awake_command, time_list, all_comma
     )
 
 
-@run_time()
-def main(test_result_path, base_path, n: int = 1):
+# @run_time()
+def test_run(base_path, log_file, n: int = 1):
+
+    board_name = get_slaver_board_name(log_file)
+    result_name = f'board_{board_name}_result.xlsx'
+    test_result_path = os.path.join(base_path, result_name)
+    # 初始化PandasManual
+    to_excel = PandasManual(test_result_path)
+
     """ 如果存在以前的excel结果，自动删除 """
     try:
         if os.path.exists(test_result_path):
             os.remove(test_result_path)
-            print('已成功删除历史测试结果！')
+            # print('已成功删除历史测试结果！')
     except Exception as e:
         print(f'历史测试结果xlsx不存在!-{e}')
 
@@ -523,9 +552,9 @@ def main(test_result_path, base_path, n: int = 1):
     require_wav = get_all_broadcast_wav(data)
 
     # 获取slaver_board的内容-list
-    slaver_log = get_slaver_board_log(base_path)
+    # slaver_log = get_slaver_board_log(base_path)[0]
 
-    all_count_data = read_rs_trip_data(slaver_log)
+    all_count_data = read_rs_trip_data(log_file)
 
     # 获取需要的日志内容
     all_res_list = get_res_count_data(all_count_data)
@@ -539,9 +568,9 @@ def main(test_result_path, base_path, n: int = 1):
     else_command_count_time = len(all_start_time) - __wake_time
 
     # pandas 将数据写入excel
-    print(lines)
-    print('Testing......')
-    print(lines)
+    # print(lines)
+    # print('Testing......')
+    # print(lines)
 
     all_wav = {
         'commands': need_command,
@@ -571,9 +600,9 @@ def main(test_result_path, base_path, n: int = 1):
     sheet_1 = ['all_com_wav', 'pass_fail_info']
     try:
         to_excel.excel_add_sheet(res_list, sheet_1)
-    except:
-        print(lines)
-        print('第一次写入测试excel的数据矩阵长度不等，无法成功写入......')
+    except Exception as e:
+        # print(lines)
+        print(e)
         sys.exit()
 
     # pandas 写入未识别的数据
@@ -623,29 +652,32 @@ def main(test_result_path, base_path, n: int = 1):
     sheet_2 = ['loss_info', 'com_rate']
     try:
         to_excel.excel_add_sheet(wav_list, sheet_2)
-    except:
-        print(lines)
-        print('第二次写入测试excel的数据矩阵长度不等，无法成功写入......')
+    except Exception as e:
+        # print(lines)
+        print(e)
         sys.exit()
 
     # 修改excel单元格显示问题
     to_excel.modify_excel()
 
-    print(lines)
-    print('Test finished !!!')
-    print(lines)
+    # print(lines)
+    # print('Test finished !!!')
+    # print(lines)
+    print('测试结果在 {}'.format(test_result_path))
+
+
+@run_time()
+def main():
+    # lines = '-----------------' * 2
+    # 存放日志和测试结果的位置
+    __n = 3  # 传入唤醒词个数, 默认为 1，修改时只需改动 __n 即可
+    __base_path = 'D:\\'
+    __all_log = get_all_log_file(__base_path)
+    with ThreadPoolExecutor(max_workers=len(__all_log)) as pool:
+        for i in range(len(__all_log)):
+            pool.map(test_run, [__base_path], [__all_log[i]], [__n])
 
 
 if __name__ == "__main__":
-    lines = '-----------------' * 2
-    # 存放日志和测试结果的位置
-    __base_path = 'D:\\'
-    __test_result_path = os.path.join(__base_path, 'test_result.xlsx')
-    # 初始化PandasManual
-    to_excel = PandasManual(__test_result_path)
-
-    __n = 3  # 传入唤醒词个数, 默认为 1，修改时只需改动 __n 即可
-    main(__test_result_path, __base_path, n=__n)
-    print(lines)
-    print('测试结果在 {}'.format(__test_result_path))
+    main()
 
