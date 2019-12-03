@@ -14,6 +14,7 @@ import sys
 import time
 
 import serial
+import serial.tools.list_ports
 from openpyxl import load_workbook
 
 
@@ -48,14 +49,16 @@ class PandasManual:
 class OperationSerial:
     """ 实现串口与主控MCU之间的通信：数据接收与发送 """
 
-    def __init__(self, port, is_debug=False):
+    def __init__(self, port='', is_debug=False):
         """ 初始化连接串口，接收端口和波特率，一般为：9600 或 115200 """
-        if is_debug:
-            self.port = serial.Serial(port, 115200)
-        else:
-            self.port = serial.Serial(port, 9600)
-        if not self.port:
-            self.port.open()
+        # self.port = port
+        if port:
+            if is_debug:
+                self.port = serial.Serial(port, 115200)
+            else:
+                self.port = serial.Serial(port, 9600)
+            if not self.port:
+                self.port.open()
 
     def is_open(self):
         """ 打开串口 """
@@ -65,6 +68,16 @@ class OperationSerial:
     def close_port(self):
         """ 关闭串口 """
         self.port.close()
+
+    @classmethod
+    def get_port_list(cls):
+        # 获取windows所有端口
+        port_list = serial.tools.list_ports.comports()
+        final_port = []
+        for port in port_list:
+            final_port.append(port[0])
+
+        return final_port
 
     def debug(self):
         """
@@ -206,7 +219,7 @@ def main(r_data, port, model, recv_bytes, sp_time):
         obj.receive_and_send(recv_bytes, r_data, sp_time)
 
 
-if __name__ == "__main__":
+def run():
     try:
         panda = PandasManual(r'C:\Users\xiangyu\Desktop\串口数据.xlsx', sheet='串口通信数据详表以及语音播报内容')
         all_data = panda.read_data()
@@ -219,4 +232,12 @@ if __name__ == "__main__":
     finally:
         print()
         print('Test End !')
+
+
+if __name__ == "__main__":
+    # sp = OperationSerial()
+    # print(sp.get_port_list())
+    run()
+
+    pass
 

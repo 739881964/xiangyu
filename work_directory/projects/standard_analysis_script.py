@@ -15,7 +15,7 @@
 
 
 __all__ = [
-        'FixExcel', 'PandasManual', 'get_res_count_data', 'get_every_command_times',
+        'MyThread', 'FixExcel', 'PandasManual', 'get_res_count_data', 'get_every_command_times',
         'get_all_command_times', 'run_time', 'get_start_time_list', 'get_all_broadcast_wav',
         'read_rs_trip_data', 'get_slaver_board_name', 'get_mic_log', 'get_lost_wav_start_time',
         'get_lost_wav', 'get_lost_command', 'operation', 'recognize_rate', 'test_run', 'main',
@@ -23,6 +23,8 @@ __all__ = [
         ]
 
 
+import multiprocessing
+import threading
 import sys
 import os
 import re
@@ -36,6 +38,18 @@ from concurrent.futures.thread import ThreadPoolExecutor
 
 
 simplefilter(action='ignore', category=FutureWarning)
+
+
+class MyThread(threading.Thread):
+    """ 封装一个线程类 """
+    def __init__(self, func, args, name=''):
+        threading.Thread.__init__(self)
+        self.func = func
+        self.args = args
+        self.name = name
+
+    def run(self):
+        self.func(*self.args)
 
 
 class FixExcel:
@@ -187,7 +201,7 @@ class PandasManual(FixExcel):
         # excel_writer.close()
 
 
-def get_res_count_data(data) -> list:
+def get_res_count_data(data):
     """ get Chinese depend on data where from slaver_board.log """
     _count_data = list()
     pattern = re.compile('[\u4e00-\u9fa5]+')
@@ -199,7 +213,7 @@ def get_res_count_data(data) -> list:
     return _count_data
 
 
-def get_every_command_times(data) -> list:
+def get_every_command_times(data):
     """ get Chinese depend on data where from slaver_board.log """
     count_data = list()
     for i in range(len(data)):
@@ -215,7 +229,7 @@ def get_every_command_times(data) -> list:
     return count_data
 
 
-def get_all_command_times(a_list) -> tuple:
+def get_all_command_times(a_list):
     """ 统计每个命令次出现的次数-list """
     one_list = list()
     for i in a_list:
@@ -263,7 +277,7 @@ def get_start_time_list(mic_data: '播放日志', slavery_data: '识别日志' =
     return start_time_list
 
 
-def get_all_broadcast_wav(data) -> list:
+def get_all_broadcast_wav(data):
     """ 获取全部播放的音频 """
     wav_list = list()
     # pattern = re.compile(r'\\\\.*\.wav')
@@ -280,7 +294,7 @@ def get_all_broadcast_wav(data) -> list:
     return wav_list
 
 
-def read_rs_trip_data(file_name) -> list:
+def read_rs_trip_data(file_name):
     """ abandon \n from data to list """
     try:
         with open(file_name, 'r', encoding='gbk') as f:
@@ -322,7 +336,7 @@ def get_all_log_file(base_path):
     return all_slaver
 
 
-def get_mic_log(base_path) -> str:
+def get_mic_log(base_path):
     """ 获取播放语音的 MIC.log """
     d_files = os.listdir(base_path)
     for file in d_files:
@@ -334,7 +348,7 @@ def get_mic_log(base_path) -> str:
                 return mic_file
 
 
-def get_lost_wav_start_time(all_start_time, data) -> list:
+def get_lost_wav_start_time(all_start_time, data):
     """ 获取未识别语音播放开始时间 """
     one_data = data['start_time'].tolist()
     time_list = list(filter(lambda x: x not in one_data, all_start_time))
@@ -346,7 +360,7 @@ def get_lost_wav_start_time(all_start_time, data) -> list:
     return time_list
 
 
-def get_lost_wav(require_wav, data) -> list:
+def get_lost_wav(require_wav, data):
     """
     获取未识别的音频
     data: 必须是 DataFrame 形式的数据，用 pandas.DataFrame() 转换
@@ -362,7 +376,7 @@ def get_lost_wav(require_wav, data) -> list:
     return lost_wav
 
 
-def get_lost_command(all_wav, require_wav, need_command) -> list:
+def get_lost_command(all_wav, require_wav, need_command):
     """ 通过音频名称获取未识别的命令词 """
     commands = list()
     for i in range(len(all_wav)):
@@ -374,7 +388,7 @@ def get_lost_command(all_wav, require_wav, need_command) -> list:
     return commands
 
 
-def operation(log_res_len, test_count, need_wav, compare_command) -> tuple:
+def operation(log_res_len, test_count, need_wav, compare_command):
     """ 计算 pass 和 fail """
     num = 1
     case_id = list()
@@ -437,7 +451,7 @@ def operation(log_res_len, test_count, need_wav, compare_command) -> tuple:
     return case_id, wav_name, start_time, expected_command, reback_time, reback_command, signel
 
 
-def recognize_rate(data, count_times, times, awake_command, time_list, all_command, count_command) -> tuple:
+def recognize_rate(data, count_times, times, awake_command, time_list, all_command, count_command):
 
     """ 计算识别率 """
 
@@ -670,6 +684,18 @@ def test_run(base_path, log_file, n: int = 1):
     print('测试结果在 {}'.format(test_result_path))
 
 
+# @run_time()
+# def main():
+#     # lines = '-----------------' * 2
+#     # 存放日志和测试结果的位置
+#     __n = 3  # 传入唤醒词个数, 默认为 1，修改时只需改动 __n 即可
+#     __base_path = 'D:\\'
+#     __all_log = get_all_log_file(__base_path)
+#     with ThreadPoolExecutor(max_workers=len(__all_log)) as pool:
+#         for i in range(len(__all_log)):
+#             pool.map(test_run, [__base_path], [__all_log[i]], [__n])
+
+
 @run_time()
 def main():
     # lines = '-----------------' * 2
@@ -677,9 +703,23 @@ def main():
     __n = 3  # 传入唤醒词个数, 默认为 1，修改时只需改动 __n 即可
     __base_path = 'D:\\'
     __all_log = get_all_log_file(__base_path)
-    with ThreadPoolExecutor(max_workers=len(__all_log)) as pool:
-        for i in range(len(__all_log)):
-            pool.map(test_run, [__base_path], [__all_log[i]], [__n])
+
+    # 创建一个进程池
+    # po = multiprocessing.pool()
+    # for i in range(len(__all_log)):
+    #     po.apply_async(test_run, args=(__base_path, __all_log[i], __n))
+    # po.close()
+
+    threads = []
+    for i in range(len(__all_log)):
+        t = MyThread(test_run, args=(__base_path, __all_log[i], __n))
+        threads.append(t)
+
+    for i in range(len(__all_log)):
+        threads[i].start()
+
+    for i in range(len(__all_log)):
+        threads[i].join()
 
 
 if __name__ == "__main__":

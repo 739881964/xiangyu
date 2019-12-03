@@ -2,13 +2,15 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2019-09-05 22:45
 # @Author  : Yu xiang
-# @File    : text_manual.py
+# @File    : calculate_error_rate.py
 # @Software: PyCharm
 # @Company : BEIJING INTENGINE
 
 
 """对文件操作，处理封装的方法"""
 
+
+import json
 import time
 import os
 import yaml
@@ -83,7 +85,7 @@ def read_rs_trip_data(file_name):
     try:
         with open(file_name, 'r', encoding='gbk') as f:
             data = list(map(lambda line: line.rstrip('\n'), f.readlines()))
-    except:
+    except Exception:
         with open(file_name, 'r', encoding='utf-8') as f:
             data = list(map(lambda line: line.rstrip('\n'), f.readlines()))
 
@@ -420,6 +422,19 @@ def remove_txt(file_path):
 
 
 if __name__ == "__main__":
-    one_list = [1, 1, 3, 3, 5, 6, 7, 8, 10, 10, 10]
-    print(get_all_command_times(one_list))
+    path = 'D:\\123.txt'
+    data = read_rs_trip_data(path)
+    pattern = re.compile('[\u4e00-\u9fa5]+')
+    _data = list(filter(lambda x: pattern.findall(x)[0] if pattern.findall(x) else False, data))
+    __data = list(map(lambda x: pattern.findall(x)[0], _data))
+    command = set(__data)
+    num = 0
+    dic = {}
+    for i in command:
+        if len(i) > 1:
+            dic[i] = str(__data.count(i)) + '次'
+            num += __data.count(i)
+
+    print('误识别总数: ' + str(num))
+    print(json.dumps(dic, ensure_ascii=False, sort_keys=2, indent=True))
 
