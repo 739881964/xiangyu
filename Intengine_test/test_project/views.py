@@ -15,3 +15,4 @@ def do_login(request):
 def home_page(request):
     # if submit(request):
     return render(request, 'Intengine_test/home.html')
+

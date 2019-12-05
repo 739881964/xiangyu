@@ -331,12 +331,14 @@ if __name__ == '__main__':
     # data = obj.read_data(sheet='pass_fail_info')
     # case_id = 0
     for i in range(1, len(_data)):
+        print(get_time(_data[2]))
         time = get_time(_data[i]) - get_time(_data[i-1])
+        print(time)
         h, m, s = str(time).split(':')
         time_len = int(h) * 3600 + int(m) * 60 + int(s)
         if time_len > 10:
             write_data = _data[i-1] + ' -> ' + _data[i]
-            write_txt_once(_path, write_data)
+            # write_txt_once(_path, write_data)
 
     #         case_id += 1
     #         print(data[i]['wav_name'], data[i-1]['wav_name'])
