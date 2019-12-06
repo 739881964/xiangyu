@@ -73,11 +73,11 @@ class OperationSerial:
     def get_port_list(cls):
         # 获取windows所有端口
         port_list = serial.tools.list_ports.comports()
-        final_port = []
+        all_port = []
         for port in port_list:
-            final_port.append(port[0])
+            all_port.append(port[0])
 
-        return final_port
+        return all_port
 
     def debug(self):
         """
@@ -223,12 +223,12 @@ def run():
     try:
         panda = PandasManual(r'C:\Users\xiangyu\Desktop\串口数据.xlsx', sheet='串口通信数据详表以及语音播报内容')
         all_data = panda.read_data()
-    except:
-        print('获取excel数据失败')
+    except Exception as e:
+        print(e)
         sys.exit()
     else:
         # 根据项目需求：输入端口、模式、接收字节数、接收与发送数据的时间间隔参数
-        main(all_data, port='COM4', model='SPD', recv_bytes=13, sp_time=3)
+        main(all_data, port='COM4', model='SPR', recv_bytes=9, sp_time=3)
     finally:
         print()
         print('Test End !')
@@ -240,4 +240,3 @@ if __name__ == "__main__":
     run()
 
     pass
-

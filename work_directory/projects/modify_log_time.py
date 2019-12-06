@@ -36,7 +36,7 @@ class ModifyTime:
     @staticmethod
     def write_txt_once(file_name, data):
         """ 写入数据到文件 """
-        with open(file_name, 'a+', encoding='utf-8') as f:
+        with open(file_name, 'a+', encoding='utf8') as f:
             f.write(data + '\n')
 
     def get_new_file_name(self):
@@ -54,7 +54,7 @@ class ModifyTime:
         new_file = self.get_new_file_name()
         content = self.read_rs_trip_data()
         start_time = list(filter(lambda x: x if x.endswith('>') else False, content))[0]
-        first_time = re.split('\[|\.', start_time)[1]  # 最开始时间
+        first_time = re.split("\[|\.", start_time)[1]  # 最开始时间
         # print(first_time)
         base_time = '00:00:00'
         with open(new_file, 'a+') as f:
@@ -63,29 +63,21 @@ class ModifyTime:
                 if 'SpottingWordList' in data:
                     # date_time = re.search(pattern, data).group(0)
                     date_time = re.split('\[|\.', data)[1]
-                    # date_time = data.split()[0][1:]
-                    # before_time = ModifyTime.get_time(' '.join([date_time, data.split()[1][:-5]]))
-                    # after_time = ModifyTime.get_time(' '.join([date_time, base_time]))
-                    # print(after_time)
                     self_time = self.get_time(date_time) - self.get_time(first_time)
                     final_data = pattern.sub(f'[{str(self_time)}]', data, count=1)
-                    # self.write_txt_once(new_file, final_data)
                     f.write(final_data + '\n')
                     # print(final_data)
                 elif data.endswith('>'):
                     final_data = pattern.sub(f'[{base_time}]', data)
                     # print(final_data)
-                    # self.write_txt_once(new_file, final_data)
                     f.write(final_data + '\n')
                 elif data.endswith('] '):
                     date_time = re.split('\[|\.', data)[1]
                     self_time = self.get_time(date_time) - self.get_time(first_time)
                     final_data = pattern.sub(f'[{str(self_time)}]', data, count=1)
-                    # self.write_txt_once(new_file, final_data)
                     f.write(final_data + '\n')
                 else:
                     f.write(data + '\n')
-                    # self.write_txt_once(new_file, data)
 
 
 # 传入log文件路径

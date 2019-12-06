@@ -9,6 +9,7 @@
             height: 24px;
         }
         </style> -->
+        <link rel="stylesheet" type="text/css" href="css/first.css" />
 </head>
 <body>
 <br />
@@ -18,7 +19,7 @@
         </b>
     </h1>
 <br />
-    <form>
+    <form action="./home.html" method="POST">
         <table width="400" height="300" border="0" style="border:1px solid #000000" align="center">
 
             <tr align="center" bgcolor="#79AEC8">
@@ -32,32 +33,42 @@
                 <td rowspan="5"></td>
                 <td>
                     <b>
-                        用户名:
+                        <label for="username">
+                            用户名:
+                            </label>
                     </b>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input style="width: 380px; height: 30px; background: #E8F0FE;" type="text" id="username" placeholder="请输入账号">
+                    <input style="width: 380px; height: 30px; background: #E8F0FE;
+                            " type="text" name="username" id="username" placeholder="请输入账号">
                 </td>
             </tr>
             <tr>
-                <td><b>密码：</b></td>
+                <td>
+                    <b>
+                    <label for="pwd">
+                        密码：
+                        </label>
+                </b>
+            </td>
             </tr>
             <tr>
                 <td>
-                    <input style="width: 380px; height: 30px; background: #E8F0FE;" type="password" id="pwd" placeholder="请输入密码">
+                    <input style="width: 380px; height: 30px; background: #E8F0FE;
+                            " type="password" name="password" id="pwd" placeholder="请输入密码">
                 </td>
             </tr>
             <tr align="center">
                 <td>
-                    <input type="button" id="sub" value="登录" />&nbsp;
+                    <input type="submit" id="sub" value="登录" />&nbsp;
                     &nbsp;<input type="reset" id="reset" value="重置" />
                 </td>
             </tr>
-            <script>
-                // document.getElementById('reset').onclick=function () {alert('已重置')}
-                </script>
+            <!-- <script>
+                document.getElementById('reset').onclick=function () {alert('已重置')}
+                </script> -->
         </table>
     </form>
 </body>

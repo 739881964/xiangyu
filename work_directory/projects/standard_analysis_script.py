@@ -9,8 +9,8 @@
 
 """
 识别率分析脚本  分析日志应放在D盘根目录下，只需要两个.log文件即可(MIC和slaver_board开头)，
-其他的文件名称含有MIC或slaver_board的建议删除，唤醒词的个数根据项目需要修改，修改 703行 的 __n 参数即可。
-生成的测试结果在D盘根目录下为 "board_XXX_result.xlsx" 的 excel文件
+其他的文件名称含有MIC或slaver_board的建议删除，唤醒词的个数需要手动输入，生成的测试结果在
+D盘根目录下为 "test_XXX_result.xlsx" 的 excel文件
 """
 
 
@@ -23,7 +23,6 @@ __all__ = [
         ]
 
 
-import multiprocessing
 import threading
 import sys
 import os
@@ -34,7 +33,6 @@ import pandas as pd
 from openpyxl import load_workbook, Workbook
 from openpyxl.utils import get_column_letter
 from warnings import simplefilter
-from concurrent.futures.thread import ThreadPoolExecutor
 
 
 simplefilter(action='ignore', category=FutureWarning)
@@ -63,8 +61,6 @@ class FixExcel:
 
         for k in range(len(sheet_names)):
             one_sheet = wb[sheet_names[k]]
-            # 水平居中，垂直居中
-            # one_sheet.alignment = Alignment(horizontal='center', vertical='center')
             # 获取每一列的内容的最大宽度
             m = 0
             # 每列
@@ -98,14 +94,14 @@ class FixExcel:
 class PandasManual(FixExcel):
     """ pandas operate excel """
 
-    '''
-    def __new__(cls, *args, **kwargs):
-        """ only create one object address """
-        if not hasattr(PandasManual, '_instance'):
-            cls._instance = super(PandasManual, cls).__new__(cls)
-            # print(cls._instance)  obj -> address
-            return cls._instance
-    '''
+
+    # def __new__(cls, *args, **kwargs):
+    #     """ only create one object address """
+    #     if not hasattr(PandasManual, '_instance'):
+    #         cls._instance = super(PandasManual, cls).__new__(cls)
+    #         # print(cls._instance)  obj -> address
+    #         return cls._instance
+
 
     def __init__(self, file_path):
         super().__init__(file_path)
@@ -153,7 +149,6 @@ class PandasManual(FixExcel):
 
         return data_list
 
-    # @run_time()
     def write_data(self, rows, columns, sheet=None, *args):
         """
         write in excel depend on row by openpyxl
@@ -175,7 +170,6 @@ class PandasManual(FixExcel):
             else:
                 print('row is not exist')
 
-    # @run_time()
     def excel_add_sheet(self, data: list, sheet: list, _sheet_name='首页', header=None, index=None):
         """ not kill before operation when write after depend on column by pandas """
         ''' if not exists excel result, then create it '''
@@ -183,7 +177,6 @@ class PandasManual(FixExcel):
             if not os.path.exists(self.file_path):
                 df = pd.DataFrame(['测试结果已生成!'])
                 df.to_excel(self.file_path, sheet_name=_sheet_name, header=header, index=index)
-                # print('创建测试结果文件xlsx成功！')
         except Exception as e:
             print(f'xlsx测试结果文件已存在，自动创建失败-{e}')
             pass
@@ -198,38 +191,30 @@ class PandasManual(FixExcel):
                 df.to_excel(excel_writer=excel_writer, sheet_name=sheet[i], index=False)
 
             excel_writer.save()
-        # excel_writer.close()
 
 
-def get_res_count_data(data):
+def get_res_count_data(data) -> list:
     """ get Chinese depend on data where from slaver_board.log """
     _count_data = list()
     pattern = re.compile('[\u4e00-\u9fa5]+')
     for i in data:  # i is str
-        # __data = re.findall('[\u4e00-\u9fa5]+', i)
         if pattern.findall(i):
             _count_data.append(i)
 
     return _count_data
 
 
-def get_every_command_times(data):
+def get_every_command_times(data) -> list:
     """ get Chinese depend on data where from slaver_board.log """
     count_data = list()
     for i in range(len(data)):
         if '***' in data[i]:
             count_data.append(data[i-1].strip())
-    # pattern = re.compile('[\u4e00-\u9fa5]+')
-    # for i in data:  # i is str
-    #     res = pattern.findall(i)
-    #     if res and ('NO' not in i):
-    #         # if 'wav' not in i:
-    #         count_data.append(res[0])
 
     return count_data
 
 
-def get_all_command_times(a_list):
+def get_all_command_times(a_list) -> tuple:
     """ 统计每个命令次出现的次数-list """
     one_list = list()
     for i in a_list:
@@ -262,7 +247,6 @@ def get_start_time_list(mic_data: '播放日志', slavery_data: '识别日志' =
         if i not in date_time:
             date_time.append(i)
     start_time_list = list()
-    # pattern = re.compile('\*\*\*(\w+)\*\*')
     start = mic_data[0].split()[-1]
     for i in mic_data:
         if '***' in i:
@@ -277,16 +261,11 @@ def get_start_time_list(mic_data: '播放日志', slavery_data: '识别日志' =
     return start_time_list
 
 
-def get_all_broadcast_wav(data):
+def get_all_broadcast_wav(data) -> list:
     """ 获取全部播放的音频 """
     wav_list = list()
-    # pattern = re.compile(r'\\\\.*\.wav')
-    # pattern = re.compile('.*\.wav')
     for i in data:
         if ('IET' not in i) and ('wav' in i):
-            # if pattern.findall(i):
-            #     res = pattern.findall(i)[0]
-            # resp = 'D' + res + 'wav'
             wav_list.append(i)
         elif ('IET' and 'wav') in i:
             wav_list.append(i.split('>')[-1])
@@ -294,7 +273,7 @@ def get_all_broadcast_wav(data):
     return wav_list
 
 
-def read_rs_trip_data(file_name):
+def read_rs_trip_data(file_name) -> list:
     """ abandon \n from data to list """
     try:
         with open(file_name, 'r', encoding='gbk') as f:
@@ -313,12 +292,6 @@ def get_slaver_board_name(file_name):
         board_name = re.split('board_|_gain', list_content)[1]
     except:
         board_name = 'None'
-    # board_name = None
-    # try:
-    #     if isinstance(int(list_content[3]), int):
-    #         board_name = '_'.join([list_content[2], list_content[3]])
-    # except:
-    #     board_name = list_content[2]
 
     return board_name
 
@@ -336,7 +309,7 @@ def get_all_log_file(base_path):
     return all_slaver
 
 
-def get_mic_log(base_path):
+def get_mic_log(base_path) -> str:
     """ 获取播放语音的 MIC.log """
     d_files = os.listdir(base_path)
     for file in d_files:
@@ -348,19 +321,15 @@ def get_mic_log(base_path):
                 return mic_file
 
 
-def get_lost_wav_start_time(all_start_time, data):
+def get_lost_wav_start_time(all_start_time, data) -> list:
     """ 获取未识别语音播放开始时间 """
     one_data = data['start_time'].tolist()
     time_list = list(filter(lambda x: x not in one_data, all_start_time))
-    # time_list = []
-    # for time in all_start_time:
-    #     if time not in one_data:
-    #         time_list.append(time)
 
     return time_list
 
 
-def get_lost_wav(require_wav, data):
+def get_lost_wav(require_wav, data) -> list:
     """
     获取未识别的音频
     data: 必须是 DataFrame 形式的数据，用 pandas.DataFrame() 转换
@@ -368,15 +337,11 @@ def get_lost_wav(require_wav, data):
     res = data['wav_name'].tolist()
     # lost_wav = list(filter(lambda x: True if x not in res else False, require_wav))
     lost_wav = list(filter(lambda x: x not in res, require_wav))
-    # lost_wav = []
-    # for wav in require_wav:
-    #     if wav not in res:
-    #         lost_wav.append(wav)
 
     return lost_wav
 
 
-def get_lost_command(all_wav, require_wav, need_command):
+def get_lost_command(all_wav, require_wav, need_command) -> list:
     """ 通过音频名称获取未识别的命令词 """
     commands = list()
     for i in range(len(all_wav)):
@@ -388,7 +353,7 @@ def get_lost_command(all_wav, require_wav, need_command):
     return commands
 
 
-def operation(log_res_len, test_count, need_wav, compare_command):
+def operation(log_res_len, test_count, need_wav, compare_command) -> tuple:
     """ 计算 pass 和 fail """
     num = 1
     case_id = list()
@@ -405,6 +370,7 @@ def operation(log_res_len, test_count, need_wav, compare_command):
             try:
                 if test_count[i+1] > one_time > test_count[i]:
                     if key == compare_command[i]:
+                        # print('pass: %s' % key)
                         case_id.append(num)
                         wav_name.append(need_wav[i])
                         start_time.append(test_count[i])
@@ -415,6 +381,7 @@ def operation(log_res_len, test_count, need_wav, compare_command):
                         num += 1
                         break
                     else:
+                        # print('error: %s' % key)
                         case_id.append(num)
                         wav_name.append(need_wav[i])
                         start_time.append(test_count[i])
@@ -451,7 +418,7 @@ def operation(log_res_len, test_count, need_wav, compare_command):
     return case_id, wav_name, start_time, expected_command, reback_time, reback_command, signel
 
 
-def recognize_rate(data, count_times, times, awake_command, time_list, all_command, count_command):
+def recognize_rate(data, count_times, times, awake_command, time_list, all_command, count_command) -> tuple:
 
     """ 计算识别率 """
 
@@ -536,11 +503,10 @@ def recognize_rate(data, count_times, times, awake_command, time_list, all_comma
     )
 
 
-# @run_time()
 def test_run(base_path, log_file, n: int = 1):
     # 创建对应板子的日志结果
     board_name = get_slaver_board_name(log_file)
-    result_name = f'board_{board_name}_result.xlsx'
+    result_name = f'test_{board_name}_result.xlsx'
     test_result_path = os.path.join(base_path, result_name)
 
     # 初始化PandasManual
@@ -550,7 +516,6 @@ def test_run(base_path, log_file, n: int = 1):
     try:
         if os.path.exists(test_result_path):
             os.remove(test_result_path)
-            # print('已成功删除历史测试结果！')
     except Exception as e:
         print(f'历史测试结果xlsx不存在!-{e}')
 
@@ -585,11 +550,6 @@ def test_run(base_path, log_file, n: int = 1):
     __wake_time = sum(times[:n])
     else_command_count_time = len(all_start_time) - __wake_time
 
-    # pandas 将数据写入excel
-    # print(lines)
-    # print('Testing......')
-    # print(lines)
-
     all_wav = {
         'commands': need_command,
         'wav_name': require_wav,
@@ -603,7 +563,6 @@ def test_run(base_path, log_file, n: int = 1):
                                                       need_command
                                                       )
 
-    # case_id = list(range(1, len(all_res_list) + 1))
     have_res = {
         'case_id': number,
         'wav_name': wav_name,
@@ -619,7 +578,6 @@ def test_run(base_path, log_file, n: int = 1):
     try:
         to_excel.excel_add_sheet(res_list, sheet_1)
     except Exception as e:
-        # print(lines)
         print(e)
         sys.exit()
 
@@ -671,57 +629,41 @@ def test_run(base_path, log_file, n: int = 1):
     try:
         to_excel.excel_add_sheet(wav_list, sheet_2)
     except Exception as e:
-        # print(lines)
         print(e)
         sys.exit()
 
     # 修改excel单元格显示问题
     to_excel.modify_excel()
 
-    # print(lines)
-    # print('Test finished !!!')
-    # print(lines)
     print('测试结果在 {}'.format(test_result_path))
-
-
-# @run_time()
-# def main():
-#     # lines = '-----------------' * 2
-#     # 存放日志和测试结果的位置
-#     __n = 3  # 传入唤醒词个数, 默认为 1，修改时只需改动 __n 即可
-#     __base_path = 'D:\\'
-#     __all_log = get_all_log_file(__base_path)
-#     with ThreadPoolExecutor(max_workers=len(__all_log)) as pool:
-#         for i in range(len(__all_log)):
-#             pool.map(test_run, [__base_path], [__all_log[i]], [__n])
 
 
 @run_time()
 def main():
-    # lines = '-----------------' * 2
     # 存放日志和测试结果的位置
-    __n = 3  # 传入唤醒词个数, 默认为 1，修改时只需改动 __n 即可
     __base_path = 'D:\\'
     __all_log = get_all_log_file(__base_path)
+    while True:
+        __n = input('请输入唤醒词个数(/Enter结束): ')
+        try:
+            if isinstance(int(__n), int):
+                pass
+        except Exception as e:
+            print(e)
+        else:
+            threads = []
+            for i in range(len(__all_log)):
+                t = MyThread(test_run, args=(__base_path, __all_log[i], int(__n)))
+                threads.append(t)
 
-    # 创建一个进程池
-    # po = multiprocessing.pool()
-    # for i in range(len(__all_log)):
-    #     po.apply_async(test_run, args=(__base_path, __all_log[i], __n))
-    # po.close()
+            for i in range(len(__all_log)):
+                threads[i].start()
 
-    threads = []
-    for i in range(len(__all_log)):
-        t = MyThread(test_run, args=(__base_path, __all_log[i], __n))
-        threads.append(t)
+            for i in range(len(__all_log)):
+                threads[i].join()
 
-    for i in range(len(__all_log)):
-        threads[i].start()
-
-    for i in range(len(__all_log)):
-        threads[i].join()
+            break
 
 
 if __name__ == "__main__":
     main()
-

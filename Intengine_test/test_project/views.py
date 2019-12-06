@@ -1,14 +1,18 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
+import requests
 
 
-# Create your views here.
+# 登录验证
 def login(request):
-    return render(request, 'Intengine_test/login.html')
-
-
-# 点击确认按钮，跳转到首页
-def do_login(request):
-    return redirect(home_page)
+    if request.method == 'GET':
+        return render(request, 'Intengine_test/login.html')
+    if request.method == 'POST':
+        name = request.POST['username']
+        pwd = request.POST['password']
+        if (name == "xiangyu") and (pwd == "xiangyu123"):
+            return redirect('Intengine_test/home.html')
+        else:
+            return HttpResponse("用户名或者密码错误")
 
 
 # 首页
