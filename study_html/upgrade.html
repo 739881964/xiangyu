@@ -5,15 +5,23 @@
     <title>串口升级</title>
     <script type="text/javascript">
         window.onload = function(){
-            var val = document.getElementById("file");
+            var val = document.getElementById("file").files;
             var files = document.getElementById("show_file");
 
-            var black_list = [ ];
+            var all_name = "";
             val.onchange = function(){
-                black_list.push(val.value);
-                // files.value = val.value;
-                files.value = black_list;
+                for(var i=0; i<val.length; i++){
+                al_name += val[i].name + "; ";
+                files = all_name;
+                }
             }
+            // files.value = val;
+            // var black_list = [ ];
+            // val.onchange = function(){
+            //     black_list.push(val.value);
+            //     // files.value = val.value;
+            //     files.value = black_list;
+            // }
             // files.value = black_list;
         }
     </script>
