@@ -3,70 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <title>串口升级</title>
+    <script type="text/javascript">
+        window.onload = function(){
+            var val = document.getElementById("file");
+            var files = document.getElementById("show_file");
+
+            var black_list = [ ];
+            val.onchange = function(){
+                black_list.push(val.value);
+                // files.value = val.value;
+                files.value = black_list;
+            }
+            // files.value = black_list;
+        }
+    </script>
     <style type="text/css">
-        .parent_box{
-            width: 1300px;
-            /* height: 700px; */
-            border-top: 1px solid #000;
-            border-left: 1px solid #000;
-            border-right: 1px solid #000;
-            /* background-color: teal; */
-    }
+        /* body{
+            background: url(./image/.jpg);
+        } */
         .box1{
             width: 1300px;
-            height: 100px;
-            /* background-color: thistle; */
+            /* height: 100px; */
+            background-color:lightseagreen;
             font-size: 30px;
-            /* font-family: "Microsoft Yahei"; */
+            font-family: "Microsoft Yahei";
             line-height: 100px;
             text-indent: 20px;
-            margin: 0;
-            /* border: 1px solid #000; */
-            border-bottom: 1px dashed #000;
+            border: 2px solid #000;
         }
-        .box2{
-            width: 1300px;
-            /* height: 600px; */
-            /* background-color:yellowgreen; */
-            /* font-size: 0; */
+        .parent_box{
+            widows: 1300px;
+            font-size: 0;
+            /* margin: 20px auto 0; */
+        }
+        .parent_box div{
+            width: 600px;
+            /* height: 800px; */
+            /* border: 1px solid #000; */
+            display: inline-block;
+            /* background-color: antiquewhite; */
+            font-size: 10px;
+        }
+        .box3{
+            margin: 0 -1px 0;
+            position: relative;
+            left: 100px;
         }
         .box2 div{
-            width: 640px;
-            height: 600px;
-            /* background-color: blueviolet; */
-            display: inline-block;
-            /* margin: 20px; */
-            /* font-size: 10px; */
+            margin: 10px 0 0;
         }
-        .box2_1{
-            color:darkorange;
-            border-right: 1px dashed #000;
-            /* background-color: blueviolet; */
+        .show{
+            overflow: scroll;
         }
-        .box2_2{
-            color: crimson;
-            border-left: 1px dashed #000;
-            /* background-color:cadetblue; */
-            position: relative;
-            left: 15px;
-            /* margin: 0 1px 0 0; */
-        }
-        /* .clearfix:before{
-            content: "";
-            display: block;
-        } */
     </style>
 </head>
 <body>
-    <div class="parent_box">
-        <div class=box1>
-            <strong>串口升级</strong>
-        </div>
-        <div class="box2">
-            <div class="box2_1">
-            </div>
-            <div class="box2_2"></div>
-        </div>
+    <div class="box1">
+        <strong>串口升级</strong>
     </div>
+    <div class="parent_box">
+        <form>
+        <div class="box2">
+            <div>
+                <p>设置一: 端口及波特率&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            </div>
+            <div>
+                <label>
+                    端&nbsp;&nbsp;&nbsp;&nbsp;口:&nbsp;&nbsp;&nbsp;&nbsp;
+                </label>
+                <select>
+                    <option value=""></option>
+                    <option value="">COM1</option>
+                    <option value="">COM2</option>
+                    <option value="">COM3</option>
+                    <option value="">COM4</option>
+                    <option value="">COM5</option>
+                    <option value="">COM6</option>
+                    </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp
+                    <input type="button" id=='refresh' value="刷新端口" />
+
+            </div>
+            <div>
+                <label>
+                        波特率:&nbsp;&nbsp;&nbsp;&nbsp;
+                    </label>
+                <select name="" id="">
+                        <option value=""></option>
+                        <option value="">9600</option>
+                        <option value="" checked>115200</option>
+                    </select>
+            </div>
+            <div>
+                <p>设置二: 选择升级的bin文件</p>
+            </div>
+            <div>
+                <label>添加文件:</label>
+                <input type="file" name="file" id="file" multiple="multiple" />
+            </div>
+            <div><textarea id="show_file" disabled="disabled" class="show" cols="28" rows="18">
+                </textarea></div>
+            <div>
+                <input type="button" id='upgrade' value="点击升级" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="reset" id='reset' value="全部重置" />
+            </div>
+            </div>
+        <div class="box3">
+            <textarea class="show" cols="83" rows="33">
+                </textarea>
+        </div>
+    </form>
 </body>
 </html>

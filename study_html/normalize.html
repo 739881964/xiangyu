@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript">
+        window.onload = function(){
+            var div = document.getElementById('change_button');
+
+            div.onclick = function(){
+                var change = document.getElementById('div')
+                change.style.color = "red";
+                change.style.fontSize = "20px";
+
+            // div.onclick = change_click;
+
+            // function change_click(){
+            //     var change = document.getElementById('div')
+            //     change.style.color = "red";
+            //     change.style.fontSize = "20px";
+            }
+
+            function compare(a, b){
+                if(a===b){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+
+            var result = compare('2', 2);
+            alert(result);
+        }
+    </script>
+</head>
+<body>
+    <div id="div">
+        这是一个div标签
+    </div>
+    <br />
+    <input type="button" value="改变div" id='change_button' />
+</body>
+</html>
