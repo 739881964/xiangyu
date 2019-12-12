@@ -5,24 +5,27 @@
     <title>串口升级</title>
     <script type="text/javascript">
         window.onload = function(){
-            var val = document.getElementById("file").files;
+            var val = document.getElementById("file");
             var files = document.getElementById("show_file");
 
-            var all_name = "";
-            val.onchange = function(){
-                for(var i=0; i<val.length; i++){
-                al_name += val[i].name + "; ";
-                files = all_name;
+            // val.onchange = change_list();
+            val.onchange = function(e){
+                console.log(e.target.files);
+                let files_list = e.target.files;
+                // console.log(files_list[0].name)
+                for (var i = 0;i < files_list.length;i++){
+                    // var textN = document.createTextNode(files_list[i].name)
+                    var text = document.createElement("p");
+                    text.innerHTML = files_list[i].name;
+                    files.appendChild(text);
                 }
             }
-            // files.value = val;
-            // var black_list = [ ];
-            // val.onchange = function(){
-            //     black_list.push(val.value);
-            //     // files.value = val.value;
-            //     files.value = black_list;
-            // }
-            // files.value = black_list;
+
+            var btn = document.getElementById("btn");
+            btn.onclick = function(){
+                files.innerHTML = "";
+            }
+            // btn.click = change_list(e, popChild)
         }
     </script>
     <style type="text/css">
@@ -54,14 +57,19 @@
         }
         .box3{
             margin: 0 -1px 0;
-            position: relative;
-            left: 100px;
+            position: absolute;
+            left: 708px;
         }
         .box2 div{
             margin: 10px 0 0;
         }
         .show{
             overflow: scroll;
+        }
+        .else_div{
+            /* width: 50px; */
+            height: 270px;
+            border: 1px solid #000;
         }
     </style>
 </head>
@@ -88,9 +96,8 @@
                     <option value="">COM5</option>
                     <option value="">COM6</option>
                     </select>
-                    &nbsp;&nbsp;&nbsp;&nbsp
-                    <input type="button" id=='refresh' value="刷新端口" />
-
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" id='refresh' value="刷新端口" />
             </div>
             <div>
                 <label>
@@ -107,10 +114,20 @@
             </div>
             <div>
                 <label>添加文件:</label>
-                <input type="file" name="file" id="file" multiple="multiple" />
+                <input type="file" name="files" id="file" multiple="multiple" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" id='btn' value="清空" />
             </div>
-            <div><textarea id="show_file" disabled="disabled" class="show" cols="28" rows="18">
-                </textarea></div>
+            <div>
+                <div class="else_div" id="show_file"></div>
+                <!-- <textarea id="show_file" class="show" cols="28" rows="18">
+                </textarea> -->
+            </div>
             <div>
                 <input type="button" id='upgrade' value="点击升级" />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

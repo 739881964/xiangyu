@@ -4,43 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>语音归一化</title>
     <script type="text/javascript">
-        window.onload = function(){
-            var div = document.getElementById('change_button');
-
-            div.onclick = function(){
-                var change = document.getElementById('div')
-                change.style.color = "red";
-                change.style.fontSize = "20px";
-
-            // div.onclick = change_click;
-
-            // function change_click(){
-            //     var change = document.getElementById('div')
-            //     change.style.color = "red";
-            //     change.style.fontSize = "20px";
-            }
-
-            function compare(a, b){
-                if(a===b){
-                    return true;
-                }
-                else{
-                    return false;
-                }
-            }
-
-            var result = compare('2', 2);
-            alert(result);
-        }
     </script>
+    <style type="text/css">
+        /* .box{
+            width: 1200px;
+            height: 800px;
+            background-color: cadetblue;
+            margin: 0 0 0 10px ;
+        } */
+        .box1{
+            width: 1200px;
+            height: 100px;
+            background-color:slateblue;
+            font-size: 30px;
+            color: #000;
+            line-height: 100px;
+            border: 1px solid #000;
+            text-align: center;
+        }
+        .box2{
+            width: 1200px;
+            height: 700px;
+            /* border-top: 2px solid #000; */
+            /* background-color: chocolate; */
+            /* display: inline-block; */
+        }
+        .box2 div{
+            width: 500px;
+            height: 700px;
+            display: inline-block;
+        }
+        .div1{
+            padding: 10px 0 0;
+            /* height: 700px; */
+            font-size: 15px;
+            /* background-color:blanchedalmond; */
+        }
+        .box2 .div2{
+            width: 700px;
+            /* height: 700px; */
+            position: absolute;
+            left: 508px;
+            background-color: darkolivegreen;
+            /* margin: 0 0 0 700px; */
+            /* border: 1px solid #000; */
+        }
+        .div1 label, .div1 input{
+            /* background-color:blanchedalmond; */
+            color:blue;
+            width: 500px;
+        }
+        .div1 input{
+            text-align: ;
+        }
+        .new_input .input1{
+            color: cadetblue;
+            width: 50px;
+        }
+        .new_input .input2{
+            color: cadetblue;
+            width: 80px;
+        }
+    </style>
 </head>
 <body>
-    <div id="div">
-        这是一个div标签
-    </div>
-    <br />
-    <input type="button" value="改变div" id='change_button' />
+    <!-- <div class="box"> -->
+    <form>
+        <div class="box1">语音归一化</div>
+        <br />
+        <div class="box2">
+            <div class='div1'>
+                <label>一: 选择wordlist路径: </label>
+                <br />
+                <input type="file" webkitdirectory directory multiple />
+                <br />
+                <br />
+                <label>二: 选择新生成wordlist路径: </label>
+                <input type="file" webkitdirectory directory multiple />
+                <br />
+                <br />
+                <label>三: 选择归一化后语音位置: </label>
+                <input type="file" webkitdirectory directory multiple />
+                <br />
+                <p>__________________________</p>
+                <br />
+            <div class="new_input">
+                <input class="input1" type="button" id='upgrade' value="确认" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="input2" type="reset" id='reset' value="全部重置" />
+            </div>
+            </div>
+            <div class="div2"> 
+            </div>
+        </div>
+        </form>
+    <!-- </div> -->
 </body>
 </html>
