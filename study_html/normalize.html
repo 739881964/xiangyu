@@ -38,16 +38,16 @@
         }
         .div1{
             padding: 10px 0 0;
-            /* height: 700px; */
+            height: 700px;
             font-size: 15px;
             /* background-color:blanchedalmond; */
         }
         .box2 .div2{
             width: 700px;
-            /* height: 700px; */
+            height: 700px;
             position: absolute;
             left: 508px;
-            background-color: darkolivegreen;
+            background-color:slategray;
             /* margin: 0 0 0 700px; */
             /* border: 1px solid #000; */
         }
@@ -55,9 +55,6 @@
             /* background-color:blanchedalmond; */
             color:blue;
             width: 500px;
-        }
-        .div1 input{
-            text-align: ;
         }
         .new_input .input1{
             color: cadetblue;
@@ -97,6 +94,215 @@
             </div>
             </div>
             <div class="div2"> 
+                    import wave
+                    import json
+                     
+                    def Read_WAV(wav_path):
+                     """
+                     这是读取wav文件的函数，音频数据是单通道的。返回json
+                     :param wav_path: WAV文件的地址
+                     """
+                     wav_file = wave.open(wav_path,'r')
+                     numchannel = wav_file.getnchannels()   # 声道数
+                     samplewidth = wav_file.getsampwidth()  # 量化位数
+                     framerate = wav_file.getframerate()  # 采样频率
+                     numframes = wav_file.getnframes()   # 采样点数
+                     print("channel", numchannel)
+                     print("sample_width", samplewidth)
+                     print("framerate", framerate)
+                     print("numframes", numframes)
+                     Wav_Data = wav_file.readframes(numframes)
+                     Wav_Data = np.fromstring(Wav_Data,dtype=np.int16)
+                     Wav_Data = Wav_Data*1.0/(max(abs(Wav_Data)))  #对数据进行归一化
+                     # 生成音频数据,ndarray不能进行json化，必须转化为list，生成JSON
+                     dict = {"channel":numchannel,
+                       "samplewidth":samplewidth,
+                       "framerate":framerate,
+                       "numframes":numframes,
+                       "WaveData":list(Wav_Data)}
+                     return json.dumps(dict)import wave
+                     import json
+                      
+                     def Read_WAV(wav_path):
+                      """
+                      这是读取wav文件的函数，音频数据是单通道的。返回json
+                      :param wav_path: WAV文件的地址
+                      """
+                      wav_file = wave.open(wav_path,'r')
+                      numchannel = wav_file.getnchannels()   # 声道数
+                      samplewidth = wav_file.getsampwidth()  # 量化位数
+                      framerate = wav_file.getframerate()  # 采样频率
+                      numframes = wav_file.getnframes()   # 采样点数
+                      print("channel", numchannel)
+                      print("sample_width", samplewidth)
+                      print("framerate", framerate)
+                      print("numframes", numframes)
+                      Wav_Data = wav_file.readframes(numframes)
+                      Wav_Data = np.fromstring(Wav_Data,dtype=np.int16)
+                      Wav_Data = Wav_Data*1.0/(max(abs(Wav_Data)))  #对数据进行归一化
+                      # 生成音频数据,ndarray不能进行json化，必须转化为list，生成JSON
+                      dict = {"channel":numchannel,
+                        "samplewidth":samplewidth,
+                        "framerate":framerate,
+                        "numframes":numframes,
+                        "WaveData":list(Wav_Data)}
+                      return json.dumps(dict)import wave
+                      import json
+                       
+                      def Read_WAV(wav_path):
+                       """
+                       这是读取wav文件的函数，音频数据是单通道的。返回json
+                       :param wav_path: WAV文件的地址
+                       """
+                       wav_file = wave.open(wav_path,'r')
+                       numchannel = wav_file.getnchannels()   # 声道数
+                       samplewidth = wav_file.getsampwidth()  # 量化位数
+                       framerate = wav_file.getframerate()  # 采样频率
+                       numframes = wav_file.getnframes()   # 采样点数
+                       print("channel", numchannel)
+                       print("sample_width", samplewidth)
+                       print("framerate", framerate)
+                       print("numframes", numframes)
+                       Wav_Data = wav_file.readframes(numframes)
+                       Wav_Data = np.fromstring(Wav_Data,dtype=np.int16)
+                       Wav_Data = Wav_Data*1.0/(max(abs(Wav_Data)))  #对数据进行归一化
+                       # 生成音频数据,ndarray不能进行json化，必须转化为list，生成JSON
+                       dict = {"channel":numchannel,
+                         "samplewidth":samplewidth,
+                         "framerate":framerate,
+                         "numframes":numframes,
+                         "WaveData":list(Wav_Data)}
+                       return json.dumps(dict)import wave
+                       import json
+                        
+                       def Read_WAV(wav_path):
+                        """
+                        这是读取wav文件的函数，音频数据是单通道的。返回json
+                        :param wav_path: WAV文件的地址
+                        """
+                        wav_file = wave.open(wav_path,'r')
+                        numchannel = wav_file.getnchannels()   # 声道数
+                        samplewidth = wav_file.getsampwidth()  # 量化位数
+                        framerate = wav_file.getframerate()  # 采样频率
+                        numframes = wav_file.getnframes()   # 采样点数
+                        print("channel", numchannel)
+                        print("sample_width", samplewidth)
+                        print("framerate", framerate)
+                        print("numframes", numframes)
+                        Wav_Data = wav_file.readframes(numframes)
+                        Wav_Data = np.fromstring(Wav_Data,dtype=np.int16)
+                        Wav_Data = Wav_Data*1.0/(max(abs(Wav_Data)))  #对数据进行归一化
+                        # 生成音频数据,ndarray不能进行json化，必须转化为list，生成JSON
+                        dict = {"channel":numchannel,
+                          "samplewidth":samplewidth,
+                          "framerate":framerate,
+                          "numframes":numframes,
+                          "WaveData":list(Wav_Data)}
+                        return json.dumps(dict)import wave
+                        import json
+                         
+                        def Read_WAV(wav_path):
+                         """
+                         这是读取wav文件的函数，音频数据是单通道的。返回json
+                         :param wav_path: WAV文件的地址
+                         """
+                         wav_file = wave.open(wav_path,'r')
+                         numchannel = wav_file.getnchannels()   # 声道数
+                         samplewidth = wav_file.getsampwidth()  # 量化位数
+                         framerate = wav_file.getframerate()  # 采样频率
+                         numframes = wav_file.getnframes()   # 采样点数
+                         print("channel", numchannel)
+                         print("sample_width", samplewidth)
+                         print("framerate", framerate)
+                         print("numframes", numframes)
+                         Wav_Data = wav_file.readframes(numframes)
+                         Wav_Data = np.fromstring(Wav_Data,dtype=np.int16)
+                         Wav_Data = Wav_Data*1.0/(max(abs(Wav_Data)))  #对数据进行归一化
+                         # 生成音频数据,ndarray不能进行json化，必须转化为list，生成JSON
+                         dict = {"channel":numchannel,
+                           "samplewidth":samplewidth,
+                           "framerate":framerate,
+                           "numframes":numframes,
+                           "WaveData":list(Wav_Data)}
+                         return json.dumps(dict)import wave
+                         import json
+                          
+                         def Read_WAV(wav_path):
+                          """
+                          这是读取wav文件的函数，音频数据是单通道的。返回json
+                          :param wav_path: WAV文件的地址
+                          """
+                          wav_file = wave.open(wav_path,'r')
+                          numchannel = wav_file.getnchannels()   # 声道数
+                          samplewidth = wav_file.getsampwidth()  # 量化位数
+                          framerate = wav_file.getframerate()  # 采样频率
+                          numframes = wav_file.getnframes()   # 采样点数
+                          print("channel", numchannel)
+                          print("sample_width", samplewidth)
+                          print("framerate", framerate)
+                          print("numframes", numframes)
+                          Wav_Data = wav_file.readframes(numframes)
+                          Wav_Data = np.fromstring(Wav_Data,dtype=np.int16)
+                          Wav_Data = Wav_Data*1.0/(max(abs(Wav_Data)))  #对数据进行归一化
+                          # 生成音频数据,ndarray不能进行json化，必须转化为list，生成JSON
+                          dict = {"channel":numchannel,
+                            "samplewidth":samplewidth,
+                            "framerate":framerate,
+                            "numframes":numframes,
+                            "WaveData":list(Wav_Data)}
+                          return json.dumps(dict)import wave
+                          import json
+                           
+                          def Read_WAV(wav_path):
+                           """
+                           这是读取wav文件的函数，音频数据是单通道的。返回json
+                           :param wav_path: WAV文件的地址
+                           """
+                           wav_file = wave.open(wav_path,'r')
+                           numchannel = wav_file.getnchannels()   # 声道数
+                           samplewidth = wav_file.getsampwidth()  # 量化位数
+                           framerate = wav_file.getframerate()  # 采样频率
+                           numframes = wav_file.getnframes()   # 采样点数
+                           print("channel", numchannel)
+                           print("sample_width", samplewidth)
+                           print("framerate", framerate)
+                           print("numframes", numframes)
+                           Wav_Data = wav_file.readframes(numframes)
+                           Wav_Data = np.fromstring(Wav_Data,dtype=np.int16)
+                           Wav_Data = Wav_Data*1.0/(max(abs(Wav_Data)))  #对数据进行归一化
+                           # 生成音频数据,ndarray不能进行json化，必须转化为list，生成JSON
+                           dict = {"channel":numchannel,
+                             "samplewidth":samplewidth,
+                             "framerate":framerate,
+                             "numframes":numframes,
+                             "WaveData":list(Wav_Data)}
+                           return json.dumps(dict)import wave
+                           import json
+                            
+                           def Read_WAV(wav_path):
+                            """
+                            这是读取wav文件的函数，音频数据是单通道的。返回json
+                            :param wav_path: WAV文件的地址
+                            """
+                            wav_file = wave.open(wav_path,'r')
+                            numchannel = wav_file.getnchannels()   # 声道数
+                            samplewidth = wav_file.getsampwidth()  # 量化位数
+                            framerate = wav_file.getframerate()  # 采样频率
+                            numframes = wav_file.getnframes()   # 采样点数
+                            print("channel", numchannel)
+                            print("sample_width", samplewidth)
+                            print("framerate", framerate)
+                            print("numframes", numframes)
+                            Wav_Data = wav_file.readframes(numframes)
+                            Wav_Data = np.fromstring(Wav_Data,dtype=np.int16)
+                            Wav_Data = Wav_Data*1.0/(max(abs(Wav_Data)))  #对数据进行归一化
+                            # 生成音频数据,ndarray不能进行json化，必须转化为list，生成JSON
+                            dict = {"channel":numchannel,
+                              "samplewidth":samplewidth,
+                              "framerate":framerate,
+                              "numframes":numframes,
+                              "WaveData":list(Wav_Data)}
+                            return json.dumps(dict)
             </div>
         </div>
         </form>

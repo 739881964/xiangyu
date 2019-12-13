@@ -102,9 +102,8 @@ class PandasManual(FixExcel):
     #         # print(cls._instance)  obj -> address
     #         return cls._instance
 
-
     def __init__(self, file_path):
-        super().__init__(file_path)
+        super(PandasManual, self).__init__(file_path)
         # self.file_path = file_path
         self.sheet_name = []
 
