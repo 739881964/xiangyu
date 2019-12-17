@@ -17,7 +17,7 @@ class OperateExcel(PandasManual, ExcelManual):
 
     def __new__(cls, *args, **kwargs):
         """ 单例模式，重写init """
-        return super().__new__(cls)
+        return super(OperateExcel, cls).__new__()
 
     def __init__(self, file_path):
         super(OperateExcel, self).__init__(file_path)

@@ -31,4 +31,3 @@ def show_num(a, array):
 
 
 show_num(8, range(1, 101))
-

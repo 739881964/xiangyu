@@ -22,5 +22,5 @@ from test_project import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', views.login),
-    path('home_page/', views.home_page),
+    path('home/', views.home),
 ]

@@ -1,27 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
+    <!-- <script type="text/javascript" src=""></script>
+    <script type="text/javascript" src="">
+        $(function(){
+        })
+    </script> -->
+    <style type="text/css">
+        #body1{
+            background: url(image/3.jpg) fixed top;
+        }
+        .box{
+            width: 980px;
+            height: 50px;
+            /* background: red; */
+            font-size: 0;
+            margin: 20px auto 0;
+        }
+        .box a{
+            width: 140px;
+            height: 48px;
+            background-color: white;
+            border: 1px solid #000;
+            display: inline-block;
+            margin: -1px;
+            font-size: 16px;
+            line-height: 48px;
+            text-align: center;
+            text-decoration: none;
+            color: green;
+            font-family: "Microsoft Yahei";
+        }
+        .box a:hover{
+            background-color: red; 
+            color: white;
+        }
+    </style>
 </head>
-<body>
-    <h3>设备信息</h3>
-    <form>
-        <input type="button" id="issue" value="连接设备">&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-        <input type="button" id="issue" value="点击获取所有串口" /> <br />
-        <br />
-        <br />
-        <br />
-        <label>
-            添加文件/*.bin:
-            </label>
-        <br />
-        <br />
-
-        <input type="file" /><br />
-
-        </form>
+<body id="body1">
+    <div class="box">
+        <a href="chart_png.html" title="点击" target="self">功能结构图</a>
+        <a href="./upgrade.html" title="点击" target="self">串口升级</a>
+        <a href="#" title="点击" target="self">设备状态实时跟踪</a>
+        <a href="#" title="点击" target="self">串口日志打印</a>
+        <a href="./normalize.html" title="点击" target="self">语音归一化</a>
+        <a href="#" title="点击" target="self">识别率测试</a>
+        <a href="#" title="点击" target="self">统计结果</a>
+    </div>
 </body>
 </html>

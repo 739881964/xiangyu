@@ -7,8 +7,8 @@ def login(request):
     if request.method == 'GET':
         return render(request, 'Intengine_test/login.html')
     if request.method == 'POST':
-        name = request.POST['username']
-        pwd = request.POST['password']
+        name = request.POST.get("username")
+        pwd = request.POST.get("password")
         if (name == "xiangyu") and (pwd == "xiangyu123"):
             return redirect('Intengine_test/home.html')
         else:
@@ -16,7 +16,6 @@ def login(request):
 
 
 # 首页
-def home_page(request):
+def home(request):
     # if submit(request):
     return render(request, 'Intengine_test/home.html')
-

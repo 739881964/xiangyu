@@ -2,74 +2,80 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>登录页面</title>
-    <!-- <style type="text/css">
-        input {
-            background: burlywood;
-            height: 24px;
+    <style type="text/css">
+        #body1{
+            background: url(image/4.jpg);
         }
-        </style> -->
-        <link rel="stylesheet" type="text/css" href="css/first.css" />
-</head>
-<body>
-<br />
-    <h1 align="center">
-        <b>
-            探境自动化测试平台
-        </b>
-    </h1>
-<br />
-    <form action="./home.html" method="POST">
-        <table width="400" height="300" border="0" style="border:1px solid #000000" align="center">
+        .title{
+            width: 450px;
+            height: 100px;
+            margin: 60px 800px 0;
+            color:deepskyblue;
+        }
+        .login_form{
+            width: 430px;
+            height: 280px;
+            background:slategray;
+            border:1px solid #000;
+            /* line-height: 25px; */
+            margin: 0 auto;
+            padding: 10px;
+            border-radius: 3px;
+        }
+        .login_form div{
+            margin: 20px;
+        }
 
-            <tr align="center" bgcolor="#79AEC8">
-                <td colspan="2">
-                    <b>
-                        账号登录
-                    </b>
-                </td>
-            </tr>
-            <tr>
-                <td rowspan="5"></td>
-                <td>
-                    <b>
-                        <label for="username">
-                            用户名:
-                            </label>
-                    </b>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input style="width: 380px; height: 30px; background: #E8F0FE;
-                            " type="text" name="username" id="username" placeholder="请输入账号">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <b>
-                    <label for="pwd">
-                        密码：
-                        </label>
-                </b>
-            </td>
-            </tr>
-            <tr>
-                <td>
-                    <input style="width: 380px; height: 30px; background: #E8F0FE;
-                            " type="password" name="password" id="pwd" placeholder="请输入密码">
-                </td>
-            </tr>
-            <tr align="center">
-                <td>
-                    <input type="submit" id="sub" value="登录" />&nbsp;
-                    &nbsp;<input type="reset" id="reset" value="重置" />
-                </td>
-            </tr>
-            <!-- <script>
-                document.getElementById('reset').onclick=function () {alert('已重置')}
-                </script> -->
-        </table>
+        .login_form input{
+            background:snow
+        }
+
+        .login_form h3{
+            color:mediumblue;
+        }
+    </style>
+</head>
+<body id="body1">
+    <h1 class="title">
+        探境自动化测试平台
+        </h1>
+    <form action="home.html" method="POST">
+        <div class="login_form">
+            <div align="center">
+                <h3>
+                账号登录
+                </h3>
+            </div>
+            <div>
+                <label for="username">
+                    用户名:
+                    </label>
+            </div>
+            <div>
+                <input style="width: 362px; height: 25px;" type="text" name='username' id='username' placeholder="请输入账号" />
+            </div>
+            <div>
+                <label for="password">
+                密码:
+                    </label>
+            </div>
+            <div>
+                <input style="width: 362px; height: 25px;" type="password" name='password' id='password' placeholder="请输入密码"/>
+            </div>
+            <div align="center">
+                <input type="submit" value="登录"/>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <input type="reset" id="reset" value="重置"/>
+            </div>
+        </div>
+        <!-- <script>
+                document.getElementById('reset').onclick=function() {alert('已重置')}
+            </script> -->
     </form>
 </body>
 </html>

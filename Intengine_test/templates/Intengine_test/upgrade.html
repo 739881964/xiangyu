@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>串口升级</title>
+    <script type="text/javascript">
+        window.onload = function(){
+            var val = document.getElementById("file");
+            var files = document.getElementById("show_file");
+
+            // val.onchange = change_list();
+            val.onchange = function(e){
+                console.log(e.target.files);
+                let files_list = e.target.files;
+                // console.log(files_list[0].name)
+                for (var i = 0;i < files_list.length;i++){
+                    // var textN = document.createTextNode(files_list[i].name)
+                    var text = document.createElement("p");
+                    text.innerHTML = files_list[i].name;
+                    files.appendChild(text);
+                }
+            }
+
+            var btn = document.getElementById("btn");
+            btn.onclick = function(){
+                files.innerHTML = "";
+            }
+            // btn.click = change_list(e, popChild)
+        }
+    </script>
+    <style type="text/css">
+        /* body{
+            background: url(./image/.jpg);
+        } */
+        .box1{
+            width: 1300px;
+            /* height: 100px; */
+            background-color:lightseagreen;
+            font-size: 30px;
+            font-family: "Microsoft Yahei";
+            line-height: 100px;
+            text-indent: 20px;
+            border: 2px solid #000;
+        }
+        .parent_box{
+            widows: 1300px;
+            font-size: 0;
+            /* margin: 20px auto 0; */
+        }
+        .parent_box div{
+            width: 600px;
+            /* height: 800px; */
+            /* border: 1px solid #000; */
+            display: inline-block;
+            /* background-color: antiquewhite; */
+            font-size: 10px;
+        }
+        .box3{
+            margin: 0 -1px 0;
+            position: absolute;
+            left: 708px;
+        }
+        .box2 div{
+            margin: 10px 0 0;
+        }
+        .show{
+            overflow: scroll;
+        }
+        .else_div{
+            /* width: 50px; */
+            height: 270px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <strong>串口升级</strong>
+    </div>
+    <div class="parent_box">
+        <form>
+        <div class="box2">
+            <div>
+                <p>设置一: 端口及波特率&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            </div>
+            <div>
+                <label>
+                    端&nbsp;&nbsp;&nbsp;&nbsp;口:&nbsp;&nbsp;&nbsp;&nbsp;
+                </label>
+                <select>
+                    <option value=""></option>
+                    <option value="">COM1</option>
+                    <option value="">COM2</option>
+                    <option value="">COM3</option>
+                    <option value="">COM4</option>
+                    <option value="">COM5</option>
+                    <option value="">COM6</option>
+                    </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" id='refresh' value="刷新端口" />
+            </div>
+            <div>
+                <label>
+                        波特率:&nbsp;&nbsp;&nbsp;&nbsp;
+                    </label>
+                <select name="" id="">
+                        <option value=""></option>
+                        <option value="">9600</option>
+                        <option value="" checked>115200</option>
+                    </select>
+            </div>
+            <div>
+                <p>设置二: 选择升级的bin文件</p>
+            </div>
+            <div>
+                <label>添加文件:</label>
+                <input type="file" name="files" id="file" multiple="multiple" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" id='btn' value="清空" />
+            </div>
+            <div>
+                <div class="else_div" id="show_file"></div>
+                <!-- <textarea id="show_file" class="show" cols="28" rows="18">
+                </textarea> -->
+            </div>
+            <div>
+                <input type="button" id='upgrade' value="点击升级" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="reset" id='reset' value="全部重置" />
+            </div>
+            </div>
+        <div class="box3">
+            <textarea class="show" cols="83" rows="33">
+                </textarea>
+        </div>
+    </form>
+</body>
+</html>

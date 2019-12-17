@@ -183,7 +183,7 @@ class PandasManual(FixExcel):
             return cls._instance
 
     def __init__(self, file_path):
-        super().__init__(file_path)
+        super(PandasManual, self).__init__(file_path)
         # self.file_path = file_path
         self.sheet_name = []
 
@@ -289,7 +289,7 @@ class PandasManual(FixExcel):
                 df.to_excel(self.file_path, sheet_name=_sheet_name, header=header, index=index)
                 print('创建测试结果文件xlsx成功！')
         except (FileExistsError, Exception) as e:
-            print(f'xlsx测试结果文件已存在，自动创建失败-{e}')
+            print(f"xlsx测试结果文件已存在，自动创建失败-{e}")
             raise e
 
         with pd.ExcelWriter(self.file_path) as excel_writer:

@@ -12,7 +12,7 @@ from ctypes import *
 
 dll = windll.LoadLibrary("PCOMM.DLL")
 
-port = 4  # 指定串口COM2
+port = 4  # 指定串口COM4
 
 dll.sio_open(port)
 
@@ -26,7 +26,6 @@ def cb(xmitlen, buflen, pbuf, flen):
 
 
 CALLBACK = WINFUNCTYPE(c_int, c_long, c_int, POINTER(c_char), c_long)
-
 ccb = CALLBACK(cb)
 
 path = r'C:\Users\xiangyu\Desktop\test_res\20191120-release_1.0.14_00.4-8009735\package'

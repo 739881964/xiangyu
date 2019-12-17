@@ -28,4 +28,3 @@ a = People('余翔', 24, 'male')
 b = People('余翔', 25, 'male')
 
 print(set([a, b]))
-

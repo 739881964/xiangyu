@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动画</title>
+    <script type="text/javascript">
+    window.onload = function(){
+        var btn = document.getElementById("btn");
+        var div = document.getElementById("div1");
+
+        var origin_left = 0;
+        var origin_speed = 3;
+
+        var timer = setInterval(function(){
+            origin_left += origin_speed;
+            div.style.left = origin_left + 'px';
+
+            if(origin_left > 800){
+                origin_speed = -3;
+            }
+            if(origin_left < 0){
+                origin_speed = 3;
+            }
+        }, 10);
+        // timer(btn.onclick, 10);
+    }
+    </script>
+    <style>
+        .box{
+           width: 200px;
+           height: 150px;
+           background-color: blueviolet;
+           border: 2px solid #000000;
+           position: absolute;
+           left: 50px;
+           top: 100px;
+           /* margin: 150px 0 0; */
+        }
+
+        .box1{
+            position:absolute;
+            top: 400px;
+            left: 220px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" id="div1">
+        </div>
+    <div class="box1">
+        <input type="button" id="btn" value="开始" />
+    </div>
+</body>
+</html>

@@ -94,7 +94,6 @@ class FixExcel:
 class PandasManual(FixExcel):
     """ pandas operate excel """
 
-
     # def __new__(cls, *args, **kwargs):
     #     """ only create one object address """
     #     if not hasattr(PandasManual, '_instance'):

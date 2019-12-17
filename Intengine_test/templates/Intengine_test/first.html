@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <style type="text/css">
+        .box{
+            border-radius: 3px;
+        }
+        </style>
+        <link rel="stylesheet" type="text/css" href="./css/first.css" />
+</head>
+<body>
+<br />
+    <h1 align="center">
+        <b>
+            探境自动化测试平台
+        </b>
+    </h1>
+<br />
+    <form action="./home.html" method="POST">
+        <table class="box" width="400" height="300" border="0" style="border:1px solid #000000" align="center">
+
+            <tr align="center" bgcolor="#79AEC8">
+                <td colspan="2">
+                    <b>
+                        账号登录
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="5"></td>
+                <td>
+                    <b>
+                        <label for="username">
+                            用户名:
+                            </label>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input style="width: 380px; height: 30px; background: #E8F0FE;" type="text" name="username" id="username" placeholder="请输入账号">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>
+                    <label for="pwd">
+                        密码：
+                        </label>
+                </b>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <input style="width: 380px; height: 30px; background: #E8F0FE;" type="password" name="password" id="pwd" placeholder="请输入密码">
+                </td>
+            </tr>
+            <tr align="center">
+                <td>
+                    <input type="submit" id="sub" value="登录" />&nbsp;
+                    &nbsp;<input type="reset" id="reset" value="重置" />
+                </td>
+            </tr>
+            <script>
+                document.getElementById('reset').onclick=function () {alert('已重置')}
+                </script>
+        </table>
+    </form>
+</body>
+</html>
