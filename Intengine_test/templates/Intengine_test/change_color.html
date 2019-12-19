@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>变色</title>
+    <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var $div1 = $(".div1 input");
+            var $div2 = $(".div2 div");
+            // console.log($div1, $div2);
+
+            $div1.click(function(){
+                $(this).addClass("ip").siblings().removeClass("ip");
+                // $div2.eq($(this).index()).addClass("colorful").siblings().removeClass("colorful");
+
+            })
+        })
+    </script>
+    <style type="text/css">
+        .div1 input{
+            width: 60px;
+            height: 30px;
+            background-color: blueviolet;
+            border: none;
+        }
+
+        .div1 .ip{
+            width: 50px;
+            height: 30px;
+            background-color: brown;
+        }
+
+        .div2 .sildes div{
+            width: 300px;
+            height: 150px;
+            background-color: coral;
+            text-align: center;
+            font-size: 30px;
+            /* display: none; */
+            float: left;
+        }
+        .sildes{
+            width: 900px;
+            height: 150px;
+            position: absolute;
+            line-height: 150px;
+            left:0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="div1">
+        <input type="button" value="颜色一" class="ip" />
+        <input type="button"value="颜色二" />
+        <input type="button" value="颜色三" />
+    </div>
+    <br />
+    <div class="div2">
+        <div class="sildes">
+            <div>11111111111</div>
+            <div>22222222222</div>
+            <div>33333333333</div>
+        </div>
+    </div>
+</body>
+</html>

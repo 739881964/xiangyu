@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="17fae6bd-4aed-40c0-b32d-fe4655ebc19d" name="Default Changelist" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="17fae6bd-4aed-40c0-b32d-fe4655ebc19d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Intengine_test/templates/Intengine_test/change_color.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Intengine_test/templates/Intengine_test/js/jquery-3.4.1.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Intengine_test/templates/Intengine_test/菜单.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Intengine_test/templates/Intengine_test/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Intengine_test/templates/Intengine_test/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Intengine_test/templates/Intengine_test/计时器.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Intengine_test/templates/Intengine_test/计时器.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Intengine_test/test_project/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Intengine_test/test_project/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cases/test_05_register_request_case.py" beforeDir="false" afterPath="$PROJECT_DIR$/cases/test_05_register_request_case.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cases/test_06_login_request_case.py" beforeDir="false" afterPath="$PROJECT_DIR$/cases/test_06_login_request_case.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datas/excel_open_2.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/datas/excel_open_2.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/HTMLTestRunnerNew.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/HTMLTestRunnerNew.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/logs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/logs.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/excel_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/excel_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_all_test_case.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_all_test_case.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,25 +32,28 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1QLvOnWNBWs67F4YxMbabQKvbIn" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\xiangyu\xiangyu_git\WebService_Api_Test\datas" />
+    </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in test_12_user_auth_request_case.py">
+  <component name="RunManager" selected="Python tests.Unittests in test_06_login_request_case.py">
     <configuration name="mysql_class" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="WebService_Api_Test" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -100,7 +120,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for test_01_add.TestAdd" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests in test_06_login_request_case.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="WebService_Api_Test" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -111,8 +131,8 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_01_add.TestAdd&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/cases/test_06_login_request_case.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <configuration name="Unittests in test_12_user_auth_request_case.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
@@ -132,13 +152,25 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Unittests in test_06_login_request_case.py" />
         <item itemvalue="Python tests.Unittests in test_12_user_auth_request_case.py" />
         <item itemvalue="Python.mysql_class" />
         <item itemvalue="Python.test_add" />
         <item itemvalue="Python.test_all_test_case" />
-        <item itemvalue="Python tests.Unittests for test_01_add.TestAdd" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -169,30 +201,89 @@
       <workItem from="1572600063548" duration="4269000" />
       <workItem from="1572829435175" duration="353000" />
       <workItem from="1572852703527" duration="5643000" />
+      <workItem from="1576636230704" duration="3408000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="WindowStateProjectService">
+    <state x="679" y="220" width="1142" height="697" key="#xdebugger.evaluate" timestamp="1576734542694">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="679" y="220" width="1142" height="697" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1576734542694" />
+    <state width="1877" height="476" key="GridCell.Tab.0.bottom" timestamp="1576734248356">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="476" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1576734248356" />
+    <state width="1877" height="476" key="GridCell.Tab.0.center" timestamp="1576734248356">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="476" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1576734248356" />
+    <state width="1877" height="476" key="GridCell.Tab.0.left" timestamp="1576734248356">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="476" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1576734248356" />
+    <state width="1877" height="476" key="GridCell.Tab.0.right" timestamp="1576734248356">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="476" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1576734248356" />
+    <state width="1877" height="476" key="GridCell.Tab.1.bottom" timestamp="1576734251004">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="476" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1576734251004" />
+    <state width="1877" height="476" key="GridCell.Tab.1.center" timestamp="1576734251004">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="476" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1576734251004" />
+    <state width="1877" height="476" key="GridCell.Tab.1.left" timestamp="1576734251003">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="476" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1576734251003" />
+    <state width="1877" height="476" key="GridCell.Tab.1.right" timestamp="1576734251004">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="476" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1576734251004" />
+    <state x="566" y="240" key="SettingsEditor" timestamp="1576639369707">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="566" y="240" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1576639369707" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1576636251510">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1576636251510" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/cases/test_06_login_request_case.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$Unittests_for_test_01_add_TestAdd.coverage" NAME="Unittests for test_01_add.TestAdd Coverage Results" MODIFIED="1572590087478" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cases" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$params_replace.coverage" NAME="params_replace Coverage Results" MODIFIED="1571105798838" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$Unittests_in_test_12_user_auth_request_case_py.coverage" NAME="Unittests in test_12_user_auth_request_case.py Coverage Results" MODIFIED="1572929911609" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cases" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$parsmas_replace_to_data.coverage" NAME="parsmas_replace_to_data Coverage Results" MODIFIED="1571969473146" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$test_01_add.coverage" NAME="test_01_add Coverage Results" MODIFIED="1572589891173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cases" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$mysql_class.coverage" NAME="mysql_class Coverage Results" MODIFIED="1572929889596" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$md5_class.coverage" NAME="md5_class Coverage Results" MODIFIED="1567578297625" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$Unittests_for_test_12_user_auth_request_case_TestUserAuth_test_user_auth.coverage" NAME="Unittests for test_12_user_auth_request_case.TestUserAuth.test_user_auth Coverage Results" MODIFIED="1571105510677" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cases" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$Unittests_in_test_05_register_request_case_py.coverage" NAME="Unittests in test_05_register_request_case.py Coverage Results" MODIFIED="1571105663699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cases" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$webservice_parsmas_replace_to_data.coverage" NAME="webservice_parsmas_replace_to_data Coverage Results" MODIFIED="1571969444363" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$Unittests_in_test_01_add_py.coverage" NAME="Unittests in test_01_add.py Coverage Results" MODIFIED="1572590042215" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cases" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$webservice_request_class.coverage" NAME="webservice_request_class Coverage Results" MODIFIED="1571884501609" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$excel_class.coverage" NAME="excel_class Coverage Results" MODIFIED="1571909615516" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$test_all_test_case.coverage" NAME="test_all_test_case Coverage Results" MODIFIED="1572600255915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$http_request_class.coverage" NAME="http_request_class Coverage Results" MODIFIED="1571103535585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$base_path.coverage" NAME="base_path Coverage Results" MODIFIED="1567584854712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/WebService_Api_Test$get_cfg.coverage" NAME="get_cfg Coverage Results" MODIFIED="1571980006376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/WebService_Api_Test$test_add.coverage" NAME="test_add Coverage Results" MODIFIED="1572602352605" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cases" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$Unittests_in_test_06_login_request_case_py.coverage" NAME="Unittests in test_06_login_request_case.py Coverage Results" MODIFIED="1576734248230" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cases" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$base_path.coverage" NAME="base_path Coverage Results" MODIFIED="1567584854712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$excel_class.coverage" NAME="excel_class Coverage Results" MODIFIED="1571909615516" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$md5_class.coverage" NAME="md5_class Coverage Results" MODIFIED="1567578297625" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$Unittests_in_test_01_add_py.coverage" NAME="Unittests in test_01_add.py Coverage Results" MODIFIED="1572590042215" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cases" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$parsmas_replace_to_data.coverage" NAME="parsmas_replace_to_data Coverage Results" MODIFIED="1571969473146" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$Unittests_in_test_12_user_auth_request_case_py.coverage" NAME="Unittests in test_12_user_auth_request_case.py Coverage Results" MODIFIED="1572929911609" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cases" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$Unittests_in_test_05_register_request_case_py.coverage" NAME="Unittests in test_05_register_request_case.py Coverage Results" MODIFIED="1571105663699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cases" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$params_replace.coverage" NAME="params_replace Coverage Results" MODIFIED="1571105798838" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$test_all_test_case.coverage" NAME="test_all_test_case Coverage Results" MODIFIED="1572600255915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$get_cfg.coverage" NAME="get_cfg Coverage Results" MODIFIED="1571980006376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$mysql_class.coverage" NAME="mysql_class Coverage Results" MODIFIED="1572929889596" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$http_request_class.coverage" NAME="http_request_class Coverage Results" MODIFIED="1571103535585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$Unittests_for_test_12_user_auth_request_case_TestUserAuth_test_user_auth.coverage" NAME="Unittests for test_12_user_auth_request_case.TestUserAuth.test_user_auth Coverage Results" MODIFIED="1571105510677" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cases" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$webservice_request_class.coverage" NAME="webservice_request_class Coverage Results" MODIFIED="1571884501609" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$Unittests_for_test_01_add_TestAdd.coverage" NAME="Unittests for test_01_add.TestAdd Coverage Results" MODIFIED="1572590087478" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cases" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$test_01_add.coverage" NAME="test_01_add Coverage Results" MODIFIED="1572589891173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cases" />
+    <SUITE FILE_PATH="coverage/WebService_Api_Test$webservice_parsmas_replace_to_data.coverage" NAME="webservice_parsmas_replace_to_data Coverage Results" MODIFIED="1571969444363" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
   </component>
 </project>

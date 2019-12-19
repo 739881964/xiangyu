@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>菜单</title>
+    <style type="text/css">
+        .menu{
+            width: 100px;
+            /* text-align: center; */
+            list-style: none;
+            margin: 0 auto 0;
+            background-color: dimgrey;
+            overflow: hidden;
+        }
+
+        .menu ul{
+            width: 100px;
+            list-style: none;
+            /* background-color:dimgrey; */
+        }
+
+        .menu .Lv1{
+            width: 100px;
+            text-align: center;
+        }
+
+        .menu a{
+            width: 100px;
+        }
+    </style>
+    <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".Lv1").click(function(){
+                $(this).next().stop().slideDown().parent().siblings().children('ul').slideUp();
+            })
+        })
+    </script>
+</head>
+<body>
+    <ul class="menu">
+        <li>
+            <a href="#" class=Lv1>数字</a>
+            <ul>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class=Lv1>汉字</a>
+            <ul>
+                <li><a href="#">你</a></li>
+                <li><a href="#">他</a></li>
+                <li><a href="#">丑</a></li>
+                <li><a href="#">小</a></li>
+                <li><a href="#">鸭</a></li>
+                <li><a href="#">鸭</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class=Lv1>english</a>
+            <ul>
+                <li><a href="">q</a></li>
+                <li><a href="">w</a></li>
+                <li><a href="">e</a></li>
+                <li><a href="">r</a></li>
+                <li><a href="">t</a></li>
+                <li><a href="">y</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class=Lv1>wqwwqwwq</a>
+            <ul>
+                <li><a href="#">!@!</a></li>
+                <li><a href="#">#$</a></li>
+                <li><a href="#">$%</a></li>
+                <li><a href="#">^&</a></li>
+                <li><a href="#">*(</a></li>
+                <li><a href="#">Z)Z)</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class=Lv1>dongwu</a>
+            <ul>
+                <li><a href="#">1qq1</a></li>
+                <li><a href="#">w2w2</a></li>
+                <li><a href="#">e3e3</a></li>
+                <li><a href="#">r4r4</a></li>
+                <li><a href="#">t5t5</a></li>
+                <li><a href="#">y6y6</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class=Lv1>shuiguo</a>
+            <ul>
+                <li><a href="#">2121</a></li>
+                <li><a href="#">3232</a></li>
+                <li><a href="#">43434</a></li>
+                <li><a href="#">5454</a></li>
+                <li><a href="#">6566</a></li>
+                <li><a href="#">8776</a></li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>

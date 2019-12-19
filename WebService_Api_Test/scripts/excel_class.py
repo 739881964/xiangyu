@@ -4,8 +4,8 @@
 # phone：19942429056
 # datetime:2019/9/4 10:45
 # software: PyCharm
-import os
 
+import os
 from openpyxl import *
 from scripts.get_cfg import config
 from scripts import base_path

@@ -4,6 +4,8 @@
 # phone：19942429056
 # datetime:2019/9/4 10:45
 # software: PyCharm
+
+
 import unittest
 from libs.HTMLTestRunnerNew import HTMLTestRunner
 from scripts.excel_class import ExcelClass
@@ -19,6 +21,7 @@ from scripts.parsmas_replace_to_data import params_replace
 
 excel = ExcelClass(TEST_DATAS_EXCEL_PATH, '登录')
 case_name = excel.read_excel_all_data()
+print(case_name)
 
 
 @ddt

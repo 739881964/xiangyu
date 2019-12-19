@@ -7,8 +7,8 @@
 
 
 import unittest
-from libs.HTMLTestRunnerNew import HTMLTestRunner
-from scripts.base_path import CASES_PATH, REPORTS_PATH, USER_CONF_FILE_PATH
+from .libs.HTMLTestRunnerNew import HTMLTestRunner
+from .scripts.base_path import CASES_PATH, REPORTS_PATH, USER_CONF_FILE_PATH
 from datetime import datetime
 import cases.three_mobile_register_request_case as test
 import os

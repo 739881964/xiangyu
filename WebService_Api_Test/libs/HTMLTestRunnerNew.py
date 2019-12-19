@@ -114,11 +114,13 @@ class OutputRedirector(object):
     def flush(self):
         self.fp.flush()
 
+
 stdout_redirector = OutputRedirector(sys.stdout)
 stderr_redirector = OutputRedirector(sys.stderr)
 
 # ----------------------------------------------------------------------
 # Template
+
 
 class Template_mixin(object):
     """
@@ -166,7 +168,7 @@ class Template_mixin(object):
 
     DEFAULT_TITLE = '2019年的自动化测试报告'
     DEFAULT_DESCRIPTION = ''
-    DEFAULT_TESTER='lemon'
+    DEFAULT_TESTER = 'lemon'
 
     # ------------------------------------------------------------------------
     # HTML Template
@@ -273,7 +275,6 @@ function html_escape(s) {
 """
     # variables: (title, generator, stylesheet, heading, report, ending)
 
-
     # ------------------------------------------------------------------------
     # Stylesheet
     #
@@ -315,9 +316,7 @@ table       { font-size: 100%; }
 """ # variables: (title, parameters, description)
 
     HEADING_ATTRIBUTE_TMPL = """<p class='attribute'><strong>%(name)s : </strong> %(value)s</p>
-""" # variables: (name, value)
-
-
+"""  # variables: (name, value)
 
     # ------------------------------------------------------------------------
     # Report
@@ -368,9 +367,9 @@ table       { font-size: 100%; }
     <td class="text-center">%(error)s</td>
     <td class="text-center"><a href="javascript:showClassDetail('%(cid)s',%(count)s)" class="detail" id='%(cid)s'>详细</a></td>
 </tr>
-""" # variables: (style, desc, count, Pass, fail, error, cid)
+"""  # variables: (style, desc, count, Pass, fail, error, cid)
 
-    #失败 的样式，去掉原来JS效果，美化展示效果  -Findyou
+    # 失败 的样式，去掉原来JS效果，美化展示效果  -Findyou
     REPORT_TEST_WITH_OUTPUT_TMPL = r"""
 <tr id='%(tid)s' class='%(Class)s'>
     <td class='%(style)s'><div class='testcase'>%(desc)s</div></td>
@@ -395,11 +394,11 @@ table       { font-size: 100%; }
     <td class='%(style)s'><div class='testcase'>%(desc)s</div></td>
     <td colspan='5' align='center'><span class="label label-success success">%(status)s</span></td>
 </tr>
-""" # variables: (tid, Class, style, desc, status)
+"""  # variables: (tid, Class, style, desc, status)
 
     REPORT_TEST_OUTPUT_TMPL = r"""
 %(id)s: %(output)s
-""" # variables: (id, output)
+"""  # variables: (id, output)
 
     # ------------------------------------------------------------------------
     # ENDING
@@ -439,7 +438,7 @@ class _TestResult(TestResult):
         # )
         self.result = []
         # 增加一个测试通过率 --Findyou
-        self.passrate=float(0)
+        self.passrate = float(0)
 
     def startTest(self, test):
         print("{0} - Start Test:{1}".format(time.asctime(), str(test)))
@@ -627,8 +626,10 @@ class HTMLTestRunner(Template_mixin):
             # subtotal for a class
             np = nf = ne = 0
             for n, t, o, e in cls_results:
-                if n == 0: np += 1
-                elif n == 1: nf += 1
+                if n == 0:
+                    np += 1
+                elif n == 1:
+                    nf += 1
                 else:
                     ne += 1
 
